@@ -12,4 +12,5 @@ public interface UtilisateurDAO {
 	public void update(Utilisateur utilisateur) throws BusinessException;
 	public List<Utilisateur> selectAll() throws BusinessException;
 	public Utilisateur selectById(int id) throws BusinessException;
+	public Utilisateur selectByPseudo(String pseudo) throws BusinessException;
 }

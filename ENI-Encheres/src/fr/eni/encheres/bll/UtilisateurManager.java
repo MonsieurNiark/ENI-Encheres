@@ -22,6 +22,10 @@ public class UtilisateurManager {
 	public Utilisateur selectionnerUtilisateur(int idUtilisateur) throws BusinessException {
 		return utilisateurDAO.selectById(idUtilisateur);
 	}
+	
+	public Utilisateur selectionnerUtilisateurByPseudo(String pseudo) throws BusinessException {
+		return utilisateurDAO.selectByPseudo(pseudo);
+	}
 
 	public Utilisateur ajouterUtilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String motDePasse, int credit, String administrateur) throws BusinessException {

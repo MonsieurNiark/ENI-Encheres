@@ -24,6 +24,7 @@ private static final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
 	private static final String DELETE_UTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
 	
 	private static final String UPDATE_UTILISATEUR = "UPDATE UTILISATEURS set pseudo=?,nom=?,prenom=?,email=?,telephone=?,rue=?,code_postal=?,ville=? WHERE id=?";
+	private static final String SELECT_BY_PSEUDO = SELECT_ALL + "WHERE pseudo=?";
 	
 	@Override
 	public void insert(Utilisateur utilisateur) throws BusinessException {
@@ -114,6 +115,35 @@ private static final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
 			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = map(rs);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			//TODO : CodesResultatDAL
+			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTE_ECHEC);
+			throw businessException;
+		}
+		
+		if(result == null)
+		{
+			BusinessException businessException = new BusinessException();
+			//TODO : CodesResultatDAL
+			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTE_INEXISTANTE);
+			throw businessException;
+		}
+		
+		return result;
+	}
+	@Override
+	public Utilisateur selectByPseudo(String pseudo) throws BusinessException {
+		Utilisateur result = null;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_PSEUDO);
+			pstmt.setString(1, pseudo);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
 				result = map(rs);
