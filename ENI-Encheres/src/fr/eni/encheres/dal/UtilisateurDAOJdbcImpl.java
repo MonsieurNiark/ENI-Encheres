@@ -24,7 +24,7 @@ private static final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
 	private static final String DELETE_UTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
 	
 	private static final String UPDATE_UTILISATEUR = "UPDATE UTILISATEURS set pseudo=?,nom=?,prenom=?,email=?,telephone=?,rue=?,code_postal=?,ville=? WHERE id=?";
-	private static final String SELECT_BY_PSEUDO = SELECT_ALL + "WHERE pseudo=?";
+	private static final String SELECT_BY_PSEUDO = SELECT_ALL + " WHERE pseudo=?";
 	
 	@Override
 	public void insert(Utilisateur utilisateur) throws BusinessException {
