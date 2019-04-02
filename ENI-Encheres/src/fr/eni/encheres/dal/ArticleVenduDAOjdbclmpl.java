@@ -10,6 +10,9 @@ import java.util.List;
 
 import fr.eni.encheres.BusinessException;
 import fr.eni.encheres.bo.ArticleVendu;
+import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.bo.Categorie;
+
 
 
 
@@ -69,8 +72,6 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
-			//TODO : CodesResultatDAL
-			//businessException.ajouterErreur(CodesResultatDAL.SUPPRESSION_LISTE_ERREUR);
 			throw businessException;
 		}
 		
@@ -137,9 +138,11 @@ private ArticleVendu map(ResultSet rs) throws SQLException {
 		Date date_debut_encheres = rs.getDate("date_debut_encheres");
 		Date date_fin_encheres = rs.getDate("date_fin_encheres");
 		float prixinitial = rs.getFloat("prix_initial");
-		float privente = rs.getFloat("prix_vente");
+		float prixvente = rs.getFloat("prix_vente");
 		int no_utilisateur = rs.getInt("no_utilisateur");
+		Utilisateur util = ;  
 		int no_categorie = rs.getInt("no_categorie");
-		return new ArticleVendu(id, nomArticle,description,date_debut_encheres,date_fin_encheres,prixinitial,privente,no_utilisateur,no_categorie);
+		Categorie cat = ; 
+		return ArticleVendu(id, nomArticle,description,date_debut_encheres,date_fin_encheres,prixinitial,prixvente,cat,util);
 	}
 }
