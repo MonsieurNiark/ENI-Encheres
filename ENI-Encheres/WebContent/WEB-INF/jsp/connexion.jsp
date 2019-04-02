@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="container">
-<form class="form-horizontal">
+<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/connexion">
 <fieldset class="justify-content-center">
 
 <!-- Form Name -->
@@ -31,7 +31,7 @@
 <div class="form-group">
   <label class="col-md-5 control-label" for="mdp">Mot de passe :</label>  
   <div class="col-md-2">
-  <input id="mdp" name="mdp" type="text" placeholder="Mot de passe" class="form-control input-md">
+  <input id="mdp" name="mdp" type="password" placeholder="Mot de passe" class="form-control input-md">
     
   </div>
 </div>

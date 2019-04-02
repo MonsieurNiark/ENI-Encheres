@@ -8,6 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.encheres.BusinessException;
+import fr.eni.encheres.bll.UtilisateurManager;
+import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.dal.DaoException;
+
 /**
  * Servlet implementation class ServletConnexion
  */
@@ -25,12 +30,10 @@ public class ServletConnexion extends HttpServlet {
 		if(identifiant == null )identifiant="";
 		if(motDePasse == null )motDePasse="";
 		
-		HttpSession session = request.getSession();
 		request.setAttribute("identifiant", identifiant);
 		request.setAttribute("motDePasse", motDePasse);
 		//recuperation des variables session		
 
-		session.setAttribute("isAdministrateur", isAdministrateur);
 		
 		request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp").forward( request,  response);
 		
@@ -41,7 +44,35 @@ public class ServletConnexion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+		String identifiant = request.getParameter("user");
+		String motDePasse = request.getParameter("mdp");
+		UtilisateurManager utilMana  = new UtilisateurManager();
+		Utilisateur utilisateurLog = null;
+		System.out.println(identifiant);
+		try {
+			utilisateurLog = utilMana.selectionnerUtilisateurByPseudo(identifiant);
+			System.out.println(utilisateurLog.getPrenom().toString());
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			System.out.println("CATCH ERROR");
+			e.printStackTrace();
+		}	
+		
+			System.out.println(utilisateurLog.getMotDePasse());
+			if( utilisateurLog != null && utilisateurLog.getMotDePasse() == motDePasse )
+			{
+				
+				
+				request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp").forward( request,  response);				
+			}
+			else
+			{
+		
+				
+				request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp").forward( request,  response);
+			}
+		
+		}	
+
 
 }
