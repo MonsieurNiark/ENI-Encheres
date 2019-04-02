@@ -11,6 +11,7 @@ public class ArticleVendu {
 	private float miseAPrix;
 	private float prixVente;
 	private String etatVente;
+	private Utilisateur utilisateur;
 	private Categorie categorieArticle;
 	private Retrait lieuRetrait;
 	/**
@@ -40,6 +41,22 @@ public class ArticleVendu {
 		this.categorieArticle = categorieArticle;
 		this.lieuRetrait = lieuRetrait;
 	}
+	
+	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, float miseAPrix, float prixVente, Categorie categorieArticle, Utilisateur utilisateur) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.categorieArticle = categorieArticle;
+		this.utilisateur = utilisateur;
+
+	}
+	
 	public int getNoArticle() {
 		return noArticle;
 	}
@@ -99,6 +116,13 @@ public class ArticleVendu {
 	}
 	public void setLieuRetrait(Retrait lieuRetrait) {
 		this.lieuRetrait = lieuRetrait;
+	}
+	
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 	
 	
