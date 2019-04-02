@@ -48,28 +48,29 @@ public class ServletConnexion extends HttpServlet {
 		String motDePasse = request.getParameter("mdp");
 		UtilisateurManager utilMana  = new UtilisateurManager();
 		Utilisateur utilisateurLog = null;
-		System.out.println(identifiant);
+
 		try {
 			utilisateurLog = utilMana.selectionnerUtilisateurByPseudo(identifiant);
-			System.out.println(utilisateurLog.getPrenom().toString());
+			
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			System.out.println("CATCH ERROR");
 			e.printStackTrace();
 		}	
 		
+			
 			System.out.println(utilisateurLog.getMotDePasse());
-			if( utilisateurLog != null && utilisateurLog.getMotDePasse() == motDePasse )
+			if( utilisateurLog != null && utilisateurLog.getMotDePasse().toString() == motDePasse )
 			{
+				response.sendRedirect(request.getContextPath()+"/");
 				
 				
-				request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp").forward( request,  response);				
 			}
 			else
 			{
 		
+				request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp").forward( request,  response);
 				
-				request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp").forward( request,  response);
 			}
 		
 		}	
