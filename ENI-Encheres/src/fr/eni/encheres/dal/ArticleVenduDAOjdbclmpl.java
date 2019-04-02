@@ -142,7 +142,7 @@ private ArticleVendu map(ResultSet rs) throws SQLException {
 		int no_utilisateur = rs.getInt("no_utilisateur");
 		Utilisateur util = ;  
 		int no_categorie = rs.getInt("no_categorie");
-		Categorie cat = ; 
-		return ArticleVendu(id, nomArticle,description,date_debut_encheres,date_fin_encheres,prixinitial,prixvente,cat,util);
+		Categorie cat =r ; 
+		return new ArticleVendu(id, nomArticle,description,date_debut_encheres,date_fin_encheres,prixinitial,prixvente,cat,util);
 	}
 }
