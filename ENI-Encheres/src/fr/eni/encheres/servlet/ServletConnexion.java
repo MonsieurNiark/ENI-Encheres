@@ -48,28 +48,23 @@ public class ServletConnexion extends HttpServlet {
 		UtilisateurManager utilMana  = new UtilisateurManager();
 		Utilisateur utilisateurLog = null;
 
-		try {
-			utilisateurLog = utilMana.selectionnerUtilisateurByPseudo(identifiant);
-			
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			System.out.println("CATCH ERROR");
-			e.printStackTrace();
-		}	
 		
-			
-			System.out.println(utilisateurLog.getMotDePasse());
-			if( utilisateurLog != null && utilisateurLog.getMotDePasse().toString() == motDePasse )
+			try {
+				utilisateurLog = utilMana.selectionnerUtilisateurByPseudo(identifiant);
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		
+			if( utilisateurLog == null && utilisateurLog.getMotDePasse().toString() != motDePasse )
 			{
-				response.sendRedirect(request.getContextPath()+"/");
-				
-				
+				request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp").forward(request, response);
 			}
 			else
 			{
-		
-				request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp").forward( request,  response);
-				
+				response.sendRedirect(request.getContextPath()+"/inscription");
+	
 			}
 		
 		}	
