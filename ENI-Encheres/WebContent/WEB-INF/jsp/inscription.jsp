@@ -25,7 +25,7 @@
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="pseudo">Pseudo : <span class="text-danger">*</span></label>
                             </div>
-                            <input id="pseudo" class="form-control" name="pseudo" type="text" placeholder="pseudo">
+                            <input id="pseudo" class="form-control" name="pseudo" type="text" placeholder="pseudo" >
                         </section>
 
                         <section class="col-xs-12 col-sm-12 col-md-6 input-group mb-3">
