@@ -6,4 +6,7 @@ public abstract class DAOFactory {
 		return new UtilisateurDAOJdbcImpl();
 	}
 
+	public static RetraitDAO getRetraitDAO() {
+		return new RetraitDAOJdbcImpl();
+	}
 }
