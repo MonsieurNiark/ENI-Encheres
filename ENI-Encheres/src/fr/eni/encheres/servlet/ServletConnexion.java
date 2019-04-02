@@ -20,8 +20,8 @@ public class ServletConnexion extends HttpServlet {
 	{
 		String identifiant = request.getParameter("user");
 		String motDePasse = request.getParameter("mdp");		
-
-		boolean isAdministrateur = false;
+		Boolean isAdministrateur = Boolean.parseBoolean(request.getParameter("seSouvenirDeMoi"));
+		
 		if(identifiant == null )identifiant="";
 		if(motDePasse == null )motDePasse="";
 		

@@ -5,20 +5,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Eni-Enchères</title>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 </head>
 <body>
-	<form class="form-horizontal">
-<fieldset>
+<div class="container">
+<form class="form-horizontal">
+<fieldset class="justify-content-center">
 
 <!-- Form Name -->
 <legend>Eni-Enchères</legend>
 
 <!-- Text input-->
+
 <div class="form-group">
-  <label class="col-md-4 control-label" for="user">Identifiant :</label>  
-  <div class="col-md-4">
+  <label class="col-md-5 control-label" for="user">Identifiant :</label>  
+  <div class="col-md-2">
   <input id="user" name="user" type="text" placeholder="Identifiant" class="form-control input-md" required="">
     
   </div>
@@ -26,8 +29,8 @@
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="mdp">Mot de passe</label>  
-  <div class="col-md-4">
+  <label class="col-md-5 control-label" for="mdp">Mot de passe :</label>  
+  <div class="col-md-2">
   <input id="mdp" name="mdp" type="text" placeholder="Mot de passe" class="form-control input-md">
     
   </div>
@@ -35,27 +38,26 @@
 
 <!-- Multiple Checkboxes -->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="checkCo"></label>
-  <div class="col-md-4">
-  <button id="submit" name="submit" class="btn btn-default">Connexion</button>
-  <div class="checkbox">
+  
+  <div class="col-md-7 control-label">
+  <input type="submit" name="submit" value="Connexion" class="btn btn-default">
     <label for="checkCo">
-      <input type="checkbox" name="checkCo" id="checkCo" value=1>
-      Rester connecter
+      <input type="checkbox" name="checkCo" id="seSouvenirDeMoi" value=1>
+      Se souvenir de moi
     </label>
 	</div>
   </div>
-</div>
+
 </form>
 <!-- Button -->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="creerCompte"></label>
-  <div class="col-md-4">
+  <div class="col-md-7 control-label ">
     <button id="creerCompte" name="creerCompte" class="btn btn-inverse">Créer un compte</button>
   </div>
 </div>
 
-</fieldset>
 
+</fieldset>
+</div>
 </body>
 </html>
