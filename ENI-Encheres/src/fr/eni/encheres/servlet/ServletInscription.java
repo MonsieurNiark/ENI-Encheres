@@ -51,7 +51,7 @@ public class ServletInscription extends HttpServlet {
 		String msgError = "";
 		boolean errorInscription= false;
 		UtilisateurManager utilMana  = new UtilisateurManager();
-		Utilisateur utilisateurLog = null;
+		Utilisateur utilisateurLog = null; 
 		
 		if(pseudo.equals("") || nom.equals("") || prenom.equals("") || email.equals("") || telephone.equals("") ||
 				rue.equals("")|| ville.equals("")|| mdp.equals("") || conf.equals("")) {
@@ -72,13 +72,16 @@ public class ServletInscription extends HttpServlet {
 			
 			try {
 				utilMana.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, 0, 1);
+				System.out.println("succes");
+				utilisateurLog = utilMana.selectionnerUtilisateurByPseudo(pseudo);
+				System.out.println(utilisateurLog.getPseudo());
+				System.out.println(utilisateurLog.getMotDePasse());
 			} catch (BusinessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				System.out.println("succes");
+				System.out.println("echec");
 			}
 
-            session.setAttribute("succes", "Connexion réussie");
             response.sendRedirect(request.getContextPath() + "/connexion");
         }
         else

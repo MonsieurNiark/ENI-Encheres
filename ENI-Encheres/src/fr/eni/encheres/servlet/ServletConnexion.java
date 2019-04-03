@@ -26,8 +26,8 @@ public class ServletConnexion extends HttpServlet {
 	{
 		String identifiant = request.getParameter("user");
 		String motDePasse = request.getParameter("mdp");		
-		Boolean isAdministrateur = Boolean.parseBoolean(request.getParameter("seSouvenirDeMoi"));
 		
+		HttpSession session = request.getSession();
 		if(identifiant == null )identifiant="";
 		if(motDePasse == null )motDePasse="";
 		
@@ -35,8 +35,8 @@ public class ServletConnexion extends HttpServlet {
 		request.setAttribute("motDePasse", motDePasse);
 		//recuperation des variables session		
 
-		
 		request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp").forward( request,  response);
+		
 		
 	}
 
@@ -47,10 +47,14 @@ public class ServletConnexion extends HttpServlet {
 		// TODO Auto-generated method stub
 		String identifiant = request.getParameter("user");
 		String motDePasse = request.getParameter("mdp");
+		Boolean seSouvenirDeMoi = Boolean.parseBoolean(request.getParameter("seSouvenirDeMoi"));
 		UtilisateurManager utilMana  = new UtilisateurManager();
 		Utilisateur utilisateurLog = null;
 		HttpSession session = request.getSession();
-
+		
+		if(seSouvenirDeMoi = true) {
+			session.setAttribute( "identifiant", identifiant);
+		}
 		
 			try {
 				utilisateurLog = utilMana.selectionnerUtilisateurByPseudo(identifiant);
@@ -64,18 +68,16 @@ public class ServletConnexion extends HttpServlet {
 		
 			if( utilisateurLog == null || !motDePasseUser.equals(motDePasse) )
 			{
-				if (utilisateurLog == null)System.out.println("user null");
-				if (!motDePasseUser.equals(motDePasse))System.out.println("mot de passe diff");
-				System.out.println("|"+motDePasse+"|");
-				System.out.println("|"+motDePasseUser+"|");
-				System.out.println("ERREUR");
 				request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp").forward(request, response);
 			}
 			else if(utilisateurLog != null && motDePasseUser.equals(motDePasse))
 			{
-				System.out.println("PAS ERREUR");
+			
 				response.sendRedirect(request.getContextPath()+"/inscription");
-				session.setAttribute("identifiant", identifiant);
+				session.setAttribute( "isConnecte", true ); //récupération
+				
+				session.setAttribute( "isAdministrateur", utilisateurLog.getAdministrateur() );
+				session.setAttribute( "succes", "Vous êtes connecté");
 	
 			}
 		

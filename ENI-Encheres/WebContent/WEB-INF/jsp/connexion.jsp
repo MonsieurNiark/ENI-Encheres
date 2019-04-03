@@ -22,7 +22,7 @@
 <div class="form-group">
   <label class="col-md-5 control-label" for="user">Identifiant :</label>  
   <div class="col-md-2">
-  <input id="user" name="user" type="text" placeholder="Identifiant" class="form-control input-md" required="">
+  <input id="user" name="user" type="text" placeholder="Identifiant" value="" class="form-control input-md">
     
   </div>
 </div>
@@ -51,7 +51,7 @@
 <!-- Button -->
 <div class="form-group">
   <div class="col-md-7 control-label ">
-    <button id="creerCompte" name="creerCompte" class="btn btn-inverse">Créer un compte</button>
+    <a id="creer" class="btn btn-inverse" href="${pageContext.request.contextPath}/inscription">Créer un compte</a>
   </div>
 </div>
 </fieldset>
