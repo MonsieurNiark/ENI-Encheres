@@ -28,7 +28,16 @@ public class ServletInscription extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp").forward( request,  response);
+		HttpSession session = request.getSession();
+		
+		if(!(boolean)session.getAttribute("isConnecte"))
+		{
+			request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp").forward( request,  response);
+		}
+		else
+		{
+			response.sendRedirect(request.getContextPath()+"/");
+		}
 	}
 
 	/**
@@ -51,7 +60,6 @@ public class ServletInscription extends HttpServlet {
 		String msgError = "";
 		boolean errorInscription= false;
 		UtilisateurManager utilMana  = new UtilisateurManager();
-		Utilisateur utilisateurLog = null; 
 		
 		if(pseudo.equals("") || nom.equals("") || prenom.equals("") || email.equals("") || telephone.equals("") ||
 				rue.equals("")|| ville.equals("")|| mdp.equals("") || conf.equals("")) {
@@ -71,18 +79,14 @@ public class ServletInscription extends HttpServlet {
         {
 			
 			try {
-				utilMana.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, 0, 1);
-				System.out.println("succes");
-				utilisateurLog = utilMana.selectionnerUtilisateurByPseudo(pseudo);
-				System.out.println(utilisateurLog.getPseudo());
-				System.out.println(utilisateurLog.getMotDePasse());
+				utilMana.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, 0, 0);
 			} catch (BusinessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				System.out.println("echec");
 			}
 
-            response.sendRedirect(request.getContextPath() + "/connexion");
+            response.sendRedirect(request.getContextPath() + "/");
         }
         else
         {
