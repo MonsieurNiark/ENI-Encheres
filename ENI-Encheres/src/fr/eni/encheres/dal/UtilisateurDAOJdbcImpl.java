@@ -188,6 +188,7 @@ private static final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
 			pstmt.setString(6, utilisateur.getRue());
 			pstmt.setString(7, utilisateur.getCodePostal());
 			pstmt.setString(8, utilisateur.getVille());
+			pstmt.setInt(9, utilisateur.getNoUtilisateur());
 			pstmt.executeUpdate();
 		}
 		catch(Exception e)
