@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.BusinessException;
 import fr.eni.encheres.bll.UtilisateurManager;
@@ -21,6 +22,7 @@ public class ServletProfil extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		UtilisateurManager utilMgt = new UtilisateurManager();
+	      HttpSession session= req.getSession();
 
 			Utilisateur user = null;
 			try {
@@ -40,9 +42,6 @@ public class ServletProfil extends HttpServlet{
 			}
 			if(user != null) {
 				
-				System.out.println(user.getNom());
-				System.out.println(user.getPrenom());
-				System.out.println(user.getPseudo());
 				req.setAttribute("pseudo_user", user.getPseudo().toString());
 				req.setAttribute("nom", user.getNom());
 				req.setAttribute("prenom", user.getPrenom());

@@ -50,7 +50,10 @@ String ville = request.getAttribute("ville").toString();%>
       </tr>
       <th scope="row">Ville</th>
       	<td><%=ville %></td>
-      </tr>		  
+      </tr>
+      <tr>			  			  
+        <th  colspan=2 style="text-align:center;"><a href="modifierProfile"><button>Modifier le profile</button></a></th>
+      </tr>	  
       </tbody>		
       </table>
 </body>
