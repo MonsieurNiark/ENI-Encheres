@@ -86,7 +86,7 @@ public class ServletConnexion extends HttpServlet {
 				response.sendRedirect(request.getContextPath()+"/inscription");
 				session.setAttribute( "isConnecte", true ); //récupération
 				session.setAttribute( "isAdministrateur", utilisateurLog.getAdministrateur() );
-				session.setAttribute("actualUuser", identifiant);
+				session.setAttribute("actualUser", identifiant);
 				session.setAttribute( "succes", "Vous êtes connecté");
 	
 			}
