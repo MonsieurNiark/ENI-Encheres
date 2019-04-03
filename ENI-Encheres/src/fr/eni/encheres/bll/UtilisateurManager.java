@@ -28,8 +28,15 @@ public class UtilisateurManager {
 	}
 
 	public Utilisateur ajouterUtilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, String administrateur) throws BusinessException {
+			String rue, String codePostal, String ville, String motDePasse, int credit, int administrateur) throws BusinessException {
 		Utilisateur nouvelUtilisateur = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse, credit, administrateur);
+		utilisateurDAO.insert(nouvelUtilisateur);
+		return nouvelUtilisateur;
+	}
+	
+	public Utilisateur ajouterUtilisateur(String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostal, String ville, String motDePasse, int credit, int administrateur) throws BusinessException {
+		Utilisateur nouvelUtilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse, credit, administrateur);
 		utilisateurDAO.insert(nouvelUtilisateur);
 		return nouvelUtilisateur;
 	}
@@ -39,7 +46,7 @@ public class UtilisateurManager {
 	}
 	
 	public void updateUtilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, int credit, String administrateur) throws BusinessException {
+			String rue, String codePostal, String ville, String motDePasse, int credit, int administrateur) throws BusinessException {
 		Utilisateur utilisateurAModifier = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse, credit, administrateur);
 		utilisateurDAO.update(utilisateurAModifier);
 	}

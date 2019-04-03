@@ -47,13 +47,14 @@ public class ServletConnexion extends HttpServlet {
 		String motDePasse = request.getParameter("mdp");
 		UtilisateurManager utilMana  = new UtilisateurManager();
 		Utilisateur utilisateurLog = null;
+		HttpSession session = request.getSession();
 
 		
 			try {
 				utilisateurLog = utilMana.selectionnerUtilisateurByPseudo(identifiant);
 			} catch (BusinessException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp").forward(request, response);
 			}
 		
 		
@@ -64,6 +65,7 @@ public class ServletConnexion extends HttpServlet {
 			else
 			{
 				response.sendRedirect(request.getContextPath()+"/inscription");
+				session.setAttribute("identifiant", identifiant);
 	
 			}
 		

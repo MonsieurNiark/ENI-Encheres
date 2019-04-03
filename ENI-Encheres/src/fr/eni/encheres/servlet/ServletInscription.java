@@ -7,8 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import dao.DaoUtilisateur;
+import fr.eni.encheres.BusinessException;
 import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Utilisateur;
 
@@ -71,10 +70,16 @@ public class ServletInscription extends HttpServlet {
 		if (!errorInscription)
         {
 			
-			utilMana.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
+			try {
+				utilMana.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, 0, 1);
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("succes");
+			}
 
             session.setAttribute("succes", "Connexion réussie");
-            response.sendRedirect(request.getContextPath() + "/");
+            response.sendRedirect(request.getContextPath() + "/connexion");
         }
         else
         {

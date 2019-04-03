@@ -49,7 +49,7 @@ private static final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
 			pstmt.setString(8, utilisateur.getVille());
 			pstmt.setString(9, utilisateur.getMotDePasse());
 			pstmt.setInt(10, utilisateur.getCredit());
-			pstmt.setString(11, utilisateur.getAdministrateur());
+			pstmt.setInt(11, utilisateur.getAdministrateur());
 
 			pstmt.executeUpdate();
 			
@@ -214,7 +214,7 @@ private static final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
 		String ville = rs.getString("ville");
 		String mot_de_passe = rs.getString("mot_de_passe");
 		int credit = rs.getInt("credit");
-		String administrateur = rs.getString("administrateur");
+		int administrateur = rs.getInt("administrateur");
 		return new Utilisateur(id, pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur);
 	}
 
