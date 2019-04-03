@@ -23,7 +23,9 @@ public class ServletProfil extends HttpServlet{
 		// TODO Auto-generated method stub
 		UtilisateurManager utilMgt = new UtilisateurManager();
 	      HttpSession session= req.getSession();
-
+	      if(session.getAttribute("actualUser") == null) {
+	    	  session.setAttribute("actualUser", " ");
+	      }
 			Utilisateur user = null;
 			try {
 				user = utilMgt.selectionnerUtilisateurByPseudo(req.getParameter("user"));

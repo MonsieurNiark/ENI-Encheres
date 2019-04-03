@@ -17,7 +17,10 @@ String email = session.getAttribute("email").toString();
 String telephone = session.getAttribute("telephone").toString();
 String rue = session.getAttribute("rue").toString();
 String code_postal = session.getAttribute("code_postal").toString();
-String ville = session.getAttribute("ville").toString();%>
+String ville = session.getAttribute("ville").toString();
+String actualUser = session.getAttribute("actualUser").toString();
+%>
+<h1><%=actualUser %></h1>
 <br/><br/><br/><br/><br/><br/>
 <table class="pure-table">		  
     <thead>			
@@ -51,7 +54,9 @@ String ville = session.getAttribute("ville").toString();%>
       <th scope="row">Ville</th>
       	<td><input type="text" value="<%=ville %>" name="ville"></td>
       </tr>
-      
+      <th scope="row">Mot de passe</th>
+      	<td><input type="text" value="" name="motDePasse"></td>
+      </tr>
       <tr>			  			  
         <th  colspan=2 style="text-align:center;"><button type="submit">Confirmer</button></th>
       </tr>	 

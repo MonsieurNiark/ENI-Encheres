@@ -32,7 +32,6 @@ public class ServletModifierProfile extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	      HttpSession session=request.getSession();
-	      session.setAttribute("actualUser", "jean");
 	      UtilisateurManager umgt = new UtilisateurManager();
 	      try {
 			Utilisateur actualUser = umgt.selectionnerUtilisateurByPseudo(session.getAttribute("actualUser").toString());
@@ -59,7 +58,6 @@ public class ServletModifierProfile extends HttpServlet {
 		// TODO Auto-generated method stub
 	      HttpSession session=request.getSession();
 	      UtilisateurManager umgt = new UtilisateurManager();
-	      session.setAttribute("actualUser", "jean");
 	      try {
 	    	  
 	    	  Utilisateur userCible = umgt.selectionnerUtilisateurByPseudo(session.getAttribute("actualUser").toString());
@@ -72,8 +70,9 @@ public class ServletModifierProfile extends HttpServlet {
 	    	  String rue = request.getParameter("rue").toString();
 	    	  String email = request.getParameter("email").toString();
 	    	  String telephone = request.getParameter("telephone").toString();
+	    	  String motDePasse = request.getParameter("motDePasse").toString();
 	    	  System.out.println("before update");
-	    	  umgt.updateUtilisateur(no_utilisateur, pseudo_user, nom, prenom, email, telephone, rue, code_postal, ville, "123", 0, 0);
+	    	  umgt.updateUtilisateur(no_utilisateur, pseudo_user, nom, prenom, email, telephone, rue, code_postal, ville, motDePasse, 0, 0);
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

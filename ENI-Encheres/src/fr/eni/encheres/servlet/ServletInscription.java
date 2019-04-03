@@ -32,12 +32,14 @@ public class ServletInscription extends HttpServlet {
 		
 		if(!(boolean)session.getAttribute("isConnecte"))
 		{
-			request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp").forward( request,  response);
+			//request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp").forward( request,  response);
 		}
 		else
 		{
-			response.sendRedirect(request.getContextPath()+"/");
+			//response.sendRedirect(request.getContextPath()+"/");
 		}
+		request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp").forward( request,  response);
+
 	}
 
 	/**

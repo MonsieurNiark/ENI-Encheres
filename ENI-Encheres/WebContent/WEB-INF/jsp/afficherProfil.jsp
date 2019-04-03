@@ -18,7 +18,11 @@ String email = request.getAttribute("email").toString();
 String telephone = request.getAttribute("telephone").toString();
 String rue = request.getAttribute("rue").toString();
 String code_postal = request.getAttribute("code_postal").toString();
-String ville = request.getAttribute("ville").toString();%>
+String ville = request.getAttribute("ville").toString();
+String actualUser = session.getAttribute("actualUser").toString();
+String display = "none";
+if(pseudo_user.equals(actualUser)){display="inline";}
+%>
 <br/><br/><br/><br/><br/><br/>
 <table class="pure-table">		  
     <thead>			
@@ -52,7 +56,7 @@ String ville = request.getAttribute("ville").toString();%>
       	<td><%=ville %></td>
       </tr>
       <tr>			  			  
-        <th  colspan=2 style="text-align:center;"><a href="modifierProfile"><button>Modifier le profile</button></a></th>
+        <th  colspan=2 style="text-align:center;display:<%=display%>;"><a href="modifierProfile"><button>Modifier le profile</button></a></th>
       </tr>	  
       </tbody>		
       </table>
