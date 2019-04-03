@@ -40,6 +40,9 @@ public class ServletProfil extends HttpServlet{
 				req.setAttribute("code_postal", " ");
 				req.setAttribute("rue", " ");
 				req.setAttribute("ville", " ");
+				String divCredit = new String("<h4>Crédit : </h4>");
+				req.setAttribute("credit", divCredit);
+				
 				user = null;
 			}
 			if(user != null) {
@@ -52,6 +55,8 @@ public class ServletProfil extends HttpServlet{
 				req.setAttribute("code_postal", user.getCodePostal());
 				req.setAttribute("rue", user.getRue());
 				req.setAttribute("ville", user.getVille());
+				String divCredit = new String("<h4>Crédit : "+user.getCredit()+"</h4>");
+				req.setAttribute("credit", divCredit);
 			} else {
 				req.getRequestDispatcher("./ENI-Encheres/connexion");
 			}

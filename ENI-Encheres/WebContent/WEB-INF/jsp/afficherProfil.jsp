@@ -21,7 +21,10 @@ String code_postal = request.getAttribute("code_postal").toString();
 String ville = request.getAttribute("ville").toString();
 String actualUser = session.getAttribute("actualUser").toString();
 String display = "none";
-if(pseudo_user.equals(actualUser)){display="inline";}
+String credit = "";
+if(pseudo_user.equals(actualUser)){display="inline";
+credit = request.getAttribute("credit").toString();
+}
 %>
 <br/><br/><br/><br/><br/><br/>
 <table class="pure-table">		  
@@ -55,6 +58,7 @@ if(pseudo_user.equals(actualUser)){display="inline";}
       <th scope="row">Ville</th>
       	<td><%=ville %></td>
       </tr>
+      <th colspan=2 scope="row"><%=credit %></th>
       <tr>			  			  
         <th  colspan=2 style="text-align:center;display:<%=display%>;"><a href="modifierProfile"><button>Modifier le profile</button></a></th>
       </tr>	  
