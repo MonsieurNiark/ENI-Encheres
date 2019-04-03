@@ -75,20 +75,21 @@ public class ServletConnexion extends HttpServlet {
 		
 			if( utilisateurLog == null || !motDePasseUser.equals(motDePasse) )
 			{
-				request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp").forward(request, response);
 				session.setAttribute("isConnecte", false);
 				session.setAttribute("actualUuser", "");
 				session.setAttribute("erreur", "Login ou Password incorrect");
+				request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp").forward(request, response);
+
 			}
 			else if(utilisateurLog != null && motDePasseUser.equals(motDePasse))
 			{
 			
-				response.sendRedirect(request.getContextPath()+"/inscription");
 				session.setAttribute( "isConnecte", true ); //récupération
 				session.setAttribute( "isAdministrateur", utilisateurLog.getAdministrateur() );
 				session.setAttribute("actualUser", identifiant);
 				session.setAttribute( "succes", "Vous êtes connecté");
-	
+				response.sendRedirect(request.getContextPath()+"/inscription");
+
 			}
 		
 		}	
