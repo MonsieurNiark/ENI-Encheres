@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Eni-Enchères</title>
+<title>Eni-EnchÃ¨res</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -15,7 +15,7 @@
 <fieldset class="justify-content-center">
 
 <!-- Form Name -->
-<legend>Eni-Enchères</legend>
+<legend>Eni-EnchÃ¨res</legend>
 
 <!-- Text input-->
 
@@ -31,8 +31,7 @@
 <div class="form-group">
   <label class="col-md-5 control-label" for="mdp">Mot de passe :</label>  
   <div class="col-md-2">
-  <input id="mdp" name="mdp" type="password" placeholder="Mot de passe" class="form-control input-md">
-    
+  <input id="mdp" name="mdp" type="password" placeholder="Mot de passe" class="form-control input-md"/>
   </div>
 </div>
 
@@ -52,11 +51,9 @@
 <!-- Button -->
 <div class="form-group">
   <div class="col-md-7 control-label ">
-    <button id="creerCompte" name="creerCompte" class="btn btn-inverse">Créer un compte</button>
+    <button id="creerCompte" name="creerCompte" class="btn btn-inverse">CrÃ©er un compte</button>
   </div>
 </div>
-
-
 </fieldset>
 </div>
 </body>

@@ -1,6 +1,8 @@
 package fr.eni.encheres.servlet;
 
 import java.io.IOException;
+import java.math.BigInteger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -57,19 +59,26 @@ public class ServletConnexion extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp").forward(request, response);
 			}
 		
+			String motDePasseUser = utilisateurLog.getMotDePasse();
+			
 		
-			if( utilisateurLog == null && utilisateurLog.getMotDePasse().toString() != motDePasse )
+			if( utilisateurLog == null || !motDePasseUser.equals(motDePasse) )
 			{
+				if (utilisateurLog == null)System.out.println("user null");
+				if (!motDePasseUser.equals(motDePasse))System.out.println("mot de passe diff");
+				System.out.println("|"+motDePasse+"|");
+				System.out.println("|"+motDePasseUser+"|");
+				System.out.println("ERREUR");
 				request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp").forward(request, response);
 			}
-			else
+			else if(utilisateurLog != null && motDePasseUser.equals(motDePasse))
 			{
+				System.out.println("PAS ERREUR");
 				response.sendRedirect(request.getContextPath()+"/inscription");
 				session.setAttribute("identifiant", identifiant);
 	
 			}
 		
 		}	
-
 
 }
