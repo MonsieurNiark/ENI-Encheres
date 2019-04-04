@@ -14,11 +14,16 @@ import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.bo.Categorie;
 
 
-
-
 public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 
-	private static final String SELECT_ALL = "SELECT * FROM ARTICLES_VENDUS";
+	
+	private static final String SELECT_ALL = "SELECT no_article, nom_article, description, date_debut_encheres, "
+			+ "date_fin_encheres, prix_initial, prix_vente, ARTICLE_VENDUS.no_utilisateur, ARTICLE_VENDUS.no_categorie, "
+			+ "CATEGORIES.no_categorie, libelle, UTILISATEURS.no_utilisateur, pseudo, nom, prenom "
+			+ "FROM ARTICLES_VENDUS "
+			+ "INNER JOIN CATEGORIES ON ARTICLE_VENDUS.no_categorie = CATEGORIES.no_categorie "
+			+ "INNER JOIN UTILISATEURS ON ARTICLE_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur ";
+	
 	private static final String SELECT_BY_NOM = SELECT_ALL + " WHERE nom_article=?";
 	private static final String INSERT_VENTE = "INSERT INTO ARTICLES_VENDUS(nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie ) VALUES(?,?,?,?,?,?,?,?);";
 	private static final String DELETE_VENTE = "DELETE * FROM ARTICLES_VENDUS WHERE no_article=?";
@@ -42,7 +47,7 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 			vnte.setDate(4, (java.sql.Date) articlevendu.getDateFinEncheres());
 			vnte.setFloat(5, articlevendu.getMiseAPrix());
 			vnte.setFloat(6, articlevendu.getPrixVente());
-			vnte.setInt(7, articlevendu.getCategorieArticle().getNoCategorie());
+			vnte.setInt(7, articlevendu.getUtilisateur().getNoUtilisateur());
 			vnte.setInt(8, articlevendu.getCategorieArticle().getNoCategorie());
 
 			vnte.executeUpdate();
@@ -101,7 +106,7 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 	}
 	
 	@Override
-	public ArticleVendu selectByNom(int id) throws BusinessException {
+	public ArticleVendu selectById(int id) throws BusinessException {
 		ArticleVendu result = null;
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
@@ -130,7 +135,32 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 		return result;
 	}
 	
-private ArticleVendu map(ResultSet rs) throws SQLException {
+	public Utilisateur mappingUserArticle(ResultSet rs) throws SQLException {
+		
+		int id = rs.getInt("no_utilisateur");
+		String pseudo = rs.getString("pseudo");
+		String nom = rs.getString("nom");
+		String prenom = rs.getString("prenom");
+		String email = rs.getString("email");
+		String telephone = rs.getString("telephone");
+		String rue = rs.getString("rue");
+		String code_postal = rs.getString("code_postal");
+		String ville = rs.getString("ville");
+		String mot_de_passe = rs.getString("mot_de_passe");
+		int credit = rs.getInt("credit");
+		int administrateur = rs.getInt("administrateur");
+		return new Utilisateur(id, pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur);
+	}
+	
+	public Categorie mappingCategorieArticle(ResultSet rs) throws SQLException {
+		
+		int id = rs.getInt("no_article");
+		String libelle = rs.getString("libelle");
+		
+		return new Categorie(id,libelle);
+	}
+	
+	public ArticleVendu map(ResultSet rs) throws SQLException {
 		
 		int id = rs.getInt("no_article");
 		String nomArticle = rs.getString("nom_article");
@@ -139,10 +169,10 @@ private ArticleVendu map(ResultSet rs) throws SQLException {
 		Date date_fin_encheres = rs.getDate("date_fin_encheres");
 		float prixinitial = rs.getFloat("prix_initial");
 		float prixvente = rs.getFloat("prix_vente");
-		int no_utilisateur = rs.getInt("no_utilisateur");
-		Utilisateur util = ;  
-		int no_categorie = rs.getInt("no_categorie");
-		Categorie cat =r ; 
+		Utilisateur util =  mappingUserArticle(rs);
+		Categorie cat = mappingCategorieArticle(rs);
 		return new ArticleVendu(id, nomArticle,description,date_debut_encheres,date_fin_encheres,prixinitial,prixvente,cat,util);
 	}
+	
+
 }

@@ -106,7 +106,7 @@ public class ArticleVendu {
 		this.etatVente = etatVente;
 	}
 	public Categorie getCategorieArticle() {
-		return categorieArticle;
+		return this.categorieArticle;
 	}
 	public void setCategorieArticle(Categorie categorieArticle) {
 		this.categorieArticle = categorieArticle;

@@ -13,6 +13,7 @@ import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.bll.UtilisateurManager;
 
 public class EncheresDAOjdbclmpl implements EncheresDAO{
 
