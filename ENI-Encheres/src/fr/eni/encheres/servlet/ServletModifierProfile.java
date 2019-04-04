@@ -33,22 +33,43 @@ public class ServletModifierProfile extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	      HttpSession session=request.getSession();
 	      UtilisateurManager umgt = new UtilisateurManager();
-	      try {
-			Utilisateur actualUser = umgt.selectionnerUtilisateurByPseudo(session.getAttribute("actualUser").toString());
-			session.setAttribute("pseudo_user", actualUser.getPseudo());
-			session.setAttribute("nom", actualUser.getNom());
-			session.setAttribute("prenom", actualUser.getPrenom());
-			session.setAttribute("email", actualUser.getEmail());
-			session.setAttribute("telephone", actualUser.getTelephone());
-			session.setAttribute("code_postal", actualUser.getCodePostal());
-			session.setAttribute("rue", actualUser.getRue());
-			session.setAttribute("ville", actualUser.getVille());
-			session.setAttribute("no_utilisateur", actualUser.getNoUtilisateur());
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		request.getRequestDispatcher("/WEB-INF/jsp/modifierProfil.jsp").forward( request,  response);
+	      if(request.getParameter("suppression") == null) {
+	    	  try {
+	  			Utilisateur actualUser = umgt.selectionnerUtilisateurByPseudo(session.getAttribute("actualUser").toString());
+	  			session.setAttribute("pseudo_user", actualUser.getPseudo());
+	  			session.setAttribute("nom", actualUser.getNom());
+	  			session.setAttribute("prenom", actualUser.getPrenom());
+	  			session.setAttribute("email", actualUser.getEmail());
+	  			session.setAttribute("telephone", actualUser.getTelephone());
+	  			session.setAttribute("code_postal", actualUser.getCodePostal());
+	  			session.setAttribute("rue", actualUser.getRue());
+	  			session.setAttribute("ville", actualUser.getVille());
+	  			session.setAttribute("no_utilisateur", actualUser.getNoUtilisateur());
+	  		} catch (BusinessException e) {
+	  			// TODO Auto-generated catch block
+	  			e.printStackTrace();
+	  		}
+	  		request.getRequestDispatcher("/WEB-INF/jsp/modifierProfil.jsp").forward( request,  response);
+
+	      } else {
+		      System.out.println(request.getParameter("suppression").toString());
+		      Utilisateur actualUser;
+			try {
+				actualUser = umgt.selectionnerUtilisateurByPseudo(session.getAttribute("actualUser").toString());
+				try {
+					umgt.supprimerUtilisateur(actualUser.getNoUtilisateur());
+				} catch (BusinessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (BusinessException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	  		request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward( request,  response);
+
+	      }
+	      
 	}
 
 	/**
@@ -81,4 +102,11 @@ public class ServletModifierProfile extends HttpServlet {
 		doGet(request, response);
 	}
 
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		System.out.println("delete");
+		super.doDelete(req, resp);
+		
+	}
 }
