@@ -32,7 +32,7 @@ public class ServletProfil extends HttpServlet{
 			} catch (BusinessException e) {
 				// TODO Auto-generated catch block
 				System.out.println("IN ERROR");
-				req.setAttribute("pseudo_user", "LE PROFILE N'EXISTE PAS");
+				req.setAttribute("pseudoUser", "LE PROFILE N'EXISTE PAS");
 				req.setAttribute("nom", " ");
 				req.setAttribute("prenom", " ");
 				req.setAttribute("email", " ");
@@ -40,14 +40,14 @@ public class ServletProfil extends HttpServlet{
 				req.setAttribute("code_postal", " ");
 				req.setAttribute("rue", " ");
 				req.setAttribute("ville", " ");
-				String divCredit = new String("<h4>Crédit : </h4>");
+				String divCredit = new String("<h4>CrÃ©dit : </h4>");
 				req.setAttribute("credit", divCredit);
 				
 				user = null;
 			}
 			if(user != null) {
 				
-				req.setAttribute("pseudo_user", user.getPseudo().toString());
+				req.setAttribute("pseudoUser", user.getPseudo().toString());
 				req.setAttribute("nom", user.getNom());
 				req.setAttribute("prenom", user.getPrenom());
 				req.setAttribute("email", user.getEmail());
@@ -55,7 +55,7 @@ public class ServletProfil extends HttpServlet{
 				req.setAttribute("code_postal", user.getCodePostal());
 				req.setAttribute("rue", user.getRue());
 				req.setAttribute("ville", user.getVille());
-				String divCredit = new String("<h4>Crédit : "+user.getCredit()+"</h4>");
+				String divCredit = new String("<h4>CrÃ©dit : "+user.getCredit()+"</h4>");
 				req.setAttribute("credit", divCredit);
 			} else {
 				req.getRequestDispatcher("./ENI-Encheres/connexion");

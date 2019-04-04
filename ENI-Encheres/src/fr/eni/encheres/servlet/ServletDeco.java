@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
  * Servlet implementation class servletDeco
  */
 @WebServlet("/deconnexion")
-public class servletDeco extends HttpServlet {
+public class ServletDeco extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
@@ -23,7 +23,7 @@ public class servletDeco extends HttpServlet {
 		
 		session.invalidate();
 		
-		response.sendRedirect(request.getContextPath()+"/");
+		response.sendRedirect(request.getContextPath()+"/index");
 	}
 
 

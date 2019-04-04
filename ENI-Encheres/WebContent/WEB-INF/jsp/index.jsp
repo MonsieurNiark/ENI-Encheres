@@ -1,54 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>ENI - Ench√®res</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-  		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-		<script src="${pageContext.request.contextPath}/js/recherche.js"></script>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
-              integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-		<link rel="stylesheet" href="css/index.css">
-	</head>
-
-	<body>
-		<header class="bg-info">
-			<h1 class="p-3"><a class="text-white" href="${pageContext.request.contextPath}/">ENI - Ench√®res</a></h1>
-            <a id="rafraichir" href="${pageContext.request.contextPath}/"><i class="fas fa-sync-alt"></i></a>
-
-            <!-- MENU -->
-			<nav class="navbar navbar-expand justify-content-end bg-dark navbar-dark">
-				<ul class="navbar-nav">
-					<c:if test="${sessionScope.isConnecte == null}">
-						<li class="nav-item">
-							<a class="nav-link" href="${pageContext.request.contextPath}/connexion">S'inscrire - Se connecter</a>
-						</li>
-					</c:if>
-					<c:if test="${sessionScope.isConnecte != null}">
-                        <li class="nav-item">
-							<a class="nav-link" href="${pageContext.request.contextPath}/membre/ajouterEnchere">Vendre un article</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="${pageContext.request.contextPath}/profile?user=${sessionScope.actualUser}">Mon profil</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="${pageContext.request.contextPath}/deconnexion">D√©connecter</a>
-						</li>
-					</c:if>
-				</ul>
-			</nav>
-
-		</header>
+<%@include file="header.jsp" %>
 
         <!-- RECHERCHE -->
 		<section id="recherche" class="mb-2 p-4">
-			<h2 class="text-center mb-3">Liste des ench√®res</h2>
+			<h2 class="text-center mb-3">Liste des enchËres</h2>
 
 			<form action="${pageContext.request.contextPath}/" method="post">
 				<section class="input-group mb-3">
@@ -60,7 +14,7 @@
 
                 <section class="input-group mb-3">
                     <section class="input-group-prepend">
-                        <label class="input-group-text" for="categorie">Cat√©gorie: </label>
+                        <label class="input-group-text" for="categorie">CatÈgorie: </label>
                     </section>
                     <select id="categorie" class="form-control" name="categorie">
                         <option value="Toutes">Toutes</option>
@@ -82,16 +36,16 @@
                             <section class="ml-4">
                                 <div>
                                     <input type="checkbox" value="encheresOuvertes" name="encheresOuvertes" id="encheresOuvertes">
-                                    <label for="encheresOuvertes">ench√®res ouvertes</label>
+                                    <label for="encheresOuvertes">enchËres ouvertes</label>
                                 </div>
 
                                 <div>
                                     <input type="checkbox" value="encheresEnCours" name="encheresEnCours" id="encheresEnCours">
-                                    <label for="encheresEnCours">mes ench√®res en cours</label>
+                                    <label for="encheresEnCours">mes enchËres en cours</label>
                                 </div>
                                 <div>
                                     <input type="checkbox" value="encheresRemportees" name="encheresRemportees" id="encheresRemportees">
-                                    <label for="encheresRemportees">mes ench√®res remport√©es</label>
+                                    <label for="encheresRemportees">mes enchËres remportÈes</label>
                                 </div>
                             </section>
                         </section>
@@ -110,12 +64,12 @@
 
                                 <div>
                                     <input type="checkbox" value="ventesNonDebutees" name="ventesNonDebutees" id="ventesNonDebutees">
-                                    <label for="ventesNonDebutees">ventes non d√©but√©es</label>
+                                    <label for="ventesNonDebutees">ventes non dÈbutÈes</label>
                                 </div>
 
                                 <div>
                                     <input type="checkbox" value="ventesTerminees" name="ventesTerminees" id="ventesTerminees" >
-                                    <label for="ventesTerminees">ventes termin√©es</label>
+                                    <label for="ventesTerminees">ventes terminÈes</label>
                                 </div>
                             </section>
                         </section>
@@ -131,7 +85,7 @@
 		<!-- VUE SUR LES ENCHERES OUVERTES -->
 		<section class="mb-2 p-4">
 			<c:if test="${not empty requestScope.encheresO }">
-			<h3>Ench√®res ouvertes : </h3>
+			<h3>EnchËres ouvertes : </h3>
 	        <div class="d-flex flex-row">
 	            <section class="d-flex flex-wrap justify-content-center">
 	                <c:forEach items="${requestScope.encheresO }" var="article">
@@ -143,7 +97,7 @@
 	                            <div class="col-7">
 	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/afficherEnchere?article=${article.noArticle }">${article.nomArticle }</a></h3>
 	                                <p>Prix : ${article.prixVente }</p>
-	                                <p>Fin de l'ench√®re: ${article.dateFinEncheres }</p>
+	                                <p>Fin de l'enchËre: ${article.dateFinEncheres }</p>
 	                                <c:if test="${sessionScope.isConnecte == true }">
 	                                    <p>Vendeur : <a href="affichageProfil?pseudo=${article.utilisateur.pseudo }">${article.utilisateur.pseudo }</a></p>
 	                                </c:if>
@@ -160,7 +114,7 @@
 
         	<!-- VUE SUR LES ENCHERES EN COURS  -->
 	        <c:if test="${not empty requestScope.mesEncheresEC }">
-	        <h3>Ench√®res en cours : </h3>
+	        <h3>EnchËres en cours : </h3>
 	        <div class="d-flex flex-row">
 	            <section class="d-flex flex-wrap justify-content-center">
 	                <c:forEach items="${requestScope.mesEncheresEC }" var="article">
@@ -172,7 +126,7 @@
 	                            <div class="col-7">
 	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/afficherEnchere?article=${article.noArticle }">${article.nomArticle }</a></h3>
 	                                <p>Prix : ${article.prixVente }</p>
-	                                <p>Fin de l'ench√®re: ${article.dateFinEncheres }</p>
+	                                <p>Fin de l'enchËre: ${article.dateFinEncheres }</p>
 	                                <c:if test="${sessionScope.isConnecte == true }">
 	                                    <p>Vendeur : <a href="affichageProfil?pseudo=${article.utilisateur.pseudo }">${article.utilisateur.pseudo }</a></p>
 	                                </c:if>
@@ -189,7 +143,7 @@
 
        		<!-- VUE SUR LES ENCHERES REMPORTEES  -->
 	        <c:if test="${not empty requestScope.mesEncheresR }">
-	        <h3>Ench√®res remport√©es : </h3>
+	        <h3>EnchËres remportÈes : </h3>
 	        <div class="d-flex flex-row">
 	            <section class="d-flex flex-wrap justify-content-center">
 	                <c:forEach items="${requestScope.mesEncheresR }" var="article">
@@ -201,7 +155,7 @@
 	                            <div class="col-7">
 	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/afficherEnchere?article=${article.noArticle }">${article.nomArticle }</a></h3>
 	                                <p>Prix : ${article.prixVente }</p>
-	                                <p>Fin de l'ench√®re: ${article.dateFinEncheres }</p>
+	                                <p>Fin de l'enchËre: ${article.dateFinEncheres }</p>
 	                                <c:if test="${sessionScope.isConnecte == true }">
 	                                    <p>Vendeur : <a href="affichageProfil?pseudo=${article.utilisateur.pseudo }">${article.utilisateur.pseudo }</a></p>
 	                                </c:if>
@@ -230,7 +184,7 @@
 	                            <div class="col-7">
 	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/afficherEnchere?article=${article.noArticle }">${article.nomArticle }</a></h3>
 	                                <p>Prix : ${article.prixVente }</p>
-	                                <p>Fin de l'ench√®re: ${article.dateFinEncheres }</p>
+	                                <p>Fin de l'enchËre: ${article.dateFinEncheres }</p>
 	                                <c:if test="${sessionScope.isConnecte == true }">
 	                                    <p>Vendeur : <a href="affichageProfil?pseudo=${article.utilisateur.pseudo }">${article.utilisateur.pseudo }</a></p>
 	                                </c:if>
@@ -259,7 +213,7 @@
 	                            <div class="col-7">
 	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/afficherEnchere?article=${article.noArticle }">${article.nomArticle }</a></h3>
 	                                <p>Prix : ${article.prixVente }</p>
-	                                <p>Fin de l'ench√®re: ${article.dateFinEncheres }</p>
+	                                <p>Fin de l'enchËre: ${article.dateFinEncheres }</p>
 	                                <c:if test="${sessionScope.isConnecte == true }">
 	                                    <p>Vendeur : <a href="affichageProfil?pseudo=${article.utilisateur.pseudo }">${article.utilisateur.pseudo }</a></p>
 	                                </c:if>
@@ -276,7 +230,7 @@
 
         	<!-- VUE SUR LES VENTES NON DEBUTEES  -->
 	        <c:if test="${not empty requestScope.mesVentesND }">
-	        <h3>Ventes non d√©but√©es : </h3>
+	        <h3>Ventes non dÈbutÈes : </h3>
 	        <div class="d-flex flex-row">
 	            <section class="d-flex flex-wrap justify-content-center">
 	                <c:forEach items="${requestScope.mesVentesND }" var="article">
@@ -288,7 +242,7 @@
 	                            <div class="col-7">
 	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/afficherEnchere?article=${article.noArticle }">${article.nomArticle }</a></h3>
 	                                <p>Prix : ${article.prixVente }</p>
-	                                <p>Fin de l'ench√®re: ${article.dateFinEncheres }</p>
+	                                <p>Fin de l'enchËre: ${article.dateFinEncheres }</p>
 	                                <c:if test="${sessionScope.isConnecte == true }">
 	                                    <p>Vendeur : <a href="affichageProfil?pseudo=${article.utilisateur.pseudo }">${article.utilisateur.pseudo }</a></p>
 	                                </c:if>
@@ -305,7 +259,7 @@
 
         	<!-- VUE SUR LES VENTES TERMINEES  -->
 	        <c:if test="${not empty requestScope.mesVentesT }">
-	        <h3>Ventes termin√©es : </h3>
+	        <h3>Ventes terminÈes : </h3>
 	        <div class="d-flex flex-row">
 	            <section class="d-flex flex-wrap justify-content-center">
 	                <c:forEach items="${requestScope.mesVentesT }" var="article">
@@ -317,7 +271,7 @@
 	                            <div class="col-7">
 	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/afficherEnchere?article=${article.noArticle }">${article.nomArticle }</a></h3>
 	                                <p>Prix : ${article.prixVente }</p>
-	                                <p>Fin de l'ench√®re: ${article.dateFinEncheres }</p>
+	                                <p>Fin de l'enchËre: ${article.dateFinEncheres }</p>
 	                                <c:if test="${sessionScope.isConnecte == true }">
 	                                    <p>Vendeur : <a href="affichageProfil?pseudo=${article.utilisateur.pseudo }">${article.utilisateur.pseudo }</a></p>
 	                                </c:if>
@@ -335,7 +289,7 @@
 			<c:if test="${empty requestScope.mesEncheresEC && empty requestScope.mesEncheresR && empty requestScope.mesVentes &&
 			empty requestScope.encheresO && empty requestScope.mesVentesEC && empty requestScope.mesVentesND &&
 			empty requestScope.mesVentesT}">
-				<h3 class="text-muted text-center">Aucun r√©sultat √† afficher</h3>
+				<h3 class="text-muted text-center">Aucun rÈsultat ‡ afficher</h3>
 			</c:if>
         </section>
 	</body>
