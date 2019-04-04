@@ -27,6 +27,10 @@ public class UtilisateurManager {
 		return utilisateurDAO.selectByPseudo(pseudo);
 	}
 
+	public int countByPseudo(String pseudo) throws BusinessException{
+		return utilisateurDAO.countByPseudo(pseudo);
+	}
+	
 	public Utilisateur ajouterUtilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String motDePasse, int credit, int administrateur) throws BusinessException {
 		Utilisateur nouvelUtilisateur = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse, credit, administrateur);

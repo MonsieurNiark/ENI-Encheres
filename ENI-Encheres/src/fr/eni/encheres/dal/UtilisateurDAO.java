@@ -13,4 +13,5 @@ public interface UtilisateurDAO {
 	public List<Utilisateur> selectAll() throws BusinessException;
 	public Utilisateur selectById(int id) throws BusinessException;
 	public Utilisateur selectByPseudo(String pseudo) throws BusinessException;
+	public int countByPseudo (String pseudo) throws BusinessException;
 }

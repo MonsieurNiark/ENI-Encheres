@@ -25,7 +25,7 @@ private static final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
 	
 	private static final String UPDATE_UTILISATEUR = "UPDATE UTILISATEURS set pseudo=?,nom=?,prenom=?,email=?,telephone=?,rue=?,code_postal=?,ville=? WHERE no_utilisateur=?";
 	private static final String SELECT_BY_PSEUDO = SELECT_ALL + " WHERE pseudo=?";
-	
+	private static final String COUNT_BY_PSEUDO = "SELECT COUNT(*) as result FROM UTILISATEURS WHERE pseudo=?";
 	@Override
 	public void insert(Utilisateur utilisateur) throws BusinessException {
 		if(utilisateur==null)
@@ -201,6 +201,26 @@ private static final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
 		}
 	}
 	
+	@Override
+		public int countByPseudo(String pseudo) throws BusinessException {
+		int result = 0;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(COUNT_BY_PSEUDO);
+			pstmt.setString(1, pseudo);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("result");
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			//TODO : CodesResultatDAL
+			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTE_ECHEC);
+			throw businessException;
+		}
+		return result;
+		}
 
 	private Utilisateur map(ResultSet rs) throws SQLException {
 		
