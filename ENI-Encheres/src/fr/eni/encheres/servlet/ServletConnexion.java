@@ -41,7 +41,7 @@ public class ServletConnexion extends HttpServlet {
 		}
 		else
 		{
-			response.sendRedirect(request.getContextPath()+"/inscription");
+			response.sendRedirect(request.getContextPath()+"/");
 		}
 		
 		
@@ -88,7 +88,7 @@ public class ServletConnexion extends HttpServlet {
 				session.setAttribute( "isAdministrateur", utilisateurLog.getAdministrateur() );
 				session.setAttribute("actualUser", identifiant);
 				session.setAttribute( "succes", "Vous êtes connecté");
-				response.sendRedirect(request.getContextPath()+"/inscription");
+				response.sendRedirect(request.getContextPath()+"/");
 
 			}
 		
