@@ -156,6 +156,55 @@ public class EncheresDAOjdbclmpl implements EncheresDAO{
 		return result;
 	}
 	
+	public Utilisateur mappingUserEnchere(ResultSet rs) throws SQLException {
+		
+		int id = rs.getInt("no_utilisateur");
+		String pseudo = rs.getString("pseudo");
+		String nom = rs.getString("nom");
+		String prenom = rs.getString("prenom");
+		String email = rs.getString("email");
+		String telephone = rs.getString("telephone");
+		String rue = rs.getString("rue");
+		String code_postal = rs.getString("code_postal");
+		String ville = rs.getString("ville");
+		String mot_de_passe = rs.getString("mot_de_passe");
+		int credit = rs.getInt("credit");
+		int administrateur = rs.getInt("administrateur");
+		return new Utilisateur(id, pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur);
+	}
+	
+	public Categorie mappingCategorieEnchere(ResultSet rs) throws SQLException {
+		
+		int id = rs.getInt("no_article");
+		String libelle = rs.getString("libelle");
+		
+		return new Categorie(id,libelle);
+	}
+	
+	public ArticleVendu mapArticleEnchere(ResultSet rs) throws SQLException {
+	
+		int id = rs.getInt("no_article");
+		String nomArticle = rs.getString("nom_article");
+		String description = rs.getString("description");
+		Date date_debut_encheres = rs.getDate("date_debut_encheres");
+		Date date_fin_encheres = rs.getDate("date_fin_encheres");
+		float prixinitial = rs.getFloat("prix_initial");
+		float prixvente = rs.getFloat("prix_vente");
+		Utilisateur util =  mappingUserEnchere(rs);
+		Categorie cat = mappingCategorieEnchere(rs);
+		return new ArticleVendu(id, nomArticle,description,date_debut_encheres,date_fin_encheres,prixinitial,prixvente,cat,util);
+	}
+
+	private Enchere map(ResultSet rs) throws SQLException {
+		
+		int id = rs.getInt("no_enchere");
+		Date date_enchere = rs.getDate("date_enchere");
+		float montant_enchere = rs.getFloat("montant_enchere");
+		Utilisateur util =  mappingUserEnchere(rs);
+		ArticleVendu Art = mapArticleEnchere(rs);
+		return new Enchere(id, date_enchere,montant_enchere,util,Art);
+	}
+	
 
 
 }

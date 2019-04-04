@@ -160,7 +160,7 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 		return new Categorie(id,libelle);
 	}
 	
-	public ArticleVendu map(ResultSet rs) throws SQLException {
+	private ArticleVendu map(ResultSet rs) throws SQLException {
 		
 		int id = rs.getInt("no_article");
 		String nomArticle = rs.getString("nom_article");
