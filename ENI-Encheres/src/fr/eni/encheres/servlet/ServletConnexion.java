@@ -41,7 +41,7 @@ public class ServletConnexion extends HttpServlet {
 		}
 		else
 		{
-			response.sendRedirect(request.getContextPath()+"/");
+			response.sendRedirect(request.getContextPath()+"/inscription");
 		}
 		
 		
@@ -59,7 +59,7 @@ public class ServletConnexion extends HttpServlet {
 		Utilisateur utilisateurLog = null;
 		HttpSession session = request.getSession();
 		
-		if(seSouvenirDeMoi == true) {
+		if(seSouvenirDeMoi = true) {
 			session.setAttribute( "identifiant", identifiant);
 		}
 		
@@ -75,7 +75,6 @@ public class ServletConnexion extends HttpServlet {
 		
 			if( utilisateurLog == null || !motDePasseUser.equals(motDePasse) )
 			{
-				request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp").forward(request, response);
 				session.setAttribute("isConnecte", false);
 				session.setAttribute("actualUuser", "");
 				session.setAttribute("erreur", "Login ou Password incorrect");
