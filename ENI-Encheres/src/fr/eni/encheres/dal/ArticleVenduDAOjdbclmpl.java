@@ -57,7 +57,7 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 				articlevendu.setNoArticle(rs.getInt(1));
 			}
 		}
-		catch(Exception e)
+		catch(Exception e)//TODO remplacer par SQLException
 		{
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();

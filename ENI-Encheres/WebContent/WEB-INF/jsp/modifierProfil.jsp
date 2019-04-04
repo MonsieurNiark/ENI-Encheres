@@ -3,8 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <link href="/ENI-Encheres/style.css" rel="stylesheet">
-    <link href="/ENI-Encheres/pure-min.css" rel="stylesheet">
+    <link href="/ENI-Encheres/css/style.css" rel="stylesheet">
+    <link href="/ENI-Encheres/css/pure-min.css" rel="stylesheet">
     <style>
 /* Popup container - can be anything you want */
 .popup {

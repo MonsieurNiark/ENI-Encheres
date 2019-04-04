@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class ServletIndex
  */
-@WebServlet("/")
+@WebServlet("/index")
 public class ServletIndex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

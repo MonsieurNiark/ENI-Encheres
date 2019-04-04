@@ -1,0 +1,14 @@
+.table{
+     float: none; 
+     position: static;
+     right: auto;
+     display: block;
+     left: auto; 
+     text-align: center;
+     text-decoration-line: none;
+     width: 30%; 
+     padding-right: 54px; 
+     height: auto; 
+     margin-left: auto; 
+     margin-right: auto;
+}

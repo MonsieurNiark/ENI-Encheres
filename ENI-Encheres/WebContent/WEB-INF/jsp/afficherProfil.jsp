@@ -3,8 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <link href="/ENI-Encheres/style.css" rel="stylesheet">
-    <link href="/ENI-Encheres/pure-min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/pure-min.css" rel="stylesheet">
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
@@ -29,7 +29,7 @@ credit = request.getAttribute("credit").toString();
 <br/><br/><br/><br/><br/><br/>
 <table class="pure-table">		  
     <thead>			
-      <tr>			  			  
+      <tr>		  			  
         <th  colspan=2 style="text-align:center;"><h2><%=pseudo_user%></h2></th>
       </tr>
     </thead>
