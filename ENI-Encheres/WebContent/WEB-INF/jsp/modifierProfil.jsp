@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -63,7 +63,7 @@
   to {opacity:1 ;}
 }
 </style>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
@@ -87,7 +87,7 @@ String actualUser = session.getAttribute("actualUser").toString();
       </tr>
     </thead>
     <tbody>
-    <form action="modifierProfile" method="post">
+    <form action="modifierProfile" method="post" onSubmit="return verify(this.motDePasse, this.motDePasseSec)">
       <tr>			  
         <th scope="row">Nom</th>
         <td><input type="text" value="<%=nom %>" name="nom"></td>
@@ -112,9 +112,13 @@ String actualUser = session.getAttribute("actualUser").toString();
       <th scope="row">Ville</th>
       	<td><input type="text" value="<%=ville %>" name="ville"></td>
       </tr>
-      <th scope="row">Mot de passe</th>
-      	<td><input type="text" value="" name="motDePasse"></td>
+      <th scope="row" >Mot de passe actuel</th>
+      	<td><input type="password" value="" name="oldMotDePasse"></td>
       </tr>
+      <th scope="row">Nouveau mot de passe</th>
+      	<td><input type="password" value="" name="motDePasse"/></td>
+      	<td>Confirmer le mot de passe</td>
+      	<td><input type="password" value="" name="motDePasseSec"/></td>
       <tr>			  			  
         <th  style="text-align:center;"><button type="submit">Confirmer</button></th></form>
         <th>
@@ -128,6 +132,38 @@ String actualUser = session.getAttribute("actualUser").toString();
       
       </tbody>		
       </table>
+      
+      <script type="text/javascript">
+
+var fieldalias="mot de passe"
+
+function verify(element1, element2)
+// La fonction reçois en paramètre les 2 éléments
+ {
+  var passed=false
+
+   if (element1.value=='')
+   {
+    alert("Veuillez entrer votre "+fieldalias+" dans le premier champ!")
+    element1.focus()
+   }
+   else if (element2.value=='')
+   {
+    alert("Veuillez confirmer votre "+fieldalias+" dans le second champ!")
+    element2.focus()
+   }
+
+   else if (element1.value!=element2.value)
+   {
+    alert("Les deux "+fieldalias+" ne condordent pas")
+    element1.select()
+   }
+
+   else
+   passed=true
+   return passed
+ }
+</script>
       <script>
 // When the user clicks on div, open the popup
 function popup() {

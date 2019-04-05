@@ -54,7 +54,7 @@ public class ServletModifierProfile extends HttpServlet {
 	      } else {
 		      System.out.println(request.getParameter("suppression").toString());
 		      Utilisateur actualUser;
-			try {
+			try { //Suppression user
 				actualUser = umgt.selectionnerUtilisateurByPseudo(session.getAttribute("actualUser").toString());
 				try {
 					umgt.supprimerUtilisateur(actualUser.getNoUtilisateur());
@@ -92,8 +92,21 @@ public class ServletModifierProfile extends HttpServlet {
 	    	  String email = request.getParameter("email").toString();
 	    	  String telephone = request.getParameter("telephone").toString();
 	    	  String motDePasse = request.getParameter("motDePasse").toString();
+	    	  String oldMotDePasse = request.getParameter("oldMotDePasse").toString();
 	    	  System.out.println("before update");
-	    	  umgt.updateUtilisateur(no_utilisateur, pseudo_user, nom, prenom, email, telephone, rue, code_postal, ville, motDePasse, 0, 0);
+	    	  if(motDePasse.equals(null) && oldMotDePasse.equals(userCible.getMotDePasse())) {
+		    	  System.out.println("choix1");
+
+		    	  System.out.println(oldMotDePasse);
+		    	  System.out.println(motDePasse);
+
+	    		  umgt.updateUtilisateur(no_utilisateur, pseudo_user, nom, prenom, email, telephone, rue, code_postal, ville, oldMotDePasse, 0, 0);
+	    	  } else if (!motDePasse.equals(null) && oldMotDePasse.equals(userCible.getMotDePasse())){
+		    	  System.out.println("choix2");
+		    	  System.out.println(oldMotDePasse);
+		    	  System.out.println(motDePasse);
+	    		  umgt.updateUtilisateur(no_utilisateur, pseudo_user, nom, prenom, email, telephone, rue, code_postal, ville, motDePasse, 0, 0);
+	    	  }
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,11 +115,4 @@ public class ServletModifierProfile extends HttpServlet {
 		doGet(request, response);
 	}
 
-	@Override
-	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("delete");
-		super.doDelete(req, resp);
-		
-	}
 }
