@@ -93,6 +93,7 @@ public class ServletModifierProfile extends HttpServlet {
 	    	  String telephone = request.getParameter("telephone").toString();
 	    	  String motDePasse = request.getParameter("motDePasse").toString();
 	    	  String oldMotDePasse = request.getParameter("oldMotDePasse").toString();
+	    	  
 	    	  System.out.println("before update");
 	    	  if(motDePasse.equals(null) && oldMotDePasse.equals(userCible.getMotDePasse())) {
 		    	  System.out.println("choix1");
@@ -100,12 +101,12 @@ public class ServletModifierProfile extends HttpServlet {
 		    	  System.out.println(oldMotDePasse);
 		    	  System.out.println(motDePasse);
 
-	    		  umgt.updateUtilisateur(no_utilisateur, pseudo_user, nom, prenom, email, telephone, rue, code_postal, ville, oldMotDePasse, 0, 0);
+	    		  umgt.updateUtilisateur(no_utilisateur, pseudo_user, nom, prenom, email, telephone, rue, code_postal, ville, oldMotDePasse, userCible.getCredit(), userCible.getAdministrateur());
 	    	  } else if (!motDePasse.equals(null) && oldMotDePasse.equals(userCible.getMotDePasse())){
 		    	  System.out.println("choix2");
 		    	  System.out.println(oldMotDePasse);
 		    	  System.out.println(motDePasse);
-	    		  umgt.updateUtilisateur(no_utilisateur, pseudo_user, nom, prenom, email, telephone, rue, code_postal, ville, motDePasse, 0, 0);
+	    		  umgt.updateUtilisateur(no_utilisateur, pseudo_user, nom, prenom, email, telephone, rue, code_postal, ville, motDePasse, userCible.getCredit(), userCible.getAdministrateur());
 	    	  }
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
