@@ -1,6 +1,6 @@
 
 <%@ page contentType="text/html; charset=ISO-8859-1" language="java" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -14,7 +14,7 @@
 
     </head>
     <body>
-  	  	
+  	  	<% String error = (String)request.getAttribute("error") ;%>
         <h1><a class="text-white" href="${pageContext.request.contextPath}/index">ENI - Enchères</a></h1>
 
         <section class="d-flex justify-content-center">
@@ -100,7 +100,9 @@
                         </section>
 
                         <section class="col-12 text-center m-3">
-                            <div class="text-danger"><%= %></div>
+                        <c:if test="${error !=null}">
+                            <div class="text-danger"><%= error %></div>
+                        </c:if>    
                         </section>
                     </div>
                 </div>
