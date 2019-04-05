@@ -23,7 +23,7 @@ private static final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
 
 	private static final String DELETE_UTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
 	
-	private static final String UPDATE_UTILISATEUR = "UPDATE UTILISATEURS set pseudo=?,nom=?,prenom=?,email=?,telephone=?,rue=?,code_postal=?,ville=? WHERE no_utilisateur=?";
+	private static final String UPDATE_UTILISATEUR = "UPDATE UTILISATEURS set pseudo=?,nom=?,prenom=?,email=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=? WHERE no_utilisateur=?";
 	private static final String SELECT_BY_PSEUDO = SELECT_ALL + " WHERE pseudo=?";
 	private static final String COUNT_BY_PSEUDO = "SELECT COUNT(*) as result FROM UTILISATEURS WHERE pseudo=?";
 	private static final String COUNT_BY_EMAIL = "SELECT COUNT(*) as result FROM UTILISATEURS WHERE email=?";
@@ -189,7 +189,8 @@ private static final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
 			pstmt.setString(6, utilisateur.getRue());
 			pstmt.setString(7, utilisateur.getCodePostal());
 			pstmt.setString(8, utilisateur.getVille());
-			pstmt.setInt(9, utilisateur.getNoUtilisateur());
+			pstmt.setString(9, utilisateur.getMotDePasse());
+			pstmt.setInt(10, utilisateur.getNoUtilisateur());
 			pstmt.executeUpdate();
 		}
 		catch(Exception e)
