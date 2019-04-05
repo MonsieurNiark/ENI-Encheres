@@ -31,6 +31,10 @@ public class UtilisateurManager {
 		return utilisateurDAO.countByPseudo(pseudo);
 	}
 	
+	public int countByEmail(String email) throws BusinessException{
+		return utilisateurDAO.countByEmail(email);
+	}
+	
 	public Utilisateur ajouterUtilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String motDePasse, int credit, int administrateur) throws BusinessException {
 		Utilisateur nouvelUtilisateur = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse, credit, administrateur);
@@ -53,6 +57,22 @@ public class UtilisateurManager {
 			String rue, String codePostal, String ville, String motDePasse, int credit, int administrateur) throws BusinessException {
 		Utilisateur utilisateurAModifier = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse, credit, administrateur);
 		utilisateurDAO.update(utilisateurAModifier);
+	}
+	
+	public static boolean isPseudoFormatOk(String pseudo)
+	{
+		boolean validation = false;
+
+		if(pseudo.matches("[a-zA-Z0-9]+"))
+		{
+			validation = true;
+		}
+		else
+		{
+			validation = false;
+		}
+		
+		return validation;
 	}
 	
 }

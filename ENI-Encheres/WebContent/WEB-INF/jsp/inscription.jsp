@@ -1,4 +1,6 @@
-<%@ page contentType="text/html;charset=ISO-8859-1" language="java" %>
+
+<%@ page contentType="text/html; charset=ISO-8859-1" language="java" %>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -12,7 +14,8 @@
 
     </head>
     <body>
-        <h1><a class="text-white" href="${pageContext.request.contextPath}/">ENI - Enchères</a></h1>
+  	  	
+        <h1><a class="text-white" href="${pageContext.request.contextPath}/index">ENI - Enchères</a></h1>
 
         <section class="d-flex justify-content-center">
 
@@ -97,8 +100,7 @@
                         </section>
 
                         <section class="col-12 text-center m-3">
-                            <div class="text-success">${sessionScope.succes}</div>
-                            <div class="text-danger">${sessionScope.erreur}</div>
+                            <div class="text-danger"><%= %></div>
                         </section>
                     </div>
                 </div>

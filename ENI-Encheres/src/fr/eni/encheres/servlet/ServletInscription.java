@@ -30,15 +30,15 @@ public class ServletInscription extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		
-		if(!(boolean)session.getAttribute("isConnecte"))
+		if(session.getAttribute("isConnecte") == null)
 		{
-			//request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp").forward( request,  response);
+			request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp").forward( request,  response);
 		}
 		else
 		{
-			//response.sendRedirect(request.getContextPath()+"/");
+			response.sendRedirect(request.getContextPath()+"/index");
 		}
-		request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp").forward( request,  response);
+		
 
 	}
 
@@ -60,20 +60,50 @@ public class ServletInscription extends HttpServlet {
 		String mdp = request.getParameter("motDePasse");
 		String conf = request.getParameter("confirmation");
 		String msgError = "";
+		int nbUser = 0;
+		int nbEmail = 0;
+		boolean pseudoFormat = false;
 		boolean errorInscription= false;
 		UtilisateurManager utilMana  = new UtilisateurManager();
+		try {
+			nbUser =  utilMana.countByPseudo(pseudo);
+		} catch (BusinessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		};
+		
+		pseudoFormat = utilMana.isPseudoFormatOk(pseudo);
+		
+		if(!pseudoFormat) {
+			msgError = "Le pseudo n'accepte seulement que les caractères alphanumérique";
+			request.setAttribute("error", msgError);
+			errorInscription = true;
+		}
+		
+		//mettre les attributs de session en attributs de requete
+		if(nbUser > 0) {
+			msgError =msgError + "Pseudo déjà utilisé";
+			request.setAttribute("error", msgError);
+			errorInscription = true;
+		}
+		
+		if(nbEmail > 0) {
+			msgError = msgError + "Email déjà utilisé";
+			request.setAttribute("error", msgError);
+			errorInscription = true;
+		}
 		
 		if(pseudo.equals("") || nom.equals("") || prenom.equals("") || email.equals("") || telephone.equals("") ||
 				rue.equals("")|| ville.equals("")|| mdp.equals("") || conf.equals("")) {
 			
-			msgError = "Certains champs n'ont pas été renseignés";
-			session.setAttribute("error", msgError);
+			msgError = msgError + "Certains champs n'ont pas été renseignés";
+			request.setAttribute("error", msgError);
 			errorInscription = true;
 		}
 		
 		if (!mdp.equals(conf)) {
 			msgError = msgError + "Le mot de passe n'a pas été confirmer";
-			session.setAttribute("error", msgError);
+			request.setAttribute("error", msgError);
 			errorInscription = true;
 		}
 		
@@ -88,11 +118,11 @@ public class ServletInscription extends HttpServlet {
 				System.out.println("echec");
 			}
 
-            response.sendRedirect(request.getContextPath() + "/");
+            response.sendRedirect(request.getContextPath() + "/index");
         }
         else
         {
-            request.getRequestDispatcher("/WEB-INF/inscription.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp").forward(request, response);
         		
         }
     }

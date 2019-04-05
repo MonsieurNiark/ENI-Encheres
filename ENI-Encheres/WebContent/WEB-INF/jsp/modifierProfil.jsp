@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -63,7 +63,7 @@
   to {opacity:1 ;}
 }
 </style>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -93,14 +93,14 @@ String actualUser = session.getAttribute("actualUser").toString();
         <td><input type="text" value="<%=nom %>" name="nom"></td>
       </tr>
       <tr>			  
-      <th scope="row">Prénom</th>			  
+      <th scope="row">PrÃ©nom</th>			  
       <td><input type="text" value="<%=prenom %>" name="prenom"></td>			  			  			
       </tr>			
       <tr>			  
       <th scope="row">Email</th>
       	<td><input type="text" value="<%=email %>" name="email"></td>
       </tr>
-      <th scope="row">Téléphone</th>
+      <th scope="row">TÃ©lÃ©phone</th>
       	<td><input type="text" value="<%=telephone %>" name="telephone"></td>
       </tr>
       <th scope="row">Rue</th>

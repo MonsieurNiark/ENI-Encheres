@@ -14,4 +14,5 @@ public interface UtilisateurDAO {
 	public Utilisateur selectById(int id) throws BusinessException;
 	public Utilisateur selectByPseudo(String pseudo) throws BusinessException;
 	public int countByPseudo (String pseudo) throws BusinessException;
+	public int countByEmail(String email) throws BusinessException;
 }
