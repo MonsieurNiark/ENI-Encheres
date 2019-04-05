@@ -31,14 +31,14 @@ credit = request.getAttribute("credit").toString();
         <td><%=nom %></td>
       </tr>
       <tr>			  
-      <th scope="row">Prénom</th>			  
+      <th scope="row">PrÃ©nom</th>			  
       <td><%=prenom %></td>			  			  			
       </tr>			
       <tr>			  
       <th scope="row">Email</th>
       	<td><%=email %></td>
       </tr>
-      <th scope="row">Téléphone</th>
+      <th scope="row">Tï¿½lï¿½phone</th>
       	<td><%=telephone %></td>
       </tr>
       <th scope="row">Rue</th>
