@@ -1,5 +1,5 @@
 package fr.eni.encheres.servlet;
 
-public class ServletVenteNonCommencer {
+public class ServletAjouterArticle {
 
 }
