@@ -16,7 +16,8 @@
 	<body>
 		<header class="bg-info">
 			<h1 class="p-3"><a class="text-white" href="${pageContext.request.contextPath}/index">ENI - Enchères</a></h1>
-            <a id="rafraichir" href="${pageContext.request.contextPath}/"><i class="fas fa-sync-alt"></i></a>
+			<input type="button" onclick="refresh()" value="Rafraichir"/>
+			<script type="text/javascript"> function refresh() { window.location.reload(false); } </script>
 
             <!-- MENU -->
 			<nav class="navbar navbar-expand justify-content-end bg-dark navbar-dark">
