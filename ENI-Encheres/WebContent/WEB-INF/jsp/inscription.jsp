@@ -96,7 +96,7 @@
 							<p class="text-danger text-right ml-3">* Champs obligatoire</p>
                         <section class="col-12 text-center">
                             <button class="btn btn-success mr-3" name="creer" type="submit">Créer</button>
-                            <a class="btn btn-danger" href="${pageContext.request.contextPath}/">Annuler</a>
+                            <a class="btn btn-danger" href="${pageContext.request.contextPath}/index">Annuler</a>
                         </section>
 
                         <section class="col-12 text-center m-3">

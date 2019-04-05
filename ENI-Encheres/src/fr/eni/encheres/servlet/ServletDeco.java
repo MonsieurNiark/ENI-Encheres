@@ -21,7 +21,7 @@ public class ServletDeco extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session =request.getSession();
 		
-		session.invalidate();
+		session.removeAttribute("isConnecte");
 		
 		response.sendRedirect(request.getContextPath()+"/index");
 	}

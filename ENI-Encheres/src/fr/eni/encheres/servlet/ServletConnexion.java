@@ -1,7 +1,6 @@
 package fr.eni.encheres.servlet;
 
 import java.io.IOException;
-import java.math.BigInteger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -59,7 +58,8 @@ public class ServletConnexion extends HttpServlet {
 		Utilisateur utilisateurLog = null;
 		HttpSession session = request.getSession();
 		
-		if(seSouvenirDeMoi = true) {
+		//lmorsque case coché ça garde tout le temps en session meme si decocher, premier affichage de la page -> affiche null
+		if(seSouvenirDeMoi == true) {
 			session.setAttribute( "identifiant", identifiant);
 		}
 		
@@ -76,7 +76,7 @@ public class ServletConnexion extends HttpServlet {
 			if( utilisateurLog == null || !motDePasseUser.equals(motDePasse) )
 			{
 				session.setAttribute("isConnecte", false);
-				session.setAttribute("actualUuser", "");
+				session.setAttribute("actualUser", "");
 				session.setAttribute("erreur", "Login ou Password incorrect");
 				request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp").forward(request, response);
 

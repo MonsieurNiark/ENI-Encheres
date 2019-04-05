@@ -11,6 +11,7 @@
 
 </head>
 <body>
+<%String identifiant = (String)session.getAttribute("actualUser"); %>
 <div class="container">
 <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/connexion">
 <fieldset class="justify-content-center">
@@ -23,8 +24,12 @@
 <div class="form-group">
   <label class="col-md-5 control-label" for="user">Identifiant :</label>  
   <div class="col-md-2">
-  <input id="user" name="user" type="text" placeholder="Identifiant" value="${requestScope.identifiant}" class="form-control input-md">
-    
+  <c:if test="${identifiant != null }">
+  <input id="user" name="user" type="text" placeholder="Identifiant" value="<%= identifiant %>" class="form-control input-md">
+  </c:if>  
+  <c:if test="${identifiant == null }">
+  <input id="user" name="user" type="text" placeholder="Identifiant" class="form-control input-md">
+  </c:if> 
   </div>
 </div>
 
