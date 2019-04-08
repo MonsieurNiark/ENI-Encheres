@@ -18,11 +18,11 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 
 	
 	private static final String SELECT_ALL = "SELECT no_article, nom_article, description, date_debut_encheres, "
-			+ "date_fin_encheres, prix_initial, prix_vente, ARTICLE_VENDUS.no_utilisateur, ARTICLE_VENDUS.no_categorie, "
+			+ "date_fin_encheres, prix_initial, prix_vente, ARTICLES_VENDUS.no_utilisateur, ARTICLES_VENDUS.no_categorie, "
 			+ "CATEGORIES.no_categorie, libelle, UTILISATEURS.no_utilisateur, pseudo, nom, prenom "
 			+ "FROM ARTICLES_VENDUS "
-			+ "INNER JOIN CATEGORIES ON ARTICLE_VENDUS.no_categorie = CATEGORIES.no_categorie "
-			+ "INNER JOIN UTILISATEURS ON ARTICLE_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur ";
+			+ "INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie "
+			+ "INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur ";
 	
 	private static final String SELECT_BY_NOM = SELECT_ALL + " WHERE nom_article=?";
 	private static final String INSERT_VENTE = "INSERT INTO ARTICLES_VENDUS(nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie ) VALUES(?,?,?,?,?,?,?,?);";
