@@ -22,6 +22,7 @@ public class EncheresDAOjdbclmpl implements EncheresDAO{
 	private static final String SELECT_BY_ARTICLE = SELECT_ALL + " WHERE no_article=?";
 	private static final String INSERT_VENTE = "INSERT INTO ENCHERES(no_utilisateur,no_article,date_enchere,montant_enchere) VALUES(?,?,?,?);";
 	private static final String DELETE_VENTE = "DELETE * FROM ENCHERES WHERE no_enchere=?";
+	private static final String SELECT_LAST_ENCHERE = "SELECT * FROM ENCHERES WHERE no_article = ? AND montant_enchere = (SELECT max(montant_enchere) FROM encheres)";
 	
 	@Override
 	public void insert(Enchere enchere) throws BusinessException {
@@ -96,6 +97,7 @@ public class EncheresDAOjdbclmpl implements EncheresDAO{
 		}
 		return enchere;
 	}
+	
 	@Override
 	public Enchere selectByUser(int id) throws BusinessException {
 		Enchere result = null;
@@ -132,6 +134,37 @@ public class EncheresDAOjdbclmpl implements EncheresDAO{
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement vnte = cnx.prepareStatement(SELECT_BY_ARTICLE);
+			vnte.setInt(1, id);
+			ResultSet rs = vnte.executeQuery();
+			if(rs.next()) {
+				result = map(rs);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			//TODO : CodesResultatDAL
+			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTE_ECHEC);
+			throw businessException;
+		}
+		
+		if(result == null)
+		{
+			BusinessException businessException = new BusinessException();
+			//TODO : CodesResultatDAL
+			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTE_INEXISTANTE);
+			throw businessException;
+		}
+		
+		return result;
+	}
+	
+	
+	@Override
+	public Enchere selectLastEnchereByArticle(int id) throws BusinessException {
+		Enchere result = null;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement vnte = cnx.prepareStatement(SELECT_LAST_ENCHERE);
 			vnte.setInt(1, id);
 			ResultSet rs = vnte.executeQuery();
 			if(rs.next()) {

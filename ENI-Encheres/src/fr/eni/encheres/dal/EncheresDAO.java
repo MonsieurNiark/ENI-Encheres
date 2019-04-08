@@ -11,5 +11,6 @@ public interface EncheresDAO {
 	public List<Enchere> selectAll() throws BusinessException;
 	public Enchere selectByUser(int UserId) throws BusinessException;
 	public Enchere selectByArticle(int ArticleId) throws BusinessException;
+	public Enchere selectLastEnchereByArticle(int id) throws BusinessException;
 	
 }

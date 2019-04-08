@@ -30,8 +30,12 @@ public class EnchereManager {
 		return encheresDAO.selectByArticle(IdArticle);
 	}
 	
-	public void supprimerEnchere(int Id) throws BusinessException{
-		encheresDAO.delete(Id);
+	public void supprimerEnchere(int id) throws BusinessException{
+		encheresDAO.delete(id);
+	}
+	
+	public Enchere selectionnerLastEnchereParIdArticle(int idArticle) throws BusinessException{
+		return encheresDAO.selectLastEnchereByArticle(idArticle);
 	}
 	
 	
