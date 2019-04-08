@@ -19,7 +19,7 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 	
 	private static final String SELECT_ALL = "SELECT no_article, nom_article, description, date_debut_encheres, "
 			+ "date_fin_encheres, prix_initial, prix_vente, ARTICLES_VENDUS.no_utilisateur, ARTICLES_VENDUS.no_categorie, "
-			+ "CATEGORIES.no_categorie, libelle, UTILISATEURS.no_utilisateur, pseudo, nom, prenom "
+			+ "CATEGORIES.no_categorie, libelle, UTILISATEURS.no_utilisateur, pseudo, nom, prenom, UTILISATEURS.email, UTILISATEURS.telephone, UTILISATEURS.rue,UTILISATEURS.code_postal,UTILISATEURS.ville,UTILISATEURS.mot_de_passe,UTILISATEURS.credit,UTILISATEURS.administrateur "
 			+ "FROM ARTICLES_VENDUS "
 			+ "INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie "
 			+ "INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur ";
