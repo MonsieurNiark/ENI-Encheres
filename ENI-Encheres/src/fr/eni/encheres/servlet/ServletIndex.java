@@ -1,6 +1,7 @@
 package fr.eni.encheres.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import fr.eni.encheres.BusinessException;
+import fr.eni.encheres.bll.ArticleVenduManager;
 import fr.eni.encheres.bll.CategorieManager;
+import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Categorie;
 import javax.servlet.http.HttpSession;
 
@@ -29,6 +32,7 @@ public class ServletIndex extends HttpServlet {
      */
     public ServletIndex() {
         super();
+        ArrayList<Categorie> liste = new ArrayList<Categorie>();
         // TODO Auto-generated constructor stub
     }
 
@@ -37,10 +41,21 @@ public class ServletIndex extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
+		
 		CategorieManager categMana  = new CategorieManager();
-		List<Categorie> listeCategories = null;
+		ArrayList<Categorie> listeCategories = new ArrayList<Categorie>();
+		
+		ArticleVenduManager artMana = new ArticleVenduManager();
+		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
 		HttpSession session = request.getSession();
+		
+		try {
+			listeArticles = artMana.selectionnerArticles();
+		} catch (BusinessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		try {
 			listeCategories = categMana.selectAll();
 		} catch (BusinessException e) {
@@ -48,9 +63,10 @@ public class ServletIndex extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.setAttribute("categorie", listeCategories);
+		request.setAttribute("articles", listeArticles);
+		request.setAttribute("categories", listeCategories);
 		
-		
+		request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
 	}
 
 	/**

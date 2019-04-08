@@ -61,8 +61,8 @@ public class CategorieDAOjdbclmpl implements CategorieDAO {
 		return result;
 	}
 	
-	public List<Categorie> selectAll() throws BusinessException {
-		List<Categorie> listeCateg = new ArrayList<Categorie>();
+	public ArrayList<Categorie> selectAll() throws BusinessException {
+		ArrayList<Categorie> listeCateg = new ArrayList<Categorie>();
 		try (Connection cnx = ConnectionProvider.getConnection()){
 			ResultSet rs = cnx.createStatement().executeQuery(SELECT_ALL);
 			while(rs.next())

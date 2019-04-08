@@ -1,5 +1,6 @@
 package fr.eni.encheres.bll;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.encheres.BusinessException;
@@ -20,7 +21,7 @@ public class CategorieManager {
 		return categorieDAO.selectById(idCat);
 	}
 	
-	public List<Categorie> selectAll() throws BusinessException {
+	public ArrayList<Categorie> selectAll() throws BusinessException {
 		return categorieDAO.selectAll();
 	}
 

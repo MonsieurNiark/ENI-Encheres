@@ -1,10 +1,12 @@
 <%@include file="header.jsp" %>
+<%@ page import="fr.eni.encheres.bo.Categorie" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
 
         <!-- RECHERCHE -->
 		<section id="recherche" class="mb-2 p-4">
 			<h2 class="text-center mb-3">Liste des enchères</h2>
-
-			<form action="${pageContext.request.contextPath}/" method="post">
+			<form action="${pageContext.request.contextPath}/index" method="post">
 				<section class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="champRecherche">Filtres : </label>
@@ -18,10 +20,11 @@
                     </section>
                     <select id="categorie" class="form-control" name="categorie">
                         <option value="Toutes">Toutes</option>
-                        <c:forEach items="${sessionScope.categories }" var="categorie">
+                        <c:forEach items="${categories }" var="categorie">
                             <option value="${categorie.noCategorie}">${categorie.libelle }</option>
                         </c:forEach>
                     </select>
+                    
                 </section>
 
                 <c:if test="${sessionScope.isConnecte == true }">
@@ -84,11 +87,11 @@
 
 		<!-- VUE SUR LES ENCHERES OUVERTES -->
 		<section class="mb-2 p-4">
-			<c:if test="${not empty requestScope.encheresO }">
+			<c:if test="${not empty listeArticles }">
 			<h3>Enchères ouvertes : </h3>
 	        <div class="d-flex flex-row">
 	            <section class="d-flex flex-wrap justify-content-center">
-	                <c:forEach items="${requestScope.encheresO }" var="article">
+	                <c:forEach items="${listeArticles }" var="article">
 	                    <section class="sectionEncheres">
 	                        <article class="encheres row">
 	                            <section class="col-5">
