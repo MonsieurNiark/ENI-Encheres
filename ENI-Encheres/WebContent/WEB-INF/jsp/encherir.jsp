@@ -35,7 +35,7 @@ String vendeur = request.getAttribute("vendeur").toString();
 	</tr>
 	<tr>
 		<td>Mise à prix : </td>
-		<td><%=prixInit %></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td>Fin de l'enchère : </td>

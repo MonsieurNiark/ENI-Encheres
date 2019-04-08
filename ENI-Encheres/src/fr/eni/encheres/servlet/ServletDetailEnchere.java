@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.encheres.BusinessException;
 import fr.eni.encheres.bll.ArticleVenduManager;
+import fr.eni.encheres.bll.EnchereManager;
 import fr.eni.encheres.bll.RetraitManager;
 import fr.eni.encheres.bo.ArticleVendu;
+import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Retrait;
 
 /**
@@ -44,7 +46,9 @@ public class ServletDetailEnchere extends HttpServlet {
 
 		ArticleVenduManager amgt = new ArticleVenduManager();
 		RetraitManager rmgt = new RetraitManager();
+		EnchereManager emgt = new EnchereManager();
 		try {
+			//Recuperation des infos Article
 			ArticleVendu article = amgt.selectionnerParId(idArticle);
 			String nomArticle = article.getNomArticle();
 			String descArticle = article.getDescription();
@@ -52,9 +56,16 @@ public class ServletDetailEnchere extends HttpServlet {
 			float prixInit = article.getMiseAPrix();
 			float prixVente = article.getPrixVente();
 			Date finEnchere = article.getDateFinEncheres();
+			String vendeur = article.getUtilisateur().getPseudo();
+			//Récupération des infos Retrait
 			Retrait retrait = rmgt.selectionnerRetrait(idArticle);
 			String lieuRetrait = retrait.getRue() + " " + retrait.getCode_postal() + " " + retrait.getVille();
-			String vendeur = article.getUtilisateur().getPseudo();
+			//Récupération des infos Enchérissement Enchere
+			System.out.println(idArticle);
+			Enchere enchere = emgt.selectionnerLastEnchereParIdArticle(idArticle);
+			System.out.println(idArticle);
+			float lastPriceEnchere = enchere.getMontant_enchere();
+			String lastNameEnchere = enchere.getUtilisateur().getPseudo();
 			System.out.println(nomArticle);
 			System.out.println(descArticle);
 			System.out.println(categorie);
@@ -63,6 +74,8 @@ public class ServletDetailEnchere extends HttpServlet {
 			System.out.println(finEnchere);
 			System.out.println(lieuRetrait);
 			System.out.println(vendeur);
+			System.out.println(lastNameEnchere);
+			System.out.println(lastPriceEnchere);
 			request.setAttribute("nomArticle", nomArticle);
 			request.setAttribute("descArticle", descArticle);
 			request.setAttribute("categorie", categorie);
