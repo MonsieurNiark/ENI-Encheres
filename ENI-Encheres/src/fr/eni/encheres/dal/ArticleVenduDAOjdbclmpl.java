@@ -27,6 +27,7 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 	private static final String SELECT_BY_NOM = SELECT_ALL + " WHERE nom_article=?";
 	private static final String INSERT_VENTE = "INSERT INTO ARTICLES_VENDUS(nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie ) VALUES(?,?,?,?,?,?,?,?);";
 	private static final String DELETE_VENTE = "DELETE * FROM ARTICLES_VENDUS WHERE no_article=?";
+	private static final String SELECT_BY_ID = SELECT_ALL + "WHERE no_article= ?";
 
 	@Override
 	public void insert(ArticleVendu articlevendu) throws BusinessException {
@@ -134,6 +135,38 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 		
 		return result;
 	}
+	
+	
+	@Override
+	public ArticleVendu selectByIdArticle(int id) throws BusinessException {
+		ArticleVendu result = null;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement vnte = cnx.prepareStatement(SELECT_BY_ID);
+			vnte.setInt(1, id);
+			ResultSet rs = vnte.executeQuery();
+			if(rs.next()) {
+				result = map(rs);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			//TODO : CodesResultatDAL
+			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTE_ECHEC);
+			throw businessException;
+		}
+		
+		if(result == null)
+		{
+			BusinessException businessException = new BusinessException();
+			//TODO : CodesResultatDAL
+			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTE_INEXISTANTE);
+			throw businessException;
+		}
+		
+		return result;
+	}
+	
 	
 	public Utilisateur mappingUserArticle(ResultSet rs) throws SQLException {
 		
