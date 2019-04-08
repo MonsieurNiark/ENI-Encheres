@@ -31,7 +31,7 @@ public class EncheresDAOjdbclmpl implements EncheresDAO{
 	private static final String SELECT_BY_ARTICLE = SELECT_ALL + " WHERE no_article=?";
 	private static final String INSERT_VENTE = "INSERT INTO ENCHERES(no_utilisateur,no_article,date_enchere,montant_enchere) VALUES(?,?,?,?);";
 	private static final String DELETE_VENTE = "DELETE * FROM ENCHERES WHERE no_enchere=?";
-	private static final String SELECT_LAST_ENCHERE = "SELECT * FROM ENCHERES WHERE no_article=? AND montant_enchere = (SELECT max(montant_enchere) FROM encheres)";
+	private static final String SELECT_LAST_ENCHERE = SELECT_ALL + " WHERE no_article=? AND montant_enchere = (SELECT max(montant_enchere) FROM encheres)";
 	
 	@Override
 	public void insert(Enchere enchere) throws BusinessException {
