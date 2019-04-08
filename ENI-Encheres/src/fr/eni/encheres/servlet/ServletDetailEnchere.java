@@ -43,7 +43,6 @@ public class ServletDetailEnchere extends HttpServlet {
 		} catch (Exception e) {
 			System.out.println("ID doit etre un nombre");
 		}
-
 		ArticleVenduManager amgt = new ArticleVenduManager();
 		RetraitManager rmgt = new RetraitManager();
 		EnchereManager emgt = new EnchereManager();
@@ -61,21 +60,9 @@ public class ServletDetailEnchere extends HttpServlet {
 			Retrait retrait = rmgt.selectionnerRetrait(idArticle);
 			String lieuRetrait = retrait.getRue() + " " + retrait.getCode_postal() + " " + retrait.getVille();
 			//Récupération des infos Enchérissement Enchere
-			System.out.println(idArticle);
 			Enchere enchere = emgt.selectionnerLastEnchereParIdArticle(idArticle);
-			System.out.println(idArticle);
 			float lastPriceEnchere = enchere.getMontant_enchere();
 			String lastNameEnchere = enchere.getUtilisateur().getPseudo();
-			System.out.println(nomArticle);
-			System.out.println(descArticle);
-			System.out.println(categorie);
-			System.out.println(prixInit);
-			System.out.println(prixVente);
-			System.out.println(finEnchere);
-			System.out.println(lieuRetrait);
-			System.out.println(vendeur);
-			System.out.println(lastNameEnchere);
-			System.out.println(lastPriceEnchere);
 			request.setAttribute("nomArticle", nomArticle);
 			request.setAttribute("descArticle", descArticle);
 			request.setAttribute("categorie", categorie);
@@ -84,11 +71,14 @@ public class ServletDetailEnchere extends HttpServlet {
 			request.setAttribute("finEnchere",finEnchere );
 			request.setAttribute("lieuRetrait",lieuRetrait );
 			request.setAttribute("vendeur",vendeur );
+			request.setAttribute("lastNameEnchere", lastNameEnchere);
+			request.setAttribute("lastPriceEnchere", lastPriceEnchere);
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+		
 		request.getRequestDispatcher("/WEB-INF/jsp/encherir.jsp").forward( request,  response);
 	}
 

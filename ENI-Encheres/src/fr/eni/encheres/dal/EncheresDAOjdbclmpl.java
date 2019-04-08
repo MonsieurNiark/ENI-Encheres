@@ -17,21 +17,21 @@ import fr.eni.encheres.bll.UtilisateurManager;
 
 public class EncheresDAOjdbclmpl implements EncheresDAO{
 
-	private static final String SELECT_ALL = "SELECT no_enchere, ENCHERES.no_utilisateur, ENCHERES.no_article, date_enchere, montant_enchere,"
+	private static final String SELECT_ALL = "SELECT ENCHERES.no_enchere, ENCHERES.no_utilisateur, ENCHERES.no_article, date_enchere, montant_enchere,"
 			+ " ARTICLES_VENDUS.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente,"
 			+ " ARTICLES_VENDUS.no_utilisateur, ARTICLES_VENDUS.no_categorie, "
 			+ " UTILISATEURS.no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,"
 			+ " credit, administrateur,"
 			+ " CATEGORIES.no_categorie, CATEGORIES.libelle "
-			+ "FROM ENCHERES"
-			+ "INNER JOIN ARTICLES_VENDUS ON ENCHERES.no_article          = ARTICLES_VENDUS.no_article"
-			+ "INNER JOIN CATEGORIES      ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie"
-			+ "INNER JOIN UTILISATEURS    ON ENCHERES.no_utilisateur      = UTILISATEURS.no_utilisateur";
+			+ " FROM ENCHERES"
+			+ " INNER JOIN ARTICLES_VENDUS ON ENCHERES.no_article          = ARTICLES_VENDUS.no_article"
+			+ " INNER JOIN CATEGORIES      ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie"
+			+ " INNER JOIN UTILISATEURS    ON ENCHERES.no_utilisateur      = UTILISATEURS.no_utilisateur";
 	private static final String SELECT_BY_USER = SELECT_ALL + " WHERE no_utilisateur=?";
 	private static final String SELECT_BY_ARTICLE = SELECT_ALL + " WHERE no_article=?";
 	private static final String INSERT_VENTE = "INSERT INTO ENCHERES(no_utilisateur,no_article,date_enchere,montant_enchere) VALUES(?,?,?,?);";
 	private static final String DELETE_VENTE = "DELETE * FROM ENCHERES WHERE no_enchere=?";
-	private static final String SELECT_LAST_ENCHERE = SELECT_ALL + " WHERE no_article=? AND montant_enchere = (SELECT max(montant_enchere) FROM encheres)";
+	private static final String SELECT_LAST_ENCHERE = SELECT_ALL + " WHERE ENCHERES.no_article=? AND montant_enchere = (SELECT max(montant_enchere) FROM encheres)";
 	
 	@Override
 	public void insert(Enchere enchere) throws BusinessException {

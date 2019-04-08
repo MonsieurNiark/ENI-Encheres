@@ -14,7 +14,8 @@ String ville = request.getAttribute("ville").toString();
 String actualUser = session.getAttribute("actualUser").toString();
 String display = "none";
 String credit = "";
-if(pseudoUser.equals(actualUser)){display="inline";
+if(pseudoUser.equals(actualUser)){
+	display="inline";
 credit = request.getAttribute("credit").toString();
 }
 %>

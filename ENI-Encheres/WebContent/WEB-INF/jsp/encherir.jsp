@@ -12,7 +12,13 @@ String prixVente = request.getAttribute("prixVente").toString();
 String finEnchere = request.getAttribute("finEnchere").toString();
 String lieuRetrait = request.getAttribute("lieuRetrait").toString();
 String vendeur = request.getAttribute("vendeur").toString();
+String lastNameEnchere = request.getAttribute("lastNameEnchere").toString();
+String lastPriceEnchere = request.getAttribute("lastPriceEnchere").toString();
 
+String button = "<form><input type=\"number\" name=\"creditProp\"/><button type=\"submit\" >Encherir</button></form>";
+if(session.getAttribute("actualUser") == null){
+	button = "";
+}
 %>
 </head>
 <body>
@@ -31,11 +37,11 @@ String vendeur = request.getAttribute("vendeur").toString();
 	</tr>
 	<tr>
 		<td>Meilleure offre : </td>
-		<td></td>
+		<td><%=lastPriceEnchere %> par <%=lastNameEnchere %></td>
 	</tr>
 	<tr>
 		<td>Mise à prix : </td>
-		<td></td>
+		<td><%=prixInit %></td>
 	</tr>
 	<tr>
 		<td>Fin de l'enchère : </td>
@@ -51,7 +57,7 @@ String vendeur = request.getAttribute("vendeur").toString();
 	</tr>
 	<tr>
 		<td>Ma proposition : </td>
-		<td></td>
+		<td><%=button %></td>
 	</tr>
 	
 </table>
