@@ -27,8 +27,7 @@ public class ServletConnexion extends HttpServlet {
 		String motDePasse = request.getParameter("mdp");	
 		HttpSession session = request.getSession();
 		
-		if(identifiant == null )identifiant="";
-		if(motDePasse == null )motDePasse="";
+		
 		
 		request.setAttribute("identifiant", identifiant);
 		request.setAttribute("motDePasse", motDePasse);
@@ -58,11 +57,10 @@ public class ServletConnexion extends HttpServlet {
 		Utilisateur utilisateurLog = null;
 		HttpSession session = request.getSession();
 		
-		//lmorsque case coché ça garde tout le temps en session meme si decocher, premier affichage de la page -> affiche null
+		//lorsque case coché ça garde tout le temps en session meme si decocher, premier affichage de la page -> affiche null
 		if(seSouvenirDeMoi == true) {
 			session.setAttribute( "identifiant", identifiant);
 		}
-		
 			try {
 				utilisateurLog = utilMana.selectionnerUtilisateurByPseudo(identifiant);
 			} catch (BusinessException e) {
@@ -93,5 +91,5 @@ public class ServletConnexion extends HttpServlet {
 			}
 		
 		}	
-
+	
 }

@@ -1,5 +1,8 @@
 package fr.eni.encheres.dal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +17,7 @@ public class CategorieDAOjdbclmpl implements CategorieDAO {
 	private static final String SELECT_CATEGORIE_BY_ID = "SELECT * FROM CATEGORIES WHERE no_categorie=?";
 	private static final String INSERT_CATEGORIE = "INSERT INTO CATEGORIES() VALUES(?,?,?);";
 	private static final String DELETE_CATEGORIE = "DELETE * FROM CATEGORIES WHERE no_categorie=?";
+	private static final String SELECT_ALL = "SELECT * FROM CATEGORIES";
 	
 	@Override
 	public void insert(Categorie categorie) throws BusinessException {
@@ -55,6 +59,32 @@ public class CategorieDAOjdbclmpl implements CategorieDAO {
 		}
 		
 		return result;
+	}
+	
+	public List<Categorie> selectAll() throws BusinessException {
+		List<Categorie> listeCateg = new ArrayList<Categorie>();
+		try (Connection cnx = ConnectionProvider.getConnection()){
+			ResultSet rs = cnx.createStatement().executeQuery(SELECT_ALL);
+			while(rs.next())
+			{
+				// Tant que la requete renvoie un résultat, on créé un objet temporaire de type BeanCategorie
+				// et on hydrate ses propriétés avec les r�sultats de la requête
+				Categorie categorieTrouvee = new Categorie();
+				categorieTrouvee.setNoCategorie(rs.getInt("no_categorie"));
+				categorieTrouvee.setLibelle(rs.getString("libelle"));
+				
+				// On ajoute la catégorie temporaire à la liste de résultats
+				listeCateg.add(categorieTrouvee);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			//TODO : CodesResultatDAL
+			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTE_ECHEC);
+			throw businessException;
+		}
+		return listeCateg;
 	}
 	
 	private Categorie map(ResultSet rs) throws SQLException {

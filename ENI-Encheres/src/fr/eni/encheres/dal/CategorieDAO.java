@@ -9,4 +9,5 @@ public interface CategorieDAO {
 	public void insert(Categorie categorie) throws BusinessException;
 	public void delete(int id) throws BusinessException;
 	public Categorie selectById(int id) throws BusinessException;
+	public List<Categorie> selectAll() throws BusinessException;
 }
