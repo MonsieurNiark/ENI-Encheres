@@ -14,10 +14,19 @@ String lieuRetrait = request.getAttribute("lieuRetrait").toString();
 String vendeur = request.getAttribute("vendeur").toString();
 String lastNameEnchere = request.getAttribute("lastNameEnchere").toString();
 String lastPriceEnchere = request.getAttribute("lastPriceEnchere").toString();
-
-String button = "<form><input type=\"number\" name=\"creditProp\"/><button type=\"submit\" >Encherir</button></form>";
+String credit = "0";
+int creditInt = 0;
+String button = "";
 if(session.getAttribute("actualUser") == null){
 	button = "";
+} else {
+	String actualUser = session.getAttribute("actualUser").toString();
+	credit = session.getAttribute("credit").toString();
+	creditInt = Integer.parseInt(credit);
+	button = "<form  method=\"post\" onSubmit=\"return verify(this.creditProp,"+creditInt+")\" action=\"#\">"
+			+"<input type=\"number\" name=\"creditProp\"/><button type=\"submit\" >Encherir</button>"
+			+ "</form><h3>Crédit disponible : "+creditInt+"</h3>";
+	
 }
 %>
 </head>
@@ -61,5 +70,20 @@ if(session.getAttribute("actualUser") == null){
 	</tr>
 	
 </table>
-</body>
+ <script type="text/javascript">
+function verify(element1, element2)
+// La fonction reçois en paramètre les 2 éléments
+ {
+  var passed=false
+
+   if (element1.value > element2.value)
+   {
+    alert("Vous n'avez pas assez de crédit")
+    element1.select()
+   }  else {
+   passed=true
+   }
+  return passed
+ }
+</script></body>
 </html>
