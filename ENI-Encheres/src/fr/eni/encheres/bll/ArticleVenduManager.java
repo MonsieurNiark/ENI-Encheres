@@ -1,5 +1,6 @@
 package fr.eni.encheres.bll;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -34,5 +35,9 @@ public class ArticleVenduManager {
 		ArticleVendu articlevendu = new ArticleVendu(id,nomArticle,description,date_debut_encheres,date_fin_encheres,prixinitial,prixvente,cat,util);
 		articlevenduDAO.insert(articlevendu);
 		return articlevendu;
+	}
+	
+	public ArticleVendu selectionnerParId(int id) throws BusinessException {
+		return articlevenduDAO.selectByIdArticle(id);
 	}
 }
