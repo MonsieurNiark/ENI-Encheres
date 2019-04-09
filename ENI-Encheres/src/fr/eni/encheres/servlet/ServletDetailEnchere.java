@@ -64,9 +64,16 @@ public class ServletDetailEnchere extends HttpServlet {
 			Retrait retrait = rmgt.selectionnerRetrait(idArticle);
 			String lieuRetrait = retrait.getRue() + " " + retrait.getCode_postal() + " " + retrait.getVille();
 			//Récupération des infos Enchérissement Enchere
-			Enchere enchere = emgt.selectionnerLastEnchereParIdArticle(idArticle);
-			float lastPriceEnchere = enchere.getMontant_enchere();
-			String lastNameEnchere = enchere.getUtilisateur().getPseudo();
+			float lastPriceEnchere = prixInit;
+			String lastNameEnchere = " ";
+			try {
+				Enchere enchere = emgt.selectionnerLastEnchereParIdArticle(idArticle);
+				lastPriceEnchere = enchere.getMontant_enchere();
+				lastNameEnchere = enchere.getUtilisateur().getPseudo();
+			} catch(BusinessException e) {
+				
+			}
+			
 			request.setAttribute("nomArticle", nomArticle);
 			request.setAttribute("descArticle", descArticle);
 			request.setAttribute("categorie", categorie);
