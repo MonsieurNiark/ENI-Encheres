@@ -2,7 +2,7 @@ package fr.eni.encheres.servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -58,7 +58,7 @@ public class ServletDetailEnchere extends HttpServlet {
 			String categorie = article.getCategorieArticle().getLibelle();
 			float prixInit = article.getMiseAPrix();
 			float prixVente = article.getPrixVente();
-			Date finEnchere = article.getDateFinEncheres();
+			String finEnchere = article.getDateFinEncheres().toString();
 			String vendeur = article.getUtilisateur().getPseudo();
 			//Récupération des infos Retrait
 			Retrait retrait = rmgt.selectionnerRetrait(idArticle);
@@ -104,9 +104,9 @@ public class ServletDetailEnchere extends HttpServlet {
 		RetraitManager rmgt = new RetraitManager();
 		EnchereManager emgt = new EnchereManager();
 		UtilisateurManager umgt = new UtilisateurManager();
-		int idUser = Integer.parseInt(session.getAttribute("actualUser").toString());
 		try {
-			Utilisateur actualUser = umgt.selectionnerUtilisateur(idUser);
+			String actualUser = session.getAttribute("actualUser").toString();
+			Utilisateur actualUserInstance = umgt.selectionnerUtilisateurByPseudo(actualUser);
 			//Recuperation des infos Article
 			ArticleVendu article = amgt.selectionnerParId(idArticle);
 			String nomArticle = article.getNomArticle();
@@ -114,7 +114,7 @@ public class ServletDetailEnchere extends HttpServlet {
 			String categorie = article.getCategorieArticle().getLibelle();
 			float prixInit = article.getMiseAPrix();
 			float prixVente = article.getPrixVente();
-			Date finEnchere = article.getDateFinEncheres();
+			String finEnchere = article.getDateFinEncheres().toString();
 			String vendeur = article.getUtilisateur().getPseudo();
 			//Récupération des infos Retrait
 			Retrait retrait = rmgt.selectionnerRetrait(idArticle);
@@ -125,7 +125,7 @@ public class ServletDetailEnchere extends HttpServlet {
 			String lastNameEnchere = enchere.getUtilisateur().getPseudo();
 
 			if(creditProp > lastPriceEnchere) {
-				emgt.insererEnchere(new Date(), creditProp, actualUser, article);
+				emgt.insererEnchere(java.sql.Date.valueOf(finEnchere), creditProp, actualUserInstance, article);
 			}
 			
 		} catch (BusinessException e) {

@@ -46,6 +46,10 @@ public class EncheresDAOjdbclmpl implements EncheresDAO{
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement vnte = cnx.prepareStatement(INSERT_VENTE, PreparedStatement.RETURN_GENERATED_KEYS);			
+			System.out.println(enchere.getUtilisateur().getNoUtilisateur());
+			System.out.println(enchere.getArticleVendu().getNoArticle());
+			System.out.println((java.sql.Date) enchere.getDateEnchere());
+			System.out.println(enchere.getMontant_enchere());
 			vnte.setInt(1, enchere.getUtilisateur().getNoUtilisateur());
 			vnte.setInt(2, enchere.getArticleVendu().getNoArticle());
 			vnte.setDate(3, (java.sql.Date) enchere.getDateEnchere());
