@@ -11,6 +11,7 @@ public interface ArticleVenduDAO {
 	public void delete(int id) throws BusinessException;
 	public List<ArticleVendu> selectAll() throws BusinessException;
 	public List<ArticleVendu> selectParIdCateg(int id) throws BusinessException;
+	public List<ArticleVendu> selectParFiltre(int id, String recherche) throws BusinessException;
 	public ArticleVendu selectById(int id) throws BusinessException;
 	public ArticleVendu selectByIdArticle(int id) throws BusinessException;
 	

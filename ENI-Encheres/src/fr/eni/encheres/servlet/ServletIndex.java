@@ -74,6 +74,7 @@ public class ServletIndex extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int idCateg =Integer.parseInt(request.getParameter("categorie"));
+		String filtre = (String) request.getParameter("champRecherche");
 		CategorieManager categMana  = new CategorieManager();
 		ArrayList<Categorie> listeCategories = new ArrayList<Categorie>();
 		ArticleVenduManager artMana = new ArticleVenduManager();
@@ -87,7 +88,7 @@ public class ServletIndex extends HttpServlet {
 		}
 		
 		try {
-			listeArticles = artMana.selectionnerParIdCateg(idCateg);
+			listeArticles = artMana.selectionnerParFiltre(idCateg, filtre);
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

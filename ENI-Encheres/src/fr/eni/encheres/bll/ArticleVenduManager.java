@@ -27,6 +27,10 @@ public class ArticleVenduManager {
 		return articlevenduDAO.selectParIdCateg(id);
 	}
 	
+	public List<ArticleVendu> selectionnerParFiltre(int id, String recherche) throws BusinessException {
+		return articlevenduDAO.selectParFiltre(id, recherche);
+	}
+	
 	public ArticleVendu selectionnerParIdUser(int Id) throws BusinessException{
 		return articlevenduDAO.selectById(Id);
 	}
