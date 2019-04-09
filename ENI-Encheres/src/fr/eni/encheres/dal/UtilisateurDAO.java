@@ -15,4 +15,5 @@ public interface UtilisateurDAO {
 	public Utilisateur selectByPseudo(String pseudo) throws BusinessException;
 	public int countByPseudo (String pseudo) throws BusinessException;
 	public int countByEmail(String email) throws BusinessException;
+	public void updateCredit(Utilisateur utilisateur) throws BusinessException;
 }

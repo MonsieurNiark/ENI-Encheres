@@ -27,6 +27,9 @@ private static final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
 	private static final String SELECT_BY_PSEUDO = SELECT_ALL + " WHERE pseudo=?";
 	private static final String COUNT_BY_PSEUDO = "SELECT COUNT(*) as result FROM UTILISATEURS WHERE pseudo=?";
 	private static final String COUNT_BY_EMAIL = "SELECT COUNT(*) as result FROM UTILISATEURS WHERE email=?";
+	private static final String UPDATE_CREDIT = "UPDATE UTILISATEURS set credit=? WHERE no_utilisateur=?";
+	
+	
 	@Override
 	public void insert(Utilisateur utilisateur) throws BusinessException {
 		if(utilisateur==null)
@@ -166,6 +169,34 @@ private static final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
 		}
 		
 		return result;
+	}
+	
+	
+	@Override
+	public void updateCredit(Utilisateur utilisateur) throws BusinessException {
+		if(utilisateur==null)
+		{
+			BusinessException businessException = new BusinessException();
+			//TODO : CodesResultatDAL
+			//businessException.ajouterErreur(CodesResultatDAL.UPDATE_OBJET_NULL);
+			throw businessException;
+		}
+		
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_CREDIT);			
+			pstmt.setInt(1, utilisateur.getCredit());
+			pstmt.setInt(2, utilisateur.getNoUtilisateur());
+			pstmt.executeUpdate();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			//TODO : CodesResultatDAL
+			//businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
+			throw businessException;
+		}
 	}
 	
 	@Override

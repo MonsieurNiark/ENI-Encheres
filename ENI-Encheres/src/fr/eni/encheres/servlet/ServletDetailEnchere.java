@@ -124,8 +124,11 @@ public class ServletDetailEnchere extends HttpServlet {
 			float lastPriceEnchere = enchere.getMontant_enchere();
 			String lastNameEnchere = enchere.getUtilisateur().getPseudo();
 
-			if(creditProp > lastPriceEnchere) {
+			if(creditProp > lastPriceEnchere && actualUserInstance.getCredit()>= creditProp) {
 				emgt.insererEnchere(java.sql.Date.valueOf(finEnchere), creditProp, actualUserInstance, article);
+				actualUserInstance.setCredit((int) (actualUserInstance.getCredit() - creditProp));
+				umgt.updateUtilisateurCredit(actualUserInstance.getNoUtilisateur(), actualUserInstance.getPseudo(), actualUserInstance.getNom(), actualUserInstance.getPrenom(), actualUserInstance.getEmail(), actualUserInstance.getTelephone(), actualUserInstance.getRue(), actualUserInstance.getCodePostal(), actualUserInstance.getVille(), actualUserInstance.getMotDePasse(), actualUserInstance.getCredit(), actualUserInstance.getAdministrateur());
+				session.setAttribute("credit", actualUserInstance.getCredit());
 			}
 			
 		} catch (BusinessException e) {

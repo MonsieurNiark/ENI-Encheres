@@ -82,7 +82,10 @@ function verify(element1)
    {
     alert("Vous n'avez pas assez de crédit")
     element1.select()
-   }  else {
+   }  else if (element1.value <= <%=lastPriceEnchere%>){
+	   alert("Vous devez mettre une enchère plus élevé")
+	   element1.select()
+   } else {
    passed=true
    }
   return passed

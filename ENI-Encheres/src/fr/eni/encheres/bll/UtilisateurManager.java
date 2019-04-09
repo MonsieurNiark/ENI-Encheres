@@ -31,6 +31,12 @@ public class UtilisateurManager {
 		return utilisateurDAO.countByPseudo(pseudo);
 	}
 	
+	public void updateUtilisateurCredit(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostal, String ville, String motDePasse, int credit, int administrateur) throws BusinessException {
+		Utilisateur utilisateurAModifier = new Utilisateur(noUtilisateur, pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasse, credit, administrateur);
+		utilisateurDAO.updateCredit(utilisateurAModifier);
+	}
+	
 	public int countByEmail(String email) throws BusinessException{
 		return utilisateurDAO.countByEmail(email);
 	}
