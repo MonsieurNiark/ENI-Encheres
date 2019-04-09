@@ -22,12 +22,16 @@ public class EnchereManager {
 		return encheresDAO.selectAll();
 	}
 	
-	public Enchere selectionnerEnchereParIdUser(int IdUser) throws BusinessException{
-		return encheresDAO.selectByUser(IdUser);
+	public Enchere selectionnerEnchereParIdUser(int idUser) throws BusinessException{
+		return encheresDAO.selectByUser(idUser);
 	}
 	
-	public Enchere selectionnerEnchereParIdArticle(int IdArticle) throws BusinessException{
-		return encheresDAO.selectByArticle(IdArticle);
+	public Enchere selectionnerEnchereParIdArticle(int idArticle) throws BusinessException{
+		return encheresDAO.selectByArticle(idArticle);
+	}
+	
+	public Enchere selectionnerEnchereParIdArticleAnduser(int idArticle, int idUser) throws BusinessException{
+		return encheresDAO.selectLastEnchereByArticleAndUser(idArticle, idUser);
 	}
 	
 	public void supprimerEnchere(int id) throws BusinessException{

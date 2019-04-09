@@ -125,8 +125,17 @@ public class ServletDetailEnchere extends HttpServlet {
 			String lastNameEnchere = enchere.getUtilisateur().getPseudo();
 
 			if(creditProp > lastPriceEnchere && actualUserInstance.getCredit()>= creditProp) {
+				//On vérifie la dernière valeur de credit du compte pour adapter
+				enchere = emgt.selectionnerEnchereParIdArticleAnduser(idArticle, actualUserInstance.getNoUtilisateur());
+				int newCredit = (int) creditProp;
+				if (enchere!= null) {
+					newCredit = (int) enchere.getMontant_enchere();
+					newCredit = (int) (creditProp - newCredit);
+				}
+				//On set la nouvelle enchere
 				emgt.insererEnchere(java.sql.Date.valueOf(finEnchere), creditProp, actualUserInstance, article);
-				actualUserInstance.setCredit((int) (actualUserInstance.getCredit() - creditProp));
+				//On set le resultat
+				actualUserInstance.setCredit((int) (actualUserInstance.getCredit() - newCredit));
 				umgt.updateUtilisateurCredit(actualUserInstance.getNoUtilisateur(), actualUserInstance.getPseudo(), actualUserInstance.getNom(), actualUserInstance.getPrenom(), actualUserInstance.getEmail(), actualUserInstance.getTelephone(), actualUserInstance.getRue(), actualUserInstance.getCodePostal(), actualUserInstance.getVille(), actualUserInstance.getMotDePasse(), actualUserInstance.getCredit(), actualUserInstance.getAdministrateur());
 				session.setAttribute("credit", actualUserInstance.getCredit());
 			}
