@@ -19,7 +19,7 @@ public class ArticleVendu {
 	private Utilisateur utilisateur;
 	private Categorie categorieArticle;
 	private Retrait lieuRetrait;
-	
+	 
 	/**
 	 * @param noArticle
 	 * @param nomArticle
