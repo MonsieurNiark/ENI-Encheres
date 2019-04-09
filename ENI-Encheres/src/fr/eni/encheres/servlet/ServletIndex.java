@@ -41,14 +41,13 @@ public class ServletIndex extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		HttpSession session = request.getSession();
 		CategorieManager categMana  = new CategorieManager();
 		ArrayList<Categorie> listeCategories = new ArrayList<Categorie>();
 		
 		ArticleVenduManager artMana = new ArticleVenduManager();
 		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
-		HttpSession session = request.getSession();
-
+	
 		try {
 			listeArticles = artMana.selectionnerArticles();
 		} catch (BusinessException e1) {
@@ -74,13 +73,29 @@ public class ServletIndex extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String idCateg =  request.getParameter("categorie");
-		String filtreRecherche = request.getParameter("champRecherche");
-		List<ArticleVendu> listeCategFiltre = new ArrayList<ArticleVendu>();
+		int idCateg =Integer.parseInt(request.getParameter("categorie"));
+		CategorieManager categMana  = new CategorieManager();
+		ArrayList<Categorie> listeCategories = new ArrayList<Categorie>();
+		ArticleVenduManager artMana = new ArticleVenduManager();
+		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
 		
-		if(idCateg.equals("*")) {
-			idCateg = "-1";
+		try {
+			listeCategories = categMana.selectAll();
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		try {
+			listeArticles = artMana.selectionnerParIdCateg(idCateg);
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		request.setAttribute("categories", listeCategories);
+		request.setAttribute("articles", listeArticles);
+		request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
 	
 	}
 

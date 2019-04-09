@@ -23,6 +23,10 @@ public class ArticleVenduManager {
 		return articlevenduDAO.selectAll();
 	}
 	
+	public List<ArticleVendu> selectionnerParIdCateg(int id) throws BusinessException {
+		return articlevenduDAO.selectParIdCateg(id);
+	}
+	
 	public ArticleVendu selectionnerParIdUser(int Id) throws BusinessException{
 		return articlevenduDAO.selectById(Id);
 	}

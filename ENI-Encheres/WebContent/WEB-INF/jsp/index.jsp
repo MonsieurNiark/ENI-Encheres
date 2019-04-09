@@ -19,7 +19,7 @@
                         <label class="input-group-text" for="categorie">Catégorie: </label>
                     </section>
                     <select id="categorie" class="form-control" name="categorie">
-                        <option value="*">Toutes</option>
+                        <option value="-1">Toutes</option>
                         <c:forEach items="${categories }" var="categorie">
                             <option value="${categorie.noCategorie}">${categorie.libelle }</option>
                        
@@ -102,7 +102,7 @@
 	                                <img class="img-fluid" alt="enchere" src="img/img.jpg">
 	                            </section>
 	                            <div class="col-7">
-	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/afficherEnchere?article=${article.noArticle }">${article.nomArticle }</a></h3>
+	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/enchere?id=${article.noArticle }">${article.nomArticle }</a></h3>
 	                                <p>Prix : ${article.miseAPrix }</p>
 	                                <p>Fin de l'enchère: ${article.dateFinEncheres }</p>
 	                                <c:if test="${sessionScope.isConnecte != null }">

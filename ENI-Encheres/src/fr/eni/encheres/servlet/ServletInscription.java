@@ -71,7 +71,7 @@ public class ServletInscription extends HttpServlet {
 		pseudoFormat = utilMana.isPseudoFormatOk(pseudo);
 		
 		if(!pseudoFormat) {
-			msgError = "Le pseudo n'accepte seulement que les caractères alphanumérique";
+			msgError = "Le pseudo accepte seulement que les caractères alphanumérique";
 			request.setAttribute("error", msgError);
 			errorInscription = true;
 		}

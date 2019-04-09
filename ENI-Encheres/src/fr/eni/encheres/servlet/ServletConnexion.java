@@ -23,14 +23,11 @@ public class ServletConnexion extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		String identifiant = request.getParameter("user");
-		String motDePasse = request.getParameter("mdp");	
+			
 		HttpSession session = request.getSession();
 		
 		
 		
-		request.setAttribute("identifiant", identifiant);
-		request.setAttribute("motDePasse", motDePasse);
 		//recuperation des variables session		
 
 		if(session.getAttribute("isConnecte") == null)
