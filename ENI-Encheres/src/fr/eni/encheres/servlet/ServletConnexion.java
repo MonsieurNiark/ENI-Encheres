@@ -70,8 +70,7 @@ public class ServletConnexion extends HttpServlet {
 		
 			if( utilisateurLog == null || !motDePasseUser.equals(motDePasse) )
 			{
-				session.setAttribute("isConnecte", false);
-				session.setAttribute("actualUser", "");
+			
 				session.setAttribute("erreur", "Login ou Password incorrect");
 				request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp").forward(request, response);
 
