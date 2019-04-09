@@ -24,8 +24,9 @@
                             <option value="${categorie.noCategorie}">${categorie.libelle }</option>
                         </c:forEach>
                     </select>
-                    
                 </section>
+                
+                
 
                 <c:if test="${sessionScope.isConnecte == true }">
                     <div class="d-flex flex-row mb-3">
@@ -84,29 +85,34 @@
                 </section>
             </form>
 		</section>
-
+	
 		<!-- VUE SUR LES ENCHERES OUVERTES -->
 		<section class="mb-2 p-4">
-			<c:if test="${not empty listeArticles }">
+			<c:if test="${not empty articles }">
 			<h3>Enchères ouvertes : </h3>
+			
 	        <div class="d-flex flex-row">
 	            <section class="d-flex flex-wrap justify-content-center">
-	                <c:forEach items="${listeArticles }" var="article">
+	                <c:forEach items="${articles }" var="article">
 	                    <section class="sectionEncheres">
+	               
 	                        <article class="encheres row">
 	                            <section class="col-5">
-	                                <img class="img-fluid" alt="enchere" src="images/encheres/gris.jpg">
+	                                <img class="img-fluid" alt="enchere" src="img/img.jpg">
 	                            </section>
 	                            <div class="col-7">
 	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/afficherEnchere?article=${article.noArticle }">${article.nomArticle }</a></h3>
-	                                <p>Prix : ${article.prixVente }</p>
+	                                <p>Prix : ${article.miseAPrix }</p>
 	                                <p>Fin de l'enchère: ${article.dateFinEncheres }</p>
 	                                <c:if test="${sessionScope.isConnecte == true }">
-	                                    <p>Vendeur : <a href="affichageProfil?pseudo=${article.utilisateur.pseudo }">${article.utilisateur.pseudo }</a></p>
+	                                    <p>Vendeur : <a href="affichageProfil?pseudo=${article.utilisateur.getPseudo() }">${article.utilisateur.getPseudo() }</a></p>
+	                     
 	                                </c:if>
 	                                <c:if test="${sessionScope.isConnecte == false }">
-	                                    <p>Vendeur: ${article.utilisateur.pseudo }</p>
+	                                    <p>Vendeur: ${article.utilisateur.getPseudo() }</p>
+	                                 
 	                                </c:if>
+	                                
 	                            </div>
 	                        </article>
 	                    </section>
@@ -290,7 +296,7 @@
 	        </c:if>
 
 			<c:if test="${empty requestScope.mesEncheresEC && empty requestScope.mesEncheresR && empty requestScope.mesVentes &&
-			empty requestScope.encheresO && empty requestScope.mesVentesEC && empty requestScope.mesVentesND &&
+			empty requestScope.articles && empty requestScope.mesVentesEC && empty requestScope.mesVentesND &&
 			empty requestScope.mesVentesT}">
 				<h3 class="text-muted text-center">Aucun résultat à afficher</h3>
 			</c:if>

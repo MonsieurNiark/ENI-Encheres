@@ -48,7 +48,7 @@ public class ServletIndex extends HttpServlet {
 		ArticleVenduManager artMana = new ArticleVenduManager();
 		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
 		HttpSession session = request.getSession();
-		
+		session.setAttribute("isConnecte", false);
 		try {
 			listeArticles = artMana.selectionnerArticles();
 		} catch (BusinessException e1) {
