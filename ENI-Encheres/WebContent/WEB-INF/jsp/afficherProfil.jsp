@@ -1,7 +1,5 @@
 <%@include file="header.jsp" %>
-<style>    <style>
-    <%@ include file="../../style.css"%>
-     <%@ include file="../../pure-min.css"%></style>
+
 <% 
 String pseudoUser = request.getAttribute("pseudoUser").toString();
 String nom = request.getAttribute("nom").toString();
