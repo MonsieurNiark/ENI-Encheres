@@ -36,6 +36,15 @@ public class Enchere {
 		this.utilisateur = utilisateur;
 		this.articleVendu = articleVendu;
 	}
+	
+	public Enchere(Date dateEnchere, float montant_enchere, Utilisateur utilisateur,
+			ArticleVendu articleVendu) {
+		super();
+		this.dateEnchere = dateEnchere;
+		this.montant_enchere = montant_enchere;
+		this.utilisateur = utilisateur;
+		this.articleVendu = articleVendu;
+	}
 // *************************************************************************************
 // GETTERS
 // *************************************************************************************

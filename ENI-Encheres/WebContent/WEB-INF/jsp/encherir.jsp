@@ -4,6 +4,7 @@
 <html>
 <head>
 <%
+int idArticle = Integer.parseInt(request.getParameter("id"));
 String nomArticle = request.getAttribute("nomArticle").toString();
 String descArticle  = request.getAttribute("descArticle").toString();
 String categorie = request.getAttribute("categorie").toString();
@@ -23,7 +24,7 @@ if(session.getAttribute("actualUser") == null){
 	String actualUser = session.getAttribute("actualUser").toString();
 	credit = session.getAttribute("credit").toString();
 	creditInt = Integer.parseInt(credit);
-	button = "<form  method=\"post\" onSubmit=\"return verify(this.creditProp,"+creditInt+")\" action=\"#\">"
+	button = "<form  method=\"post\" onSubmit=\"return verify(this.creditProp)\" action=\"./enchere?id="+idArticle+"\">"
 			+"<input type=\"number\" name=\"creditProp\"/><button type=\"submit\" >Encherir</button>"
 			+ "</form><h3>Crédit disponible : "+creditInt+"</h3>";
 	
@@ -71,12 +72,13 @@ if(session.getAttribute("actualUser") == null){
 	
 </table>
  <script type="text/javascript">
-function verify(element1, element2)
+function verify(element1)
 // La fonction reçois en paramètre les 2 éléments
  {
-  var passed=false
+	var creditInt = <%=creditInt%>
+  	var passed=false
 
-   if (element1.value > element2.value)
+   if (element1.value > creditInt)
    {
     alert("Vous n'avez pas assez de crédit")
     element1.select()

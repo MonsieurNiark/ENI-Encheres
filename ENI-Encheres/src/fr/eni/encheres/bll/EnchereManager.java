@@ -39,8 +39,8 @@ public class EnchereManager {
 	}
 	
 	
-	public Enchere insererEnchere(int id, Date date_enchere, float montant_enchere, Utilisateur util, ArticleVendu art) throws BusinessException{
-		Enchere nouvelEnchere = new Enchere(id, date_enchere, montant_enchere, util, art);
+	public Enchere insererEnchere(Date date_enchere, float montant_enchere, Utilisateur util, ArticleVendu art) throws BusinessException{
+		Enchere nouvelEnchere = new Enchere(date_enchere, montant_enchere, util, art);
 		encheresDAO.insert(nouvelEnchere);
 		return nouvelEnchere;
 	}
