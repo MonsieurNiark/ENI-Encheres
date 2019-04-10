@@ -16,11 +16,13 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 
 	private static final String SELECT_ALL = "SELECT RETRAITS.no_retrait, RETRAITS.no_article, rue, code_postal, ville,"
 			+ " ARTICLES_VENDUS.no_article, nom_article, description, date_debut_encheres , date_fin_encheres, prix_initial,"
-			+ " prix_vente, ARTICLES_VENDUS.no_utilisateur, ARTICLES_VENDUS.no_categorie, ETAT FROM RETRAITS";
+			+ " prix_vente, ARTICLES_VENDUS.no_utilisateur, ARTICLES_VENDUS.no_categorie, ETAT "
+			+ " FROM RETRAITS"
+			+ " inner join ARTICLES_VENDUS ON RETRAITS.no_article = ARTICLES_VENDUS.no_article";
 
 	private static final String SELECT_BY_ID = SELECT_ALL + " WHERE no_article=?";
 
-	private static final String INSERT_RETRAIT = "INSERT INTO RETRAITS(no_retrait ,no_article,rue,code_postal,ville) VALUES(?,?,?,?,?);";
+	private static final String INSERT_RETRAIT = "INSERT INTO RETRAITS(no_article,rue,code_postal,ville) VALUES(?,?,?,?);";
 
 	private static final String DELETE_RETRAIT = "DELETE FROM RETRAITS WHERE no_article=?";
 
@@ -36,11 +38,10 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT_RETRAIT, PreparedStatement.RETURN_GENERATED_KEYS);
-			pstmt.setInt(1, retrait.getNo_retrait());
-			pstmt.setInt(2, retrait.getNo_article().getNoArticle());
-			pstmt.setString(3, retrait.getRue());
-			pstmt.setString(4, retrait.getCode_postal());
-			pstmt.setString(5, retrait.getVille());
+			pstmt.setInt(1, retrait.getNo_article().getNoArticle());
+			pstmt.setString(2, retrait.getRue());
+			pstmt.setString(3, retrait.getCode_postal());
+			pstmt.setString(4, retrait.getVille());
 
 			pstmt.executeUpdate();
 
