@@ -18,6 +18,7 @@ import fr.eni.encheres.bll.CategorieManager;
 import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.bo.ArticleVendu;
 
 @WebServlet("/AjoutArticle")
 public class ServletAjouterArticle extends HttpServlet {
@@ -32,8 +33,8 @@ public class ServletAjouterArticle extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session=req.getSession();
 		UtilisateurManager umgt = new UtilisateurManager(); 
-		ArticleVenduManager vnte = new ArticleVenduManager();
-		CategorieManager cte = new CategorieManager();
+		ArticleVenduManager vmgt = new ArticleVenduManager();
+		CategorieManager cmgt = new CategorieManager();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		
 		try {
@@ -42,7 +43,7 @@ public class ServletAjouterArticle extends HttpServlet {
 			String Desc = req.getParameter("Desc");
 			String Cat = req.getParameter("Catégorie");
 			int CatNumber = Integer.parseInt(Cat);	
-			Categorie catCible = cte.selectionnerCategorieById(CatNumber);
+			Categorie catCible = cmgt.selectionnerCategorieById(CatNumber);
 			String Prix = req.getParameter("Prix");
 			float PrixNumber = Float.parseFloat(Prix);
 			float PrixVente = 0;
@@ -71,7 +72,10 @@ public class ServletAjouterArticle extends HttpServlet {
 			String CodePost = req.getParameter("CodePostal");
 
 			
-			vnte.insererArticle(NomArt, Desc, date1, date2, PrixNumber, PrixVente, userCible, catCible);
+			vmgt.insererArticle(NomArt, Desc, date1, date2, PrixNumber, PrixVente, userCible, catCible);
+			
+			ArticleVendu Art = vmgt.selectionnerParIdUser(userCible.getNoUtilisateur());
+			
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
