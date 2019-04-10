@@ -14,11 +14,17 @@ import fr.eni.encheres.bo.Utilisateur;
 
 public class RetraitDAOJdbcImpl implements RetraitDAO {
 
+
 	private static final String SELECT_ALL = "SELECT RETRAITS.no_retrait, RETRAITS.no_article, rue, code_postal, ville,"
 			+ " ARTICLES_VENDUS.no_article, nom_article, description, date_debut_encheres , date_fin_encheres, prix_initial,"
-			+ " prix_vente, ARTICLES_VENDUS.no_utilisateur, ARTICLES_VENDUS.no_categorie, ETAT "
+			+ " prix_vente, ARTICLES_VENDUS.no_utilisateur, ARTICLES_VENDUS.no_categorie, Etat, acquéreur"
+			+ " UTILISATEURS.no_utilisateur, pseudo, nom, prenom, UTILISATEURS.email, UTILISATEURS.telephone, UTILISATEURS.rue,"
+			+ " UTILISATEURS.code_postal,UTILISATEURS.ville,UTILISATEURS.mot_de_passe,UTILISATEURS.credit,UTILISATEURS.administrateur,"
+			+ " CATEGORIES.no_categorie, libelle "
 			+ " FROM RETRAITS"
-			+ " inner join ARTICLES_VENDUS ON RETRAITS.no_article = ARTICLES_VENDUS.no_article";
+			+ " INNER JOIN ARTICLES_VENDUS ON RETRAITS.no_article = ARTICLES_VENDUS.no_article"
+			+ " INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie"
+			+ " INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur ";
 
 	private static final String SELECT_BY_ID = SELECT_ALL + " WHERE ARTICLES_VENDUS.no_article=?";
 
