@@ -22,6 +22,10 @@ public class EnchereManager {
 		return encheresDAO.selectAll();
 	}
 	
+	public List<Enchere> selectLastEnchereForeachUserArticle(int idArticle) throws BusinessException{
+		return encheresDAO.selectLastEnchereForEachUser(idArticle);
+	}
+	
 	public Enchere selectionnerEnchereParIdUser(int idUser) throws BusinessException{
 		return encheresDAO.selectByUser(idUser);
 	}
