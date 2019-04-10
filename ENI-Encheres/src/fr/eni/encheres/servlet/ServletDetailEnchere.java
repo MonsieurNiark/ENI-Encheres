@@ -60,10 +60,10 @@ public class ServletDetailEnchere extends HttpServlet {
 			float prixVente = article.getPrixVente();
 			String finEnchere = article.getDateFinEncheres().toString();
 			String vendeur = article.getUtilisateur().getPseudo();
-			//Récupération des infos Retrait
+			//Rï¿½cupï¿½ration des infos Retrait
 			Retrait retrait = rmgt.selectionnerRetrait(idArticle);
 			String lieuRetrait = retrait.getRue() + " " + retrait.getCode_postal() + " " + retrait.getVille();
-			//Récupération des infos Enchérissement Enchere
+			//Rï¿½cupï¿½ration des infos Enchï¿½rissement Enchere
 			float lastPriceEnchere = prixInit;
 			String lastNameEnchere = " ";
 			try {
@@ -71,7 +71,6 @@ public class ServletDetailEnchere extends HttpServlet {
 				lastPriceEnchere = enchere.getMontant_enchere();
 				lastNameEnchere = enchere.getUtilisateur().getPseudo();
 			} catch(BusinessException e) {
-				
 			}
 			
 			request.setAttribute("nomArticle", nomArticle);
@@ -106,7 +105,6 @@ public class ServletDetailEnchere extends HttpServlet {
 			System.out.println("ID doit etre un nombre");
 		}
 		float creditProp = Float.valueOf(request.getParameter("creditProp"));
-		System.out.println(creditProp);
 		ArticleVenduManager amgt = new ArticleVenduManager();
 		RetraitManager rmgt = new RetraitManager();
 		EnchereManager emgt = new EnchereManager();
@@ -123,26 +121,42 @@ public class ServletDetailEnchere extends HttpServlet {
 			float prixVente = article.getPrixVente();
 			String finEnchere = article.getDateFinEncheres().toString();
 			String vendeur = article.getUtilisateur().getPseudo();
-			//Récupération des infos Retrait
+			//Rï¿½cupï¿½ration des infos Retrait
 			Retrait retrait = rmgt.selectionnerRetrait(idArticle);
 			String lieuRetrait = retrait.getRue() + " " + retrait.getCode_postal() + " " + retrait.getVille();
-			//Récupération des infos Enchérissement Enchere
-			Enchere enchere = emgt.selectionnerLastEnchereParIdArticle(idArticle);
-			float lastPriceEnchere = enchere.getMontant_enchere();
-			String lastNameEnchere = enchere.getUtilisateur().getPseudo();
-
+			//Rï¿½cupï¿½ration des infos Enchï¿½rissement Enchere
+			float lastPriceEnchere = 0;
+			String lastNameEnchere = " ";
+			Enchere enchere = null;
+			try {
+				enchere = emgt.selectionnerLastEnchereParIdArticle(idArticle);
+				lastPriceEnchere = enchere.getMontant_enchere();
+				lastNameEnchere = enchere.getUtilisateur().getPseudo();
+			}catch (BusinessException e){
+				
+			}
 			if(creditProp > lastPriceEnchere && actualUserInstance.getCredit()>= creditProp) {
-				//On vérifie la dernière valeur de credit du compte pour adapter
-				enchere = emgt.selectionnerEnchereParIdArticleAnduser(idArticle, actualUserInstance.getNoUtilisateur());
+				//On vï¿½rifie la derniï¿½re valeur de credit du compte pour adapter
+				enchere = null;
+				try {
+					enchere = emgt.selectionnerEnchereParIdArticleAnduser(idArticle, actualUserInstance.getNoUtilisateur());
+					System.out.println(actualUserInstance.getPseudo());
+					System.out.println("crÃ©dit avant : "+actualUserInstance.getCredit());
+				} catch (BusinessException e) {
+					
+				}
+				
 				int newCredit = (int) creditProp;
 				if (enchere!= null) {
 					newCredit = (int) enchere.getMontant_enchere();
 					newCredit = (int) (creditProp - newCredit);
+					System.out.println("CrÃ©dit diffÃ©rence "+newCredit);
 				}
 				//On set la nouvelle enchere
 				emgt.insererEnchere(java.sql.Date.valueOf(finEnchere), creditProp, actualUserInstance, article);
 				//On set le resultat
 				actualUserInstance.setCredit((int) (actualUserInstance.getCredit() - newCredit));
+				System.out.println("Nouveau solde :"+actualUserInstance.getCredit());
 				umgt.updateUtilisateurCredit(actualUserInstance.getNoUtilisateur(), actualUserInstance.getPseudo(), actualUserInstance.getNom(), actualUserInstance.getPrenom(), actualUserInstance.getEmail(), actualUserInstance.getTelephone(), actualUserInstance.getRue(), actualUserInstance.getCodePostal(), actualUserInstance.getVille(), actualUserInstance.getMotDePasse(), actualUserInstance.getCredit(), actualUserInstance.getAdministrateur());
 				session.setAttribute("credit", actualUserInstance.getCredit());
 			}
