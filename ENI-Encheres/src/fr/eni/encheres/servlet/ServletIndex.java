@@ -79,7 +79,7 @@ public class ServletIndex extends HttpServlet {
 		ArrayList<Categorie> listeCategories = new ArrayList<Categorie>();
 		ArticleVenduManager artMana = new ArticleVenduManager();
 		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
-
+		
 		if(idCateg == -1 && filtre.equals("")) {
 			try {
 				listeArticles = artMana.selectionnerArticles();
