@@ -20,7 +20,7 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 			+ " FROM RETRAITS"
 			+ " inner join ARTICLES_VENDUS ON RETRAITS.no_article = ARTICLES_VENDUS.no_article";
 
-	private static final String SELECT_BY_ID = SELECT_ALL + " WHERE no_article=?";
+	private static final String SELECT_BY_ID = SELECT_ALL + " WHERE ARTICLES_VENDUS.no_article=?";
 
 	private static final String INSERT_RETRAIT = "INSERT INTO RETRAITS(no_article,rue,code_postal,ville) VALUES(?,?,?,?);";
 
