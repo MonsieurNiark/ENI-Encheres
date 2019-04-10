@@ -29,7 +29,7 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 	private static final String DELETE_VENTE = "DELETE * FROM ARTICLES_VENDUS WHERE no_article=?";
 	private static final String SELECT_BY_ID = SELECT_ALL + "WHERE no_article= ?";
 	private static final String SELECT_BY_IDCATEG = "AND ARTICLES_VENDUS.no_categorie = ? ";
-	private static final String SELECT_FILTRE = "AND ARTICLES_VENDUS.nom_article = ? ";
+	private static final String SELECT_FILTRE = "AND ARTICLES_VENDUS.nom_article LIKE ? ";
 
 	@Override
 	public void insert(ArticleVendu articlevendu) throws BusinessException {
