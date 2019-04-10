@@ -17,7 +17,7 @@ public class RetraitDAOJdbcImpl implements RetraitDAO {
 
 	private static final String SELECT_ALL = "SELECT RETRAITS.no_retrait, RETRAITS.no_article, RETRAITS.rue, RETRAITS.code_postal, RETRAITS.ville,"
 			+ " ARTICLES_VENDUS.no_article, nom_article, description, date_debut_encheres , date_fin_encheres, prix_initial,"
-			+ " prix_vente, ARTICLES_VENDUS.no_utilisateur, ARTICLES_VENDUS.no_categorie, Etat, acquereur,"
+			+ " prix_vente, ARTICLES_VENDUS.no_utilisateur, ARTICLES_VENDUS.no_categorie, ARTICLES_VENDUS.0etat, ARTICLES_VENDUS.acquereur,"
 			+ " UTILISATEURS.no_utilisateur, pseudo, nom, prenom, UTILISATEURS.email, UTILISATEURS.telephone, UTILISATEURS.rue,"
 			+ " UTILISATEURS.code_postal,UTILISATEURS.ville,UTILISATEURS.mot_de_passe,UTILISATEURS.credit,UTILISATEURS.administrateur,"
 			+ " CATEGORIES.no_categorie, libelle "
