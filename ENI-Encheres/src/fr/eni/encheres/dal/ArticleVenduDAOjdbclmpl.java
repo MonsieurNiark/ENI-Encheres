@@ -28,8 +28,8 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 	private static final String INSERT_VENTE = "INSERT INTO ARTICLES_VENDUS(nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie ) VALUES(?,?,?,?,?,?,?,?);";
 	private static final String DELETE_VENTE = "DELETE * FROM ARTICLES_VENDUS WHERE no_article=?";
 	private static final String SELECT_BY_ID = SELECT_ALL + "WHERE no_article= ?";
-	private static final String SELECT_BY_IDCATEG = "AND ARTICLES_VENDUS.no_categorie = ?";
-	private static final String SELECT_FILTRE = "AND ARTICLES_VENDUS.nom_article = ?";
+	private static final String SELECT_BY_IDCATEG = "AND ARTICLES_VENDUS.no_categorie = ? ";
+	private static final String SELECT_FILTRE = "AND ARTICLES_VENDUS.nom_article = ? ";
 
 	@Override
 	public void insert(ArticleVendu articlevendu) throws BusinessException {
@@ -108,47 +108,29 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 		return articlevendu;
 	}
 	
-	public List<ArticleVendu> selectParIdCateg(int id) throws BusinessException {
-		List<ArticleVendu> articlevendu = new ArrayList<ArticleVendu>();
-		try(Connection cnx = ConnectionProvider.getConnection())
-		{
-			PreparedStatement vnte = cnx.prepareStatement(SELECT_BY_IDCATEG);
-			vnte.setInt(1, id);
-			ResultSet rs = vnte.executeQuery();
-			while(rs.next())
-			{
-				articlevendu.add(map(rs));
-			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			BusinessException businessException = new BusinessException();
-			//TODO : CodesResultatDAL
-			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTES_ECHEC);
-			throw businessException;
-		}
-		return articlevendu;
-	}
 	
 	public List<ArticleVendu> selectParFiltre(int id, String recherche) throws BusinessException {
 		List<ArticleVendu> articlevendu = new ArrayList<ArticleVendu>();
 		String requete = null;
 		String indice;
 		
-		if (id == -1) {
-			requete =SELECT_ALL+"WHERE 1=1" + SELECT_FILTRE;
+		if (id == -1 && !recherche.equals("")) { //ok
+			requete =SELECT_ALL+"WHERE 1=1 " + SELECT_FILTRE;
 			indice = "R";
-		} else if(recherche == null){
-			requete = SELECT_ALL+"WHERE 1=1" + SELECT_BY_IDCATEG;
+		} else if(recherche.equals("%") && id != -1){
+			requete = SELECT_ALL+"WHERE 1=1 " + SELECT_BY_IDCATEG;
 			indice = "C";
-		}else if(id == -1 && recherche== null){
+		}else if(id == -1 && recherche.equals("%")){ //ok
 			requete = SELECT_ALL;
 			indice = "V";
 		}else { 
-			requete=SELECT_ALL+"WHERE 1=1" + SELECT_BY_IDCATEG + SELECT_FILTRE;
+			requete=SELECT_ALL+"WHERE 1=1 " + SELECT_BY_IDCATEG + SELECT_FILTRE;
 			indice = "RC";
 		}
+		System.out.println(id);
+		System.out.println(recherche);
+System.out.println(requete);
+System.out.println(indice);
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement vnte = cnx.prepareStatement(requete);

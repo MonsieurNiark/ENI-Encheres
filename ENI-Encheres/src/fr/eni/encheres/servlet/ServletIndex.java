@@ -26,15 +26,15 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/index")
 public class ServletIndex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletIndex() {
-        super();
-        ArrayList<Categorie> liste = new ArrayList<Categorie>();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ServletIndex() {
+		super();
+		ArrayList<Categorie> liste = new ArrayList<Categorie>();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -44,27 +44,27 @@ public class ServletIndex extends HttpServlet {
 		HttpSession session = request.getSession();
 		CategorieManager categMana  = new CategorieManager();
 		ArrayList<Categorie> listeCategories = new ArrayList<Categorie>();
-		
+
 		ArticleVenduManager artMana = new ArticleVenduManager();
 		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
-	
+
 		try {
 			listeArticles = artMana.selectionnerArticles();
 		} catch (BusinessException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		try {
 			listeCategories = categMana.selectAll();
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		request.setAttribute("articles", listeArticles);
 		request.setAttribute("categories", listeCategories);
-		
+
 		request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
 	}
 
@@ -74,30 +74,38 @@ public class ServletIndex extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int idCateg =Integer.parseInt(request.getParameter("categorie"));
-		String filtre = (String) request.getParameter("champRecherche");
+		String filtre = request.getParameter("recherche");
 		CategorieManager categMana  = new CategorieManager();
 		ArrayList<Categorie> listeCategories = new ArrayList<Categorie>();
 		ArticleVenduManager artMana = new ArticleVenduManager();
 		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
-		
+
+		if(idCateg == -1 && filtre.equals("")) {
+			try {
+				listeArticles = artMana.selectionnerArticles();
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else {
+
+			try {
+				listeArticles = artMana.selectionnerParFiltre(idCateg, filtre+"%");
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		try {
 			listeCategories = categMana.selectAll();
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		try {
-			listeArticles = artMana.selectionnerParFiltre(idCateg, filtre);
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		request.setAttribute("categories", listeCategories);
 		request.setAttribute("articles", listeArticles);
 		request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
-	
+
 	}
 
 }
