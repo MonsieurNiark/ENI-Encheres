@@ -146,7 +146,6 @@ public class EncheresDAOjdbclmpl implements EncheresDAO{
 		{
 			PreparedStatement vnte = cnx.prepareStatement(SELECT_BY_ARTICLE);
 			vnte.setInt(1, id);
-			vnte.setInt(2, id);
 			ResultSet rs = vnte.executeQuery();
 			if(rs.next()) {
 				result = map(rs);
@@ -209,6 +208,8 @@ public class EncheresDAOjdbclmpl implements EncheresDAO{
 		{
 			PreparedStatement vnte = cnx.prepareStatement(SELECT_LAST_ENCHERE);
 			vnte.setInt(1, id);
+			vnte.setInt(2, id);
+
 			ResultSet rs = vnte.executeQuery();
 			if(rs.next()) {
 				result = map(rs);
