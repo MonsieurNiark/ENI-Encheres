@@ -127,10 +127,7 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 			requete=SELECT_ALL+"WHERE 1=1 " + SELECT_BY_IDCATEG + SELECT_FILTRE;
 			indice = "RC";
 		}
-		System.out.println(id);
-		System.out.println(recherche);
-System.out.println(requete);
-System.out.println(indice);
+
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement vnte = cnx.prepareStatement(requete);
