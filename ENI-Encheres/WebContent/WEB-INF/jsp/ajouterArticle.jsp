@@ -34,11 +34,11 @@
 			</div>
 			<div class="form-group">
   				<label class="col-form-label" for="inputDefault">Début de l'enchère</label>
-  				<input type="date" class="form-control" placeholder="aaaa-mm-jj" id="DateDebut" name="DateDebut">
+  				<input type="text" class="form-control" placeholder="aaaa-mm-jj" id="DateDebut" name="DateDebut">
 			</div>
 			<div class="form-group">
   				<label class="col-form-label" for="inputDefault">Fin de l'enchère</label>
-  				<input type="date" class="form-control" placeholder="aaaa-mm-jj" id="DateFin" name="DateFin">
+  				<input type="text" class="form-control" placeholder="aaaa-mm-jj" id="DateFin" name="DateFin">
 			</div>
 	    	<fieldset class="trsp">
 				<legend> Retrait  </legend>

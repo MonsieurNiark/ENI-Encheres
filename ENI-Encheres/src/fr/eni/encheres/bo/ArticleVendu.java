@@ -68,6 +68,20 @@ public class ArticleVendu {
 
 	}
 	
+	public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, float miseAPrix, float prixVente, Categorie categorieArticle, Utilisateur utilisateur) {
+		super();
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.categorieArticle = categorieArticle;
+		this.utilisateur = utilisateur;
+
+	}
+	
 // *************************************************************************************
 // GETTERS
 // *************************************************************************************

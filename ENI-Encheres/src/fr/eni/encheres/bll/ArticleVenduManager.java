@@ -39,8 +39,8 @@ public class ArticleVenduManager {
 		articlevenduDAO.delete(Id);
 	}
 	
-	public ArticleVendu insererArticle(int id,String nomArticle,String description,Date date_debut_encheres,Date date_fin_encheres,float prixinitial,float prixvente,Utilisateur util,Categorie cat) throws BusinessException{
-		ArticleVendu articlevendu = new ArticleVendu(id,nomArticle,description,date_debut_encheres,date_fin_encheres,prixinitial,prixvente,cat,util);
+	public ArticleVendu insererArticle(String nomArticle,String description,Date date_debut_encheres,Date date_fin_encheres,float prixinitial,float prixvente,Utilisateur util,Categorie cat) throws BusinessException{
+		ArticleVendu articlevendu = new ArticleVendu(nomArticle,description,date_debut_encheres,date_fin_encheres,prixinitial,prixvente,cat,util);
 		articlevenduDAO.insert(articlevendu);
 		return articlevendu;
 	}
