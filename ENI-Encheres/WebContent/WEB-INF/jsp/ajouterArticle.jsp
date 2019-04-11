@@ -17,12 +17,13 @@
     		</div>
  			<div class="form-group">
       			<label for="exampleSelect1">Catégorie</label>
-      			<select class="form-control" id="Catégorie">
-        			<option value="info">Informatique</option>
-        			<option value="Meuble">Ameublement</option>
-        			<option value="Vêtement">Vêtement</option>
-        			<option value="Loisirs">Sports & Loisirs</option>
-     			</select>
+      			<select id="categorie" class="form-control" name="categorie">
+                        <option value="-1">Toutes</option>
+                        <c:forEach items="${categories }" var="categorie">
+                            <option value="${categorie.noCategorie}">${categorie.libelle }</option>
+                       
+                        </c:forEach>
+                    </select>
     		</div>
     		<div class="form-group">
       			<label for="exampleInputFile">File input</label>

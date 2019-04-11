@@ -50,5 +50,9 @@ public class ArticleVenduManager {
 		return articlevenduDAO.selectByIdArticle(id);
 	}
 	
+	public ArticleVendu selectParLastNom(String nom) throws BusinessException {
+		return articlevenduDAO.selectByLastNomArticle(nom);
+	}
+	
 	
 }

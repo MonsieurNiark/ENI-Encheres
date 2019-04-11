@@ -14,5 +14,5 @@ public interface ArticleVenduDAO {
 	public List<ArticleVendu> selectMesEncheres(String pseudo) throws BusinessException;
 	public ArticleVendu selectById(int id) throws BusinessException;
 	public ArticleVendu selectByIdArticle(int id) throws BusinessException;
-	
+	public ArticleVendu selectByLastNomArticle(String nom) throws BusinessException;
 }

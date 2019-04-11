@@ -3,11 +3,11 @@ package fr.eni.encheres.bo;
 import java.util.Date;
 
 public class ArticleVendu {
-	
-// *************************************************************************************
-// CHAMPS
-// *************************************************************************************
-	
+
+	// *************************************************************************************
+	// CHAMPS
+	// *************************************************************************************
+
 	private int noArticle;
 	private String nomArticle;
 	private String description;
@@ -19,7 +19,7 @@ public class ArticleVendu {
 	private Utilisateur utilisateur;
 	private Categorie categorieArticle;
 	private Retrait lieuRetrait;
-	 
+
 	/**
 	 * @param noArticle
 	 * @param nomArticle
@@ -32,11 +32,11 @@ public class ArticleVendu {
 	 * @param categorieArticle
 	 * @param lieuRetrait
 	 */
-	
-// *************************************************************************************
-// CONSTRUCTEURS
-// *************************************************************************************
-	
+
+	// *************************************************************************************
+	// CONSTRUCTEURS
+	// *************************************************************************************
+
 	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
 			Date dateFinEncheres, float miseAPrix, float prixVente, String etatVente, Categorie categorieArticle,
 			Retrait lieuRetrait) {
@@ -52,9 +52,10 @@ public class ArticleVendu {
 		this.categorieArticle = categorieArticle;
 		this.lieuRetrait = lieuRetrait;
 	}
-	
+
 	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, float miseAPrix, float prixVente, Categorie categorieArticle, Utilisateur utilisateur) {
+			Date dateFinEncheres, float miseAPrix, float prixVente, Categorie categorieArticle,
+			Utilisateur utilisateur) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -67,9 +68,9 @@ public class ArticleVendu {
 		this.utilisateur = utilisateur;
 
 	}
-	
-	public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, float miseAPrix, float prixVente, Categorie categorieArticle, Utilisateur utilisateur) {
+
+	public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres,
+			float miseAPrix, float prixVente, Categorie categorieArticle, Utilisateur utilisateur) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -81,82 +82,101 @@ public class ArticleVendu {
 		this.utilisateur = utilisateur;
 
 	}
-	
-// *************************************************************************************
-// GETTERS
-// *************************************************************************************
-	
+
+	// *************************************************************************************
+	// GETTERS
+	// *************************************************************************************
+
 	public int getNoArticle() {
 		return noArticle;
 	}
+
 	public String getNomArticle() {
 		return nomArticle;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public Date getDateDebutEncheres() {
 		return dateDebutEncheres;
 	}
+
 	public Date getDateFinEncheres() {
 		return dateFinEncheres;
 	}
+
 	public float getMiseAPrix() {
 		return miseAPrix;
 	}
+
 	public float getPrixVente() {
 		return prixVente;
 	}
+
 	public String getEtatVente() {
 		return etatVente;
 	}
+
 	public Categorie getCategorieArticle() {
 		return this.categorieArticle;
 	}
+
 	public Retrait getLieuRetrait() {
 		return lieuRetrait;
 	}
+
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
 
-// *************************************************************************************
-// SETTERS
-// *************************************************************************************
-	
+	// *************************************************************************************
+	// SETTERS
+	// *************************************************************************************
+
 	public void setNoArticle(int noArticle) {
 		this.noArticle = noArticle;
 	}
+
 	public void setNomArticle(String nomArticle) {
 		this.nomArticle = nomArticle;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public void setDateDebutEncheres(Date dateDebutEncheres) {
 		this.dateDebutEncheres = dateDebutEncheres;
 	}
+
 	public void setDateFinEncheres(Date dateFinEncheres) {
 		this.dateFinEncheres = dateFinEncheres;
 	}
+
 	public void setMiseAPrix(float miseAPrix) {
 		this.miseAPrix = miseAPrix;
 	}
+
 	public void setPrixVente(float prixVente) {
 		this.prixVente = prixVente;
 	}
+
 	public void setEtatVente(String etatVente) {
 		this.etatVente = etatVente;
 	}
+
 	public void setCategorieArticle(Categorie categorieArticle) {
 		this.categorieArticle = categorieArticle;
 	}
+
 	public void setLieuRetrait(Retrait lieuRetrait) {
 		this.lieuRetrait = lieuRetrait;
 	}
+
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
-	
-	
+
 }

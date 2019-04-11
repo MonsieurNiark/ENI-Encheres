@@ -13,11 +13,10 @@ import fr.eni.encheres.BusinessException;
 import fr.eni.encheres.bo.Categorie;
 
 public class CategorieDAOjdbclmpl implements CategorieDAO {
-	
-	private static final String SELECT_CATEGORIE_BY_ID = "SELECT * FROM CATEGORIES WHERE no_categorie=?";
 	private static final String INSERT_CATEGORIE = "INSERT INTO CATEGORIES() VALUES(?,?,?);";
 	private static final String DELETE_CATEGORIE = "DELETE * FROM CATEGORIES WHERE no_categorie=?";
 	private static final String SELECT_ALL = "SELECT * FROM CATEGORIES";
+	private static final String SELECT_BY_ID =	SELECT_ALL +" WHERE no_categorie=?";
 	
 	@Override
 	public void insert(Categorie categorie) throws BusinessException {
@@ -36,7 +35,7 @@ public class CategorieDAOjdbclmpl implements CategorieDAO {
 		Categorie result = null;
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement vnte = cnx.prepareStatement(SELECT_CATEGORIE_BY_ID);
+			PreparedStatement vnte = cnx.prepareStatement(SELECT_BY_ID);
 			vnte.setInt(1, id);
 			ResultSet rs = vnte.executeQuery();
 			if(rs.next()) {
@@ -89,7 +88,7 @@ public class CategorieDAOjdbclmpl implements CategorieDAO {
 	
 	private Categorie map(ResultSet rs) throws SQLException {
 		
-		int id = rs.getInt("no_article");
+		int id = rs.getInt("no_categorie");
 		String libelle = rs.getString("libelle");
 		
 		return new Categorie(id,libelle);

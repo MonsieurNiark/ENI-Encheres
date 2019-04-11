@@ -26,6 +26,15 @@ public class Retrait {
 		this.ville = ville;
 		this.no_article = no_article;
 	}
+	
+	public Retrait(ArticleVendu no_article, String rue, String code_postal, String ville) {
+		super();
+		this.rue = rue;
+		this.code_postal = code_postal;
+		this.ville = ville;
+		this.no_article = no_article;
+	}
+
 
 	// *************************************************************************************
 	// GETTERS

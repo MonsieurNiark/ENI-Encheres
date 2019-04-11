@@ -24,8 +24,18 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 			+ "INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie "
 			+ "INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur ";
 	
+	private static final String SELECT_1_ARTICLE =" SELECT TOP 1 ARTICLES_VENDUS.no_article, nom_article, description, date_debut_encheres, "
+			+ "date_fin_encheres, prix_initial, prix_vente, ARTICLES_VENDUS.no_utilisateur, ARTICLES_VENDUS.no_categorie, "
+			+ "CATEGORIES.no_categorie, libelle, "
+			+ "UTILISATEURS.no_utilisateur, pseudo, nom, prenom, UTILISATEURS.email, UTILISATEURS.telephone, "
+			+ "UTILISATEURS.rue,UTILISATEURS.code_postal,UTILISATEURS.ville,UTILISATEURS.mot_de_passe,UTILISATEURS.credit,UTILISATEURS.administrateur "
+			+ "FROM ARTICLES_VENDUS "
+			+ "INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie "
+			+ "INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur ";
+	
 	private static final String SELECT_BY_NOM = SELECT_ALL + " WHERE nom_article=?";
 	private static final String INSERT_VENTE = "INSERT INTO ARTICLES_VENDUS(nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie ) VALUES(?,?,?,?,?,?,?,?);";
+	private static final String SELECT_BY_LAST_NOM = SELECT_1_ARTICLE + " WHERE nom_article= ? ORDER BY no_article DESC";
 	private static final String DELETE_VENTE = "DELETE * FROM ARTICLES_VENDUS WHERE no_article=?";
 	private static final String SELECT_BY_ID = SELECT_ALL + "WHERE no_article= ?";
 	private static final String SELECT_BY_IDCATEG = "AND ARTICLES_VENDUS.no_categorie = ? ";
@@ -252,7 +262,35 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 		return result;
 	}
 	
-
+	@Override
+	public ArticleVendu selectByLastNomArticle(String nom) throws BusinessException {
+		ArticleVendu result = null;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement vnte = cnx.prepareStatement(SELECT_BY_LAST_NOM);
+			vnte.setString(1, nom);
+			ResultSet rs = vnte.executeQuery();
+			if(rs.next()) {
+				result = map(rs);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			//TODO : CodesResultatDAL
+			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTE_ECHEC);
+			throw businessException;
+		}
+		
+		if(result == null)
+		{
+			BusinessException businessException = new BusinessException();
+			//TODO : CodesResultatDAL
+			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTE_INEXISTANTE);
+			throw businessException;
+		}
+		
+		return result;
+	}
 	
 	
 	

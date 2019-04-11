@@ -18,8 +18,8 @@ public class RetraitManager {
 		return retraitDAO.selectById(idRetrait);
 	}
 	
-	public Retrait ajouterRetrait(int no_Retrait, ArticleVendu no_article, String rue, String code_postal, String ville) throws BusinessException {
-		Retrait nouveauRetrait = new Retrait(no_Retrait, no_article, rue, code_postal, ville);
+	public Retrait ajouterRetrait(ArticleVendu no_article, String rue, String code_postal, String ville) throws BusinessException {
+		Retrait nouveauRetrait = new Retrait(no_article, rue, code_postal, ville);
 		retraitDAO.insert(nouveauRetrait);
 		return nouveauRetrait;
 	}

@@ -3,6 +3,7 @@ package fr.eni.encheres.servlet;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import fr.eni.encheres.BusinessException;
 import fr.eni.encheres.bll.ArticleVenduManager;
 import fr.eni.encheres.bll.CategorieManager;
+import fr.eni.encheres.bll.RetraitManager;
 import fr.eni.encheres.bll.UtilisateurManager;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Utilisateur;
@@ -26,6 +28,18 @@ public class ServletAjouterArticle extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		CategorieManager categMana  = new CategorieManager();
+		ArrayList<Categorie> listeCategories = new ArrayList<Categorie>();
+		
+		try {
+			listeCategories = categMana.selectAll();
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		req.setAttribute("categories", listeCategories);
+		
 		req.getRequestDispatcher("/WEB-INF/jsp/ajouterArticle.jsp").forward( req,  resp);
 	}
 	
@@ -35,23 +49,30 @@ public class ServletAjouterArticle extends HttpServlet {
 		UtilisateurManager umgt = new UtilisateurManager(); 
 		ArticleVenduManager vmgt = new ArticleVenduManager();
 		CategorieManager cmgt = new CategorieManager();
+		RetraitManager rmgt = new RetraitManager();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		
 		try {
 			Utilisateur userCible = umgt.selectionnerUtilisateurByPseudo(session.getAttribute("actualUser").toString());
 			String NomArt = req.getParameter("Article");
 			String Desc = req.getParameter("Desc");
-			String Cat = req.getParameter("Catégorie");
-			int CatNumber = Integer.parseInt(Cat);	
+			String Cat = req.getParameter("categorie");
+			System.out.println(Cat);
+			int CatNumber = Integer.parseInt(Cat);
+			System.out.println(CatNumber);
 			Categorie catCible = cmgt.selectionnerCategorieById(CatNumber);
 			String Prix = req.getParameter("Prix");
 			float PrixNumber = Float.parseFloat(Prix);
 			float PrixVente = 0;
 			
-			//Récuperation des dates sur la page jsp
+			System.out.println(NomArt);
+			System.out.println(Desc);
+			
+			//Rï¿½cuperation des dates sur la page jsp
 			String Date1 = req.getParameter("DateDebut");
 			String Date2 = req.getParameter("DateFin");
-			//Transformer les date pour etre insérer dans le format sql DATE
+			//Transformer les date pour etre insï¿½rer dans le format sql DATE
+			
 			Date date1 = null;
 			try {
 				date1 = formatter.parse(Date1);
@@ -59,6 +80,10 @@ public class ServletAjouterArticle extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			java.sql.Date sqlDate1 = new java.sql.Date(date1.getTime());
+			
+			System.out.println(sqlDate1);
+			
 		    Date date2 = null;
 			try {
 				date2 = formatter.parse(Date2);
@@ -66,22 +91,27 @@ public class ServletAjouterArticle extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			java.sql.Date sqlDate2 = new java.sql.Date(date2.getTime());
+			
+			System.out.println(sqlDate2);
 
 			String rue = req.getParameter("Rue");
 			String ville = req.getParameter("Ville");
 			String CodePost = req.getParameter("CodePostal");
 
 			
-			vmgt.insererArticle(NomArt, Desc, date1, date2, PrixNumber, PrixVente, userCible, catCible);
+			vmgt.insererArticle(NomArt, Desc, sqlDate1, sqlDate2, PrixNumber, PrixVente, userCible, catCible);
 			
-			ArticleVendu Art = vmgt.selectionnerParIdUser(userCible.getNoUtilisateur());
+			ArticleVendu Art = vmgt.selectParLastNom(NomArt);
+			
+			rmgt.ajouterRetrait(Art, rue, CodePost, ville);
 			
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		doGet(req, resp);
+		req.getRequestDispatcher("/WEB-INF/jsp/ajouterArticle.jsp").forward( req,  resp);
 	}
 	
 }
