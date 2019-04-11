@@ -38,13 +38,13 @@ public class EncheresDAOjdbclmpl implements EncheresDAO{
 			"			 ARTICLES_VENDUS.no_utilisateur, ARTICLES_VENDUS.no_categorie, " + 
 			"			 UTILISATEURS.no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe," + 
 			"			 credit, administrateur," + 
-			"		 CATEGORIES.no_categorie, CATEGORIES.libelle " + 
+			"		 CATEGORIES.no_categorie, CATEGORIES.libelle, NULL as no_enchere, date_debut_encheres as date_enchere " + 
 			"		 FROM ENCHERES" + 
 			"			 INNER JOIN ARTICLES_VENDUS ON ENCHERES.no_article          = ARTICLES_VENDUS.no_article" + 
 			"			 INNER JOIN CATEGORIES      ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie" + 
 			"			 INNER JOIN UTILISATEURS    ON ENCHERES.no_utilisateur      = UTILISATEURS.no_utilisateur" + 
 			"			  WHERE ENCHERES.no_article = ? and etat=0 GROUP BY ENCHERES.no_utilisateur, " + 
-			"			  ENCHERES.no_article,ARTICLES_VENDUS.no_article,ARTICLES_VENDUS.nom_article,ARTICLES_VENDUS.description,\r\n" + 
+			"			  ENCHERES.no_article,ARTICLES_VENDUS.no_article,ARTICLES_VENDUS.nom_article,ARTICLES_VENDUS.description," + 
 			"			  ARTICLES_VENDUS.date_debut_encheres,ARTICLES_VENDUS.date_fin_encheres,ARTICLES_VENDUS.prix_initial,ARTICLES_VENDUS.prix_vente,ARTICLES_VENDUS.no_utilisateur," + 
 			"			  ARTICLES_VENDUS.no_categorie,UTILISATEURS.no_utilisateur,UTILISATEURS.pseudo,UTILISATEURS.nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur," + 
 			"			  CATEGORIES.no_categorie,CATEGORIES.libelle";
