@@ -153,7 +153,7 @@
 	                                <img class="img-fluid" alt="enchere" src="images/encheres/gris.jpg">
 	                            </section>
 	                            <div class="col-7">
-	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/afficherEnchere?article=${article.noArticle }">${article.nomArticle }</a></h3>
+	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/enchere?id=${article.noArticle }">${article.nomArticle }</a></h3>
 	                                <p>Prix : ${article.prixVente }</p>
 	                                <p>Fin de l'enchère: ${article.dateFinEncheres }</p>
 	                                <c:if test="${sessionScope.isConnecte == true }">
@@ -183,7 +183,7 @@
 	                                <img class="img-fluid" alt="enchere" src="images/encheres/gris.jpg">
 	                            </section>
 	                            <div class="col-7">
-	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/afficherEnchere?article=${article.noArticle }">${article.nomArticle }</a></h3>
+	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/enchere?id=${article.noArticle }">${article.nomArticle }</a></h3>
 	                                <p>Prix : ${article.prixVente }</p>
 	                                <p>Fin de l'enchère: ${article.dateFinEncheres }</p>
 	                                <c:if test="${sessionScope.isConnecte == true }">
@@ -213,7 +213,7 @@
 	                                <img class="img-fluid" alt="enchere" src="images/encheres/gris.jpg">
 	                            </section>
 	                            <div class="col-7">
-	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/afficherEnchere?article=${article.noArticle }">${article.nomArticle }</a></h3>
+	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/enchere?id=${article.noArticle }">${article.nomArticle }</a></h3>
 	                                <p>Prix : ${article.prixVente }</p>
 	                                <p>Fin de l'enchère: ${article.dateFinEncheres }</p>
 	                                <c:if test="${sessionScope.isConnecte == true }">
