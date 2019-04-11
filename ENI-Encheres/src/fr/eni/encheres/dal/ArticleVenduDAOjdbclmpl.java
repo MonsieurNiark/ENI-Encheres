@@ -34,7 +34,7 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 			+ "INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur ";
 	
 	private static final String SELECT_BY_NOM = SELECT_ALL + " WHERE nom_article=?";
-	private static final String INSERT_VENTE = "INSERT INTO ARTICLES_VENDUS(nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie ) VALUES(?,?,?,?,?,?,?,?);";
+	private static final String INSERT_VENTE = "INSERT INTO ARTICLES_VENDUS(nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie, Etat ) VALUES(?,?,?,?,?,?,?,?,0);";
 	private static final String SELECT_BY_LAST_NOM = SELECT_1_ARTICLE + " WHERE nom_article= ? ORDER BY no_article DESC";
 	private static final String DELETE_VENTE = "DELETE * FROM ARTICLES_VENDUS WHERE no_article=?";
 	private static final String SELECT_BY_ID = SELECT_ALL + "WHERE no_article= ?";
