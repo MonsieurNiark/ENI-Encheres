@@ -85,7 +85,9 @@ public class ServletIndex extends HttpServlet {
 
 		ArrayList<Categorie> listeCategories = new ArrayList<Categorie>();
 		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
-
+		List<ArticleVendu> listeArticlesSelection = new ArrayList<ArticleVendu>();
+		List<ArticleVendu> listeArticlesFiltre = new ArrayList<ArticleVendu>();
+		
 		if(session.getAttribute("isConnecte") == null) { 
 			if(idCateg == -1 && filtre.equals("")) {
 				try {
@@ -105,6 +107,12 @@ public class ServletIndex extends HttpServlet {
 			}
 		} else if(session.getAttribute("isConnecte") != null) {
 			int idUser =(int) session.getAttribute("idUser");
+			try {
+				listeArticlesFiltre = artMana.selectionnerParFiltre(idCateg, filtre+"%");
+			} catch (BusinessException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			if (radioMenu.equals("achats")) {
 				if (request.getParameter("encheresOuvertes") != null) {
 					request.setAttribute("enchereO", true);
@@ -117,19 +125,26 @@ public class ServletIndex extends HttpServlet {
 					request.setAttribute("articles", listeArticles);
 				}
 				
-				if (request.getParameter("encheresEnCours") != null) {
+				if (request.getParameter("encheresEnCours") != null) {//ici je vais comparer deux listes, si un article apparait dans les deux je le met dans une troisieme liste que j'envoie ensuite a la jsp
 					request.setAttribute("enchereEC", true);
 
 					EnchereManager encMana = new EnchereManager();
 					List<Integer> listeIdArticle = new ArrayList<Integer>();
 					try {
-
+						
 						listeIdArticle = encMana.selectEnchereUser(idUser);
 						for (Integer articleVendu : listeIdArticle) {
 
-						listeArticles = artMana.selectionnerListeParId(articleVendu);
-
+						listeArticlesSelection = artMana.selectionnerListeParId(articleVendu);
 						}
+						
+					for (ArticleVendu article : listeArticlesSelection) {
+						for (ArticleVendu articleFiltre : listeArticlesFiltre) {
+							if(article.getNoArticle() == articleFiltre.getNoArticle()) {
+								listeArticles.add(article);
+							}
+						}
+					}
 					} catch (BusinessException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -145,7 +160,14 @@ public class ServletIndex extends HttpServlet {
 					request.setAttribute("venteEC", true);
 					pseudoUser =(String) session.getAttribute("actualUser");
 					try {
-						listeArticles = artMana.selectListByUser(pseudoUser);
+						listeArticlesSelection = artMana.selectListByUser(pseudoUser);
+						for (ArticleVendu article : listeArticlesSelection) {
+							for (ArticleVendu articleFiltre : listeArticlesFiltre) {
+								if(article.getNoArticle() == articleFiltre.getNoArticle()) {
+									listeArticles.add(article);
+								}
+							}
+						}
 					} catch (BusinessException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -155,7 +177,14 @@ public class ServletIndex extends HttpServlet {
 					request.setAttribute("venteT", true);
 					pseudoUser =(String) session.getAttribute("actualUser");
 					try {
-						listeArticles = artMana.selectListEtat(pseudoUser);
+						listeArticlesSelection = artMana.selectListEtat(pseudoUser);
+						for (ArticleVendu article : listeArticlesSelection) {
+							for (ArticleVendu articleFiltre : listeArticlesFiltre) {
+								if(article.getNoArticle() == articleFiltre.getNoArticle()) {
+									listeArticles.add(article);
+								}
+							}
+						}
 					} catch (BusinessException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
