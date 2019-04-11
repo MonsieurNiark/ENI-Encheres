@@ -27,6 +27,11 @@ public class ArticleVenduManager {
 		return articlevenduDAO.selectParFiltre(id, recherche);
 	}
 	
+	public List<ArticleVendu> selectionnerMesEncheres(String pseudo) throws BusinessException {
+		return articlevenduDAO.selectMesEncheres(pseudo);
+		
+	}
+	
 	public ArticleVendu selectionnerParIdUser(int Id) throws BusinessException{
 		return articlevenduDAO.selectById(Id);
 	}
@@ -44,4 +49,6 @@ public class ArticleVenduManager {
 	public ArticleVendu selectionnerParId(int id) throws BusinessException {
 		return articlevenduDAO.selectByIdArticle(id);
 	}
+	
+	
 }

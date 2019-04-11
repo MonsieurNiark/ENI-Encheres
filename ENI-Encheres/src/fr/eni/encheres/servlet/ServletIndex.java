@@ -73,29 +73,83 @@ public class ServletIndex extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
 		int idCateg =Integer.parseInt(request.getParameter("categorie"));
 		String filtre = request.getParameter("recherche");
+		String radioMenu = request.getParameter("radioMenu");
+		String pseudo = (String) session.getAttribute("actualUser");
 		CategorieManager categMana  = new CategorieManager();
-		ArrayList<Categorie> listeCategories = new ArrayList<Categorie>();
 		ArticleVenduManager artMana = new ArticleVenduManager();
-		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
-		
-		if(idCateg == -1 && filtre.equals("")) {
-			try {
-				listeArticles = artMana.selectionnerArticles();
-			} catch (BusinessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else {
 
-			try {
-				listeArticles = artMana.selectionnerParFiltre(idCateg, filtre+"%");
-			} catch (BusinessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		ArrayList<Categorie> listeCategories = new ArrayList<Categorie>();
+		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
+
+		if(session.getAttribute("isConnecte") == null) {
+			if(idCateg == -1 && filtre.equals("")) {
+				try {
+					listeArticles = artMana.selectionnerArticles();
+				} catch (BusinessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else {
+
+				try {
+					listeArticles = artMana.selectionnerParFiltre(idCateg, filtre+"%");
+				} catch (BusinessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		} else if(session.getAttribute("isConnecte") != null) {
+
+			if (radioMenu.equals("achats")) {
+				if (request.getParameter("encheresOuvertes") != null) {
+					request.setAttribute("enchereO", true);
+					try {
+						listeArticles = artMana.selectionnerParFiltre(idCateg, filtre+"%");
+					} catch (BusinessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				if (request.getParameter("encheresEnCours") != null) {
+					request.setAttribute("enchereEC", true);
+					if(idCateg == -1 && filtre.equals("")) {
+						try {
+							listeArticles = artMana.selectionnerMesEncheres(pseudo);
+						} catch (BusinessException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}else {
+
+						try {
+							listeArticles = artMana.selectionnerParFiltre(idCateg, filtre+"%");
+						} catch (BusinessException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+				}
+				if (request.getParameter("encheresRemportees") != null) {
+					request.setAttribute("enchereR", true);
+				}
+			} else if (radioMenu.equals("ventes")){
+				if (request.getParameter("ventesNonDebutees") != null) {
+					request.setAttribute("venteND", true);
+
+				}
+				if (request.getParameter("ventesEnCours") != null) {
+					request.setAttribute("venteEC", true);
+				}
+				if (request.getParameter("ventesTerminees") != null) {
+					request.setAttribute("venteT", true);
+				}
 			}
 		}
+
 		try {
 			listeCategories = categMana.selectAll();
 		} catch (BusinessException e) {

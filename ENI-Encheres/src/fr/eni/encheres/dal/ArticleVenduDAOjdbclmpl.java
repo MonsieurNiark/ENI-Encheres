@@ -30,6 +30,7 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 	private static final String SELECT_BY_ID = SELECT_ALL + "WHERE no_article= ?";
 	private static final String SELECT_BY_IDCATEG = "AND ARTICLES_VENDUS.no_categorie = ? ";
 	private static final String SELECT_FILTRE = "AND ARTICLES_VENDUS.nom_article LIKE ? ";
+	private static final String SELECT_MES_ENCHERES = SELECT_ALL + "WHERE ARTICLES_VENDUS.no_utilisateur = ? ";
 
 	@Override
 	public void insert(ArticleVendu articlevendu) throws BusinessException {
@@ -91,6 +92,29 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement vnte = cnx.prepareStatement(SELECT_ALL);
+			ResultSet rs = vnte.executeQuery();
+			while(rs.next())
+			{
+				articlevendu.add(map(rs));
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			//TODO : CodesResultatDAL
+			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTES_ECHEC);
+			throw businessException;
+		}
+		return articlevendu;
+	}
+	
+	public List<ArticleVendu> selectMesEncheres(String pseudo) throws BusinessException {
+		List<ArticleVendu> articlevendu = new ArrayList<ArticleVendu>();
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement vnte = cnx.prepareStatement(SELECT_MES_ENCHERES);
+			vnte.setString(1,  pseudo);
 			ResultSet rs = vnte.executeQuery();
 			while(rs.next())
 			{
@@ -194,6 +218,8 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 		
 		return result;
 	}
+	
+	
 	
 	
 	@Override

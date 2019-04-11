@@ -123,7 +123,8 @@
 	        </c:if>
 
         	<!-- VUE SUR LES ENCHERES EN COURS  -->
-	        <c:if test="${not empty requestScope.mesEncheresEC }">
+	        <c:if test="${not empty enchereO }">
+
 	        <h3>Enchères en cours : </h3>
 	        <div class="d-flex flex-row">
 	            <section class="d-flex flex-wrap justify-content-center">
@@ -152,7 +153,7 @@
 	        </c:if>
 
        		<!-- VUE SUR LES ENCHERES REMPORTEES  -->
-	        <c:if test="${not empty requestScope.mesEncheresR }">
+	        <c:if test="${not empty enchereEC }">
 	        <h3>Enchères remportées : </h3>
 	        <div class="d-flex flex-row">
 	            <section class="d-flex flex-wrap justify-content-center">
@@ -181,7 +182,7 @@
 	        </c:if>
 
 	        <!--  VUE SUR TOUTES LES VENTES DE L'UTILISATEUR -->
-	        <c:if test="${not empty requestScope.mesVentes }">
+	        <c:if test="${not empty enchereR }">
 	        <h3>Mes ventes : </h3>
 	        <div class="d-flex flex-row">
 	            <section class="d-flex flex-wrap justify-content-center">
@@ -210,7 +211,7 @@
 	        </c:if>
 
         	<!-- VUE SUR LES VENTES EN COURS  -->
-	        <c:if test="${not empty requestScope.mesVentesEC }">
+	        <c:if test="${not empty venteEC }">
 	        <h3>Ventes en cours : </h3>
 	        <div class="d-flex flex-row">
 	            <section class="d-flex flex-wrap justify-content-center">
@@ -239,7 +240,7 @@
 	        </c:if>
 
         	<!-- VUE SUR LES VENTES NON DEBUTEES  -->
-	        <c:if test="${not empty requestScope.mesVentesND }">
+	        <c:if test="${not empty venteND }">
 	        <h3>Ventes non débutées : </h3>
 	        <div class="d-flex flex-row">
 	            <section class="d-flex flex-wrap justify-content-center">
@@ -268,7 +269,7 @@
 	        </c:if>
 
         	<!-- VUE SUR LES VENTES TERMINEES  -->
-	        <c:if test="${not empty requestScope.mesVentesT }">
+	        <c:if test="${not empty venteT }">
 	        <h3>Ventes terminées : </h3>
 	        <div class="d-flex flex-row">
 	            <section class="d-flex flex-wrap justify-content-center">
