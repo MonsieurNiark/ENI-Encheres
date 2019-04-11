@@ -5,8 +5,7 @@
 <head>
     
     <style>
-    <%@ include file="../../style.css"%>
-     <%@ include file="../../pure-min.css"%>
+    
 /* Popup container - can be anything you want */
 .popup {
   position: relative;

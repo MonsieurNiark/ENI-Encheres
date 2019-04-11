@@ -29,10 +29,7 @@
 					</c:if>
 					<c:if test="${sessionScope.isConnecte != null}">
                         <li class="nav-item">
-							<a class="nav-link" href="${pageContext.request.contextPath}/membre/ajouterEnchere">Vendre un article</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="${pageContext.request.contextPath}/AjoutArticle">Ajouter une Enchere</a>
+							<a class="nav-link" href="${pageContext.request.contextPath}/AjoutArticle">Vendre un article</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="${pageContext.request.contextPath}/profile?user=${sessionScope.actualUser}">${sessionScope.actualUser }</a>
