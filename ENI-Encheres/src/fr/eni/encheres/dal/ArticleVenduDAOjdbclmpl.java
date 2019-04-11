@@ -17,7 +17,7 @@ import fr.eni.encheres.bo.Categorie;
 public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 
 	
-	private static final String SELECT_ALL = "SELECT no_article, nom_article, description, date_debut_encheres, "
+	private static final String SELECT_ALL = "SELECT no_article, etat, nom_article, description, date_debut_encheres, "
 			+ "date_fin_encheres, prix_initial, prix_vente, ARTICLES_VENDUS.no_utilisateur, ARTICLES_VENDUS.no_categorie, "
 			+ "CATEGORIES.no_categorie, libelle, UTILISATEURS.no_utilisateur, pseudo, nom, prenom, UTILISATEURS.email, UTILISATEURS.telephone, UTILISATEURS.rue,UTILISATEURS.code_postal,UTILISATEURS.ville,UTILISATEURS.mot_de_passe,UTILISATEURS.credit,UTILISATEURS.administrateur "
 			+ "FROM ARTICLES_VENDUS "
@@ -40,8 +40,8 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 	private static final String SELECT_BY_ID = SELECT_ALL + "WHERE no_article= ?";
 	private static final String SELECT_BY_IDCATEG = "AND ARTICLES_VENDUS.no_categorie = ? ";
 	private static final String SELECT_FILTRE = "AND ARTICLES_VENDUS.nom_article LIKE ? ";
-	private static final String SELECT_MES_ENCHERES = SELECT_ALL + "WHERE ARTICLES_VENDUS.no_utilisateur = ? ";
-
+	private static final String SELECT_MES_ENCHERES = SELECT_ALL + "WHERE pseudo = ? AND etat = 0 ";
+	private static final String SELECT_ETAT_USER = SELECT_ALL + "WHERE pseudo = ? AND etat = 1 ";
 	@Override
 	public void insert(ArticleVendu articlevendu) throws BusinessException {
 		if(articlevendu==null)
@@ -119,12 +119,59 @@ public class ArticleVenduDAOjdbclmpl implements ArticleVenduDAO{
 		return articlevendu;
 	}
 	
-	public List<ArticleVendu> selectMesEncheres(String pseudo) throws BusinessException {
+	public List<ArticleVendu> selectListByUser(String pseudo) throws BusinessException {
 		List<ArticleVendu> articlevendu = new ArrayList<ArticleVendu>();
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement vnte = cnx.prepareStatement(SELECT_MES_ENCHERES);
-			vnte.setString(1,  pseudo);
+			vnte.setString(1, pseudo);
+			ResultSet rs = vnte.executeQuery();
+			while(rs.next())
+			{
+				articlevendu.add(map(rs));
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			//TODO : CodesResultatDAL
+			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTES_ECHEC);
+			throw businessException;
+		}
+		return articlevendu;
+	}
+	
+	public List<ArticleVendu> selectListEtat(String pseudo) throws BusinessException {
+		List<ArticleVendu> articlevendu = new ArrayList<ArticleVendu>();
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement vnte = cnx.prepareStatement(SELECT_ETAT_USER);
+			vnte.setString(1, pseudo);
+		
+			ResultSet rs = vnte.executeQuery();
+			while(rs.next())
+			{
+				articlevendu.add(map(rs));
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			//TODO : CodesResultatDAL
+			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTES_ECHEC);
+			throw businessException;
+		}
+		return articlevendu;
+	}
+	
+	public List<ArticleVendu> selectListByIdArticle(int id) throws BusinessException {
+		List<ArticleVendu> articlevendu = new ArrayList<ArticleVendu>();
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement vnte = cnx.prepareStatement(SELECT_BY_ID);
+			vnte.setInt(1, id);
 			ResultSet rs = vnte.executeQuery();
 			while(rs.next())
 			{

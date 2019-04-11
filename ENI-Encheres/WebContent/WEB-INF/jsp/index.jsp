@@ -48,10 +48,7 @@
                                     <input type="checkbox" value="encheresEnCours" name="encheresEnCours" id="encheresEnCours">
                                     <label for="encheresEnCours">mes enchères en cours</label>
                                 </div>
-                                <div>
-                                    <input type="checkbox" value="encheresRemportees" name="encheresRemportees" id="encheresRemportees">
-                                    <label for="encheresRemportees">mes enchères remportées</label>
-                                </div>
+                            
                             </section>
                         </section>
 
@@ -65,11 +62,6 @@
                                 <div>
                                     <input type="checkbox" value="ventesEnCours" name="ventesEnCours" id="ventesEnCours">
                                     <label for="ventesEnCours">mes ventes en cours</label>
-                                </div>
-
-                                <div>
-                                    <input type="checkbox" value="ventesNonDebutees" name="ventesNonDebutees" id="ventesNonDebutees">
-                                    <label for="ventesNonDebutees">ventes non débutées</label>
                                 </div>
 
                                 <div>
@@ -89,7 +81,7 @@
 	
 		<!-- VUE SUR LES ENCHERES OUVERTES -->
 		<section class="mb-2 p-4">
-			<c:if test="${not empty articles }">
+			<c:if test="${not empty articles && empty enchereO && empty enchereEC && empty venteEC && empty venteT}">
 			<h3>Enchères ouvertes : </h3>
 			
 	        <div class="d-flex flex-row">
@@ -97,7 +89,7 @@
 	                <c:forEach items="${articles }" var="article">
 	                    <section class="sectionEncheres">
 	               
-	                        <article class="encheres row">
+	                        <div class="encheres row">
 	                            <section class="col-5">
 	                                <img class="img-fluid" alt="enchere" src="img/img.jpg">
 	                            </section>
@@ -115,6 +107,33 @@
 	                                </c:if>
 	                                
 	                            </div>
+	                        </div>
+	                    </section>
+	                </c:forEach>
+	            </section>
+	        </div>
+	        </c:if>
+
+        	<!-- VUE SUR LES ENCHERES OUVERTE -->
+	        <c:if test="${not empty enchereO }">
+
+	        <h3>Enchères ouverte : </h3>
+	        <div class="d-flex flex-row">
+	            <section class="d-flex flex-wrap justify-content-center">
+	                <c:forEach items="${ articles }" var="article">
+	                    <section class="sectionEncheres">
+	                        <article class="encheres row">
+	                            <section class="col-5">
+	                                <img class="img-fluid" alt="enchere" src="img/img.jpg">
+	                            </section>
+	                            <div class="col-7">
+	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/enchere?id=${article.noArticle }">${article.nomArticle }</a></h3>
+	                                <p>Prix : ${article.prixVente }</p>
+	                                <p>Fin de l'enchère: ${article.dateFinEncheres }</p>
+	                                <c:if test="${sessionScope.isConnecte == true }">
+	                                    <p>Vendeur : <a href="affichageProfil?pseudo=${article.utilisateur.pseudo }">${article.utilisateur.pseudo }</a></p>
+	                                </c:if>
+	                            </div>
 	                        </article>
 	                    </section>
 	                </c:forEach>
@@ -122,13 +141,12 @@
 	        </div>
 	        </c:if>
 
-        	<!-- VUE SUR LES ENCHERES EN COURS  -->
-	        <c:if test="${not empty enchereO }">
-
+       		<!-- VUE SUR LES ENCHERES EN COURS  -->
+	        <c:if test="${not empty enchereEC }">
 	        <h3>Enchères en cours : </h3>
 	        <div class="d-flex flex-row">
 	            <section class="d-flex flex-wrap justify-content-center">
-	                <c:forEach items="${requestScope.mesEncheresEC }" var="article">
+	                <c:forEach items="${articlesEC }" var="article">
 	                    <section class="sectionEncheres">
 	                        <article class="encheres row">
 	                            <section class="col-5">
@@ -152,70 +170,13 @@
 	        </div>
 	        </c:if>
 
-       		<!-- VUE SUR LES ENCHERES REMPORTEES  -->
-	        <c:if test="${not empty enchereEC }">
-	        <h3>Enchères remportées : </h3>
-	        <div class="d-flex flex-row">
-	            <section class="d-flex flex-wrap justify-content-center">
-	                <c:forEach items="${requestScope.mesEncheresR }" var="article">
-	                    <section class="sectionEncheres">
-	                        <article class="encheres row">
-	                            <section class="col-5">
-	                                <img class="img-fluid" alt="enchere" src="images/encheres/gris.jpg">
-	                            </section>
-	                            <div class="col-7">
-	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/afficherEnchere?article=${article.noArticle }">${article.nomArticle }</a></h3>
-	                                <p>Prix : ${article.prixVente }</p>
-	                                <p>Fin de l'enchère: ${article.dateFinEncheres }</p>
-	                                <c:if test="${sessionScope.isConnecte == true }">
-	                                    <p>Vendeur : <a href="affichageProfil?pseudo=${article.utilisateur.pseudo }">${article.utilisateur.pseudo }</a></p>
-	                                </c:if>
-	                                <c:if test="${sessionScope.isConnecte == false }">
-	                                    <p>Vendeur: ${article.utilisateur.pseudo }</p>
-	                                </c:if>
-	                            </div>
-	                        </article>
-	                    </section>
-	                </c:forEach>
-	            </section>
-	        </div>
-	        </c:if>
-
-	        <!--  VUE SUR TOUTES LES VENTES DE L'UTILISATEUR -->
-	        <c:if test="${not empty enchereR }">
-	        <h3>Mes ventes : </h3>
-	        <div class="d-flex flex-row">
-	            <section class="d-flex flex-wrap justify-content-center">
-	                <c:forEach items="${requestScope.mesVentes }" var="article">
-	                    <section class="sectionEncheres">
-	                        <article class="encheres row">
-	                            <section class="col-5">
-	                                <img class="img-fluid" alt="enchere" src="images/encheres/gris.jpg">
-	                            </section>
-	                            <div class="col-7">
-	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/afficherEnchere?article=${article.noArticle }">${article.nomArticle }</a></h3>
-	                                <p>Prix : ${article.prixVente }</p>
-	                                <p>Fin de l'enchère: ${article.dateFinEncheres }</p>
-	                                <c:if test="${sessionScope.isConnecte == true }">
-	                                    <p>Vendeur : <a href="affichageProfil?pseudo=${article.utilisateur.pseudo }">${article.utilisateur.pseudo }</a></p>
-	                                </c:if>
-	                                <c:if test="${sessionScope.isConnecte == false }">
-	                                    <p>Vendeur: ${article.utilisateur.pseudo }</p>
-	                                </c:if>
-	                            </div>
-	                        </article>
-	                    </section>
-	                </c:forEach>
-	            </section>
-	        </div>
-	        </c:if>
 
         	<!-- VUE SUR LES VENTES EN COURS  -->
 	        <c:if test="${not empty venteEC }">
 	        <h3>Ventes en cours : </h3>
 	        <div class="d-flex flex-row">
 	            <section class="d-flex flex-wrap justify-content-center">
-	                <c:forEach items="${requestScope.mesVentesEC }" var="article">
+	                <c:forEach items="${articles }" var="article">
 	                    <section class="sectionEncheres">
 	                        <article class="encheres row">
 	                            <section class="col-5">
@@ -239,41 +200,13 @@
 	        </div>
 	        </c:if>
 
-        	<!-- VUE SUR LES VENTES NON DEBUTEES  -->
-	        <c:if test="${not empty venteND }">
-	        <h3>Ventes non débutées : </h3>
-	        <div class="d-flex flex-row">
-	            <section class="d-flex flex-wrap justify-content-center">
-	                <c:forEach items="${requestScope.mesVentesND }" var="article">
-	                    <section class="sectionEncheres">
-	                        <article class="encheres row">
-	                            <section class="col-5">
-	                                <img class="img-fluid" alt="enchere" src="images/encheres/gris.jpg">
-	                            </section>
-	                            <div class="col-7">
-	                                <h3 class="text-left"><a href="${pageContext.request.contextPath }/afficherEnchere?article=${article.noArticle }">${article.nomArticle }</a></h3>
-	                                <p>Prix : ${article.prixVente }</p>
-	                                <p>Fin de l'enchère: ${article.dateFinEncheres }</p>
-	                                <c:if test="${sessionScope.isConnecte == true }">
-	                                    <p>Vendeur : <a href="affichageProfil?pseudo=${article.utilisateur.pseudo }">${article.utilisateur.pseudo }</a></p>
-	                                </c:if>
-	                                <c:if test="${sessionScope.isConnecte == false }">
-	                                    <p>Vendeur: ${article.utilisateur.pseudo }</p>
-	                                </c:if>
-	                            </div>
-	                        </article>
-	                    </section>
-	                </c:forEach>
-	            </section>
-	        </div>
-	        </c:if>
 
         	<!-- VUE SUR LES VENTES TERMINEES  -->
 	        <c:if test="${not empty venteT }">
 	        <h3>Ventes terminées : </h3>
 	        <div class="d-flex flex-row">
 	            <section class="d-flex flex-wrap justify-content-center">
-	                <c:forEach items="${requestScope.mesVentesT }" var="article">
+	                <c:forEach items="${articles }" var="article">
 	                    <section class="sectionEncheres">
 	                        <article class="encheres row">
 	                            <section class="col-5">

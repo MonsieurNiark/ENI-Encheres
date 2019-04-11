@@ -48,7 +48,7 @@ public class EncheresDAOjdbclmpl implements EncheresDAO{
 			"			  ARTICLES_VENDUS.date_debut_encheres,ARTICLES_VENDUS.date_fin_encheres,ARTICLES_VENDUS.prix_initial,ARTICLES_VENDUS.prix_vente,ARTICLES_VENDUS.no_utilisateur," + 
 			"			  ARTICLES_VENDUS.no_categorie,UTILISATEURS.no_utilisateur,UTILISATEURS.pseudo,UTILISATEURS.nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur," + 
 			"			  CATEGORIES.no_categorie,CATEGORIES.libelle";
-	
+	private static final String SELECT_ENCHERE_USER = "SELECT no_article FROM ENCHERES WHERE no_utilisateur = ? GROUP BY no_article";
 	@Override
 	public void insert(Enchere enchere) throws BusinessException {
 		if(enchere==null)
@@ -83,6 +83,29 @@ public class EncheresDAOjdbclmpl implements EncheresDAO{
 			//businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
 			throw businessException;
 		}
+	}
+	
+	public List<Integer> selectEnchereUser(int idUser) throws BusinessException {
+		List<Integer> enchere = new ArrayList<Integer>();
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement vnte = cnx.prepareStatement(SELECT_ENCHERE_USER);
+			vnte.setInt(1, idUser);
+			ResultSet rs = vnte.executeQuery();
+			if(rs.next())
+			{
+				enchere.add(rs.getInt("no_article"));
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			//TODO : CodesResultatDAL
+			//businessException.ajouterErreur(CodesResultatDAL.LECTURE_LISTES_ECHEC);
+			throw businessException;
+		}
+		return enchere;
 	}
 
 	@Override
@@ -323,6 +346,8 @@ public class EncheresDAOjdbclmpl implements EncheresDAO{
 		ArticleVendu Art = mapArticleEnchere(rs);
 		return new Enchere(id, date_enchere,montant_enchere,util,Art);
 	}
+	
+	
 	
 
 

@@ -27,9 +27,16 @@ public class ArticleVenduManager {
 		return articlevenduDAO.selectParFiltre(id, recherche);
 	}
 	
-	public List<ArticleVendu> selectionnerMesEncheres(String pseudo) throws BusinessException {
-		return articlevenduDAO.selectMesEncheres(pseudo);
-		
+	public List<ArticleVendu> selectionnerListeParId(int id) throws BusinessException {
+		return articlevenduDAO.selectListByIdArticle(id);
+	}
+	
+	public List<ArticleVendu> selectListByUser(String pseudo) throws BusinessException {
+		return articlevenduDAO.selectListByUser(pseudo);
+	}
+	
+	public List<ArticleVendu> selectListEtat(String pseudo) throws BusinessException {
+		return articlevenduDAO.selectListEtat(pseudo);
 	}
 	
 	public ArticleVendu selectionnerParIdUser(int Id) throws BusinessException{
@@ -48,6 +55,10 @@ public class ArticleVenduManager {
 	
 	public ArticleVendu selectionnerParId(int id) throws BusinessException {
 		return articlevenduDAO.selectByIdArticle(id);
+	}
+	
+	public List<ArticleVendu> selectParId(int id) throws BusinessException {
+		return articlevenduDAO.selectListByIdArticle(id);
 	}
 	
 	public ArticleVendu selectParLastNom(String nom) throws BusinessException {

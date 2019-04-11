@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.encheres.BusinessException;
 import fr.eni.encheres.bll.ArticleVenduManager;
 import fr.eni.encheres.bll.CategorieManager;
+import fr.eni.encheres.bll.EnchereManager;
 import fr.eni.encheres.bo.ArticleVendu;
 import fr.eni.encheres.bo.Categorie;
 import javax.servlet.http.HttpSession;
@@ -75,16 +76,17 @@ public class ServletIndex extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		int idCateg =Integer.parseInt(request.getParameter("categorie"));
+		String pseudoUser;
 		String filtre = request.getParameter("recherche");
 		String radioMenu = request.getParameter("radioMenu");
-		String pseudo = (String) session.getAttribute("actualUser");
+
 		CategorieManager categMana  = new CategorieManager();
 		ArticleVenduManager artMana = new ArticleVenduManager();
 
 		ArrayList<Categorie> listeCategories = new ArrayList<Categorie>();
 		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
 
-		if(session.getAttribute("isConnecte") == null) {
+		if(session.getAttribute("isConnecte") == null) { 
 			if(idCateg == -1 && filtre.equals("")) {
 				try {
 					listeArticles = artMana.selectionnerArticles();
@@ -102,7 +104,7 @@ public class ServletIndex extends HttpServlet {
 				}
 			}
 		} else if(session.getAttribute("isConnecte") != null) {
-
+			int idUser =(int) session.getAttribute("idUser");
 			if (radioMenu.equals("achats")) {
 				if (request.getParameter("encheresOuvertes") != null) {
 					request.setAttribute("enchereO", true);
@@ -112,54 +114,66 @@ public class ServletIndex extends HttpServlet {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					request.setAttribute("articles", listeArticles);
 				}
+				
 				if (request.getParameter("encheresEnCours") != null) {
 					request.setAttribute("enchereEC", true);
-					if(idCateg == -1 && filtre.equals("")) {
-						try {
-							listeArticles = artMana.selectionnerMesEncheres(pseudo);
-						} catch (BusinessException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}else {
 
-						try {
-							listeArticles = artMana.selectionnerParFiltre(idCateg, filtre+"%");
-						} catch (BusinessException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+					EnchereManager encMana = new EnchereManager();
+					List<Integer> listeIdArticle = new ArrayList<Integer>();
+					try {
+
+						listeIdArticle = encMana.selectEnchereUser(idUser);
+						for (Integer articleVendu : listeIdArticle) {
+
+						listeArticles = artMana.selectionnerListeParId(articleVendu);
+
 						}
+					} catch (BusinessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-					
-				}
-				if (request.getParameter("encheresRemportees") != null) {
-					request.setAttribute("enchereR", true);
-				}
-			} else if (radioMenu.equals("ventes")){
-				if (request.getParameter("ventesNonDebutees") != null) {
-					request.setAttribute("venteND", true);
+
+
+					request.setAttribute("articlesEC", listeArticles);
 
 				}
+				
+			} else if (radioMenu.equals("ventes")){
 				if (request.getParameter("ventesEnCours") != null) {
 					request.setAttribute("venteEC", true);
+					pseudoUser =(String) session.getAttribute("actualUser");
+					try {
+						listeArticles = artMana.selectListByUser(pseudoUser);
+					} catch (BusinessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				if (request.getParameter("ventesTerminees") != null) {
 					request.setAttribute("venteT", true);
+					pseudoUser =(String) session.getAttribute("actualUser");
+					try {
+						listeArticles = artMana.selectListEtat(pseudoUser);
+					} catch (BusinessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
-		}
 
-		try {
-			listeCategories = categMana.selectAll();
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		request.setAttribute("categories", listeCategories);
-		request.setAttribute("articles", listeArticles);
-		request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
 
+			try {
+				listeCategories = categMana.selectAll();
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.setAttribute("categories", listeCategories);
+			request.setAttribute("articles", listeArticles);
+			request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
+
+		}
 	}
-
 }

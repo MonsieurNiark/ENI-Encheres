@@ -35,7 +35,7 @@
 							<a class="nav-link" href="${pageContext.request.contextPath}/AjoutArticle">Ajouter une Enchere</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="${pageContext.request.contextPath}/profile?user=${sessionScope.actualUser}">Mon profil</a>
+							<a class="nav-link" href="${pageContext.request.contextPath}/profile?user=${sessionScope.actualUser}">${sessionScope.actualUser }</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="${pageContext.request.contextPath}/deconnexion">Déconnecter</a>
