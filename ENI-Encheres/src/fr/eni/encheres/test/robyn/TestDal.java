@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import fr.eni.encheres.BusinessException;
+import fr.eni.encheres.bll.EnchereManager;
 import fr.eni.encheres.bll.UtilisateurManager;
+import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
 
 @WebServlet("/testRobyn")
@@ -25,13 +27,14 @@ public class TestDal extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	// TODO Auto-generated method stub
-    	UtilisateurManager utilisateurManager = new UtilisateurManager();
-    	int idManager = 0;
-    	List<Utilisateur> listUt = new ArrayList<Utilisateur>();
+    	EnchereManager emgt = new EnchereManager();
+    	List<Enchere> listEn = new ArrayList<Enchere>();
+    	
+    	
     	try {
-			listUt = utilisateurManager.selectionnerUtilisateurs();
-			for(Utilisateur utilisateur : listUt) {
-				System.out.println(utilisateur.getNom().toString()+" "+utilisateur.getPrenom());
+    		listEn = emgt.selectLastEnchereForeachUserArticle(1);
+			for(Enchere enchere : listEn) {
+				System.out.println(enchere.getUtilisateur().getPseudo()+" "+enchere.getMontant_enchere());
 			}
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block

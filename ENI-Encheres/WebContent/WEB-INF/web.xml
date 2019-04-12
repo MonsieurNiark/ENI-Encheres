@@ -8,4 +8,9 @@
     <servlet-name>default</servlet-name>
     <url-pattern>/img/*</url-pattern>
   </servlet-mapping>
+  <!-- <listener>
+  	<listener-class>
+  		fr.eni.encheres.listener.EnchereListener
+  	</listener-class>
+  </listener> --> 
 </web-app>
